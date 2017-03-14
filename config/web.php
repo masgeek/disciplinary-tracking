@@ -16,7 +16,7 @@ $config = [
         ],
         'report' => [
             'class' => 'app\modules\reporting\report',
-            'defaultRoute' => 'report/create', //default controller
+            'defaultRoute' => 'report/report-case', //default controller
         ],
     ],
     'components' => [
@@ -53,7 +53,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => true,
+            'enablePrettyUrl' => false,
             'showScriptName' => false,
             'rules' => [
                 //default rules
@@ -65,7 +65,8 @@ $config = [
                 '/' => 'site/index',
                 'discipline' => 'disciplinarytype/index',
                 'casetypes' => 'casetype/index',
-                'add-case' => 'studentincidence/create'
+                'incident' => 'report/report/report-case',
+                'first-case' => 'report/report/first-case'
 
             ],
         ]
