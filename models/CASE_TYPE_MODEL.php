@@ -31,10 +31,11 @@ class CASE_TYPE_MODEL extends DISCIPLINARYCASETYPES
 
     /**
      * return array list of disciplinary case types
-     * @param $disc_id
+     * @param integer $disc_id
+     * @param boolean $drop_down
      * @return array
      */
-    public static function GetCaseTypesList($disc_id = 1)
+    public static function GetCaseTypesList($disc_id = 1, $drop_down = false)
     {
         $list = self::find()
             ->select(['CASE_TYPE_ID', 'CASE_TYPE_NAME'])
@@ -42,12 +43,15 @@ class CASE_TYPE_MODEL extends DISCIPLINARYCASETYPES
             ->asArray()
             ->all();
 
-        //lets build the array based on teh dependednt dropdown template
-        $status_code_list = array();
-        foreach ($list as $value) {
-            $status_code_list[] = ['id' => $value['CASE_TYPE_ID'], 'name' => $value['CASE_TYPE_NAME']];
+        //lets build the array based on the dependednt dropdown template
+        if ($drop_down) {
+            $status_code_list = ArrayHelper::map($list, 'CASE_TYPE_ID', 'CASE_TYPE_NAME');
+        } else {
+            $status_code_list = array();
+            foreach ($list as $value) {
+                $status_code_list[] = ['id' => $value['CASE_TYPE_ID'], 'name' => $value['CASE_TYPE_NAME']];
+            }
         }
-        //$status_code_list = ArrayHelper::map($list, 'CASE_TYPE_ID', 'CASE_TYPE_NAME');
         return $status_code_list;
     }
 }
