@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "e10aec381494d5a1958463e5d44f415a",
+    "content-hash": "1ffdb3415453e13121f0ccba863e9342",
     "packages": [
         {
             "name": "bobsbg/yii2-oci2pdo",
@@ -555,6 +555,51 @@
             "time": "2017-01-19T15:04:42+00:00"
         },
         {
+            "name": "neconix/yii2-oci8",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Neconix/Yii2-Oci8.git",
+                "reference": "0ed3f3e38238aab06f00714103ee1553813cb127"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Neconix/Yii2-Oci8/zipball/0ed3f3e38238aab06f00714103ee1553813cb127",
+                "reference": "0ed3f3e38238aab06f00714103ee1553813cb127",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "yajra/laravel-pdo-via-oci8": "1.*",
+                "yiisoft/yii2": "*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "neconix\\yii2oci8\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Neconix",
+                    "email": "prostoe@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Yii2 extension which uses well written pdo-via-oci8 package for standard PHP Oracle functions (OCI8)",
+            "keywords": [
+                "database",
+                "oci8",
+                "oracle",
+                "yii2"
+            ],
+            "time": "2016-09-20T10:28:02+00:00"
+        },
+        {
             "name": "rmrevin/yii2-fontawesome",
             "version": "2.17.1",
             "source": {
@@ -659,6 +704,42 @@
                 "mailer"
             ],
             "time": "2017-02-13T07:52:53+00:00"
+        },
+        {
+            "name": "yajra/laravel-pdo-via-oci8",
+            "version": "v1.3.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/yajra/pdo-via-oci8.git",
+                "reference": "b3e52482af67770a0b3ea620f11ba0a1b38b4afd"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/yajra/pdo-via-oci8/zipball/b3e52482af67770a0b3ea620f11ba0a1b38b4afd",
+                "reference": "b3e52482af67770a0b3ea620f11ba0a1b38b4afd",
+                "shasum": ""
+            },
+            "require-dev": {
+                "phpunit/phpunit": "4.0.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Yajra\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Arjay Angeles",
+                    "email": "aqangeles@gmail.com"
+                }
+            ],
+            "description": "PDO userspace driver proxying calls to PHP OCI8 driver",
+            "time": "2017-02-02T02:51:53+00:00"
         },
         {
             "name": "yiisoft/yii2",

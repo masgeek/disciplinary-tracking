@@ -21,7 +21,8 @@
         "kartik-v/yii2-widget-datepicker": "^1.4",
         "kartik-v/yii2-widget-datetimepicker": "^1.4",
         "rmrevin/yii2-fontawesome": "^2.17",
-        "bobsbg/yii2-oci2pdo": "^1.0"
+        "bobsbg/yii2-oci2pdo": "^1.0",
+        "neconix/yii2-oci8": "^1.0"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
