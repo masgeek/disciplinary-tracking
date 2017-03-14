@@ -6,7 +6,7 @@
  * Time: 11:57 AM
  */
 
-if (YII_LOCAL==true) {
+if (YII_LOCAL=='local') {
 
     echo '1';
     die;
