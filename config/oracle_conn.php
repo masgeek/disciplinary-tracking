@@ -7,9 +7,6 @@
  */
 
 if (YII_LOCAL=='local') {
-
-    echo '1';
-    die;
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
