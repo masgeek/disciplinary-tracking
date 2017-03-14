@@ -9,6 +9,10 @@ $config = [
     'modules' => [
         'tracking' => [
             'class' => 'app\modules\tracking\tracker',
+
+        ],
+        'setups' => [
+            'class' => 'app\modules\setup\setups',
         ],
     ],
     'components' => [
