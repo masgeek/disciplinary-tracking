@@ -1,0 +1,25 @@
+{
+  "name": "disciplinary-tracking-system",
+  "authors": [
+    "Sammy Barasa <barsamms@gmail.com>"
+  ],
+  "description": "Disciplinary tracking systems for examination center",
+  "main": "index.php",
+  "keywords": [
+    "yii2",
+    "examination",
+    "tracking",
+    "discipline"
+  ],
+  "license": "MIT",
+  "homepage": "smisdev.uonbi.ac.ke",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "vendor/bower",
+    "test",
+    "tests"
+  ]
+}
