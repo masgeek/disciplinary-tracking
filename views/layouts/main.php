@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 
 
 \app\assetmanager\AppAsset::register($this);
+\app\assetmanager\ThemeAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>

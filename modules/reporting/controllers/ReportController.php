@@ -69,6 +69,10 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
+        if(Yii::$app->request->isPost){
+            var_dump($_POST);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
         } else {
@@ -92,6 +96,9 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
+        if(Yii::$app->request->isPost){
+            var_dump($_POST);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
         } else {

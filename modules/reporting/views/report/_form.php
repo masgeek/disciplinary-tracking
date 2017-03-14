@@ -42,6 +42,10 @@ if (!$model->isNewRecord) {
 
     <?= $form->field($model, 'REPORTED_BY')->textInput(['maxlength' => true]) ?>
 
+    <!--?= $form->field($model, 'DISCIPLINARY_TYPE_ID')->dropDownList(\app\models\DISCIPLINARY_TYPE_MODEL::GetDisciplinaryTypeList()) ?-->
+
+    <?= $form->field($student_case, 'CASE_TYPE_ID')->textInput(['maxlength' => true]) ?>
+
     <?= $form->field($student_case, 'STUDENT_INCIDENCE_ID')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
