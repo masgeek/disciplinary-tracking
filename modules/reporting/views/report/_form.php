@@ -9,8 +9,13 @@ use yii\widgets\ActiveForm;
 /* @var $student_case \app\models\STUDENT_INCIDENCE */
 /* @var $form yii\widgets\ActiveForm */
 $description = null;
-if(!$model->isNewRecord){
-    $description = stream_get_contents($model->CASE_DESCRIPTION);
+if (!$model->isNewRecord) {
+    $t = gettype($model->CASE_DESCRIPTION);
+    if ($t == 'resource') {
+        $description = stream_get_contents($model->CASE_DESCRIPTION);
+    } else {
+        $description = $model->CASE_DESCRIPTION;
+    }
 }
 ?>
 
@@ -31,9 +36,9 @@ if(!$model->isNewRecord){
         ]
     ]); ?>
 
-    <?= $form->field($model, 'CASE_DESCRIPTION')->textarea(['rows' => 6,'value'=>$description]) ?>
+    <?= $form->field($model, 'CASE_DESCRIPTION')->textarea(['rows' => 6, 'value' => $description]) ?>
 
-    <?= $form->field($model, 'STATUS_CODE')->dropDownList(\app\models\STATUS_MODEL::GetStatusList(),['prompt'=>'Select student status']) ?>
+    <?= $form->field($model, 'STATUS_CODE')->dropDownList(\app\models\STATUS_MODEL::GetStatusList(), ['prompt' => 'Select student status']) ?>
 
     <?= $form->field($model, 'REPORTED_BY')->textInput(['maxlength' => true]) ?>
 
