@@ -2,11 +2,13 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\models\CASE_TYPE_MODEL;
 use app\models\STUDENT_INCIDENCE;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
 use app\modules\reporting\models\INCIDENCE_MODEL;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -69,6 +71,10 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
+        if (Yii::$app->request->isPost) {
+            var_dump($_POST);
+        }
+
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
         } else {
@@ -92,6 +98,9 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
+        if (Yii::$app->request->isPost) {
+            var_dump($_POST);
+        }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
         } else {
@@ -101,6 +110,26 @@ class ReportController extends Controller
                 'student_case' => $student_case
             ]);
         }
+    }
+
+    public function actionCaseTypes()
+    {
+        $out = [];
+        if (Yii::$app->request->isPost) {
+            $parents = Yii::$app->request->post('depdrop_parents');
+            if ($parents != null) {
+                $disc_id = $parents[0];
+                $out = CASE_TYPE_MODEL::GetCaseTypesList($disc_id);
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+            }
+        }
+
+        return Json::encode(['output' => $out, 'selected' => '']);
     }
 
     /**

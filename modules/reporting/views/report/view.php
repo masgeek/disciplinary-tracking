@@ -6,14 +6,11 @@ use yii\widgets\DetailView;
 /* @var $this yii\web\View */
 /* @var $model app\modules\reporting\models\INCIDENCE_MODEL */
 
-$this->title = $model->INCIDENCE_ID;
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Incidence  Models'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = 'Incidence Reporting |' . $model->INCIDENCE_ID;
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Case Incidences'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = 'View Incidence Details';
 ?>
 <div class="incidence--model-view">
-
-    <h1><?= Html::encode($this->title) ?></h1>
-
     <p>
         <?= Html::a(Yii::t('app', 'Update'), ['update', 'id' => $model->INCIDENCE_ID], ['class' => 'btn btn-primary']) ?>
         <?= Html::a(Yii::t('app', 'Add to Incidence'), ['//add-case', 'incidence_id' => $model->INCIDENCE_ID], ['class' => 'btn btn-success']) ?>
@@ -35,7 +32,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => 'Name',
                 'type' => 'ntext',
                 'value' => function ($row) {
-                    $description = stream_get_contents($row->CASE_DESCRIPTION);
+                    $t = gettype($row->CASE_DESCRIPTION);
+                    if ($t == 'resource') {
+                        $description = stream_get_contents($row->CASE_DESCRIPTION);
+                    } else {
+                        $description = $row->CASE_DESCRIPTION;
+                    }
                     return $description;
                 }
             ],

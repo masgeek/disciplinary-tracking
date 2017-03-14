@@ -19,17 +19,29 @@ use app\modules\tracking\models\STUDENTINCIDENCES;
  */
 class STUDENT_INCIDENCE extends STUDENTINCIDENCES
 {
+    public $DISCIPLINARY_TYPE_ID;
+
     /**
      * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['CASE_TYPE_ID', 'INCIDENCE_ID'], 'required'],
+            [['CASE_TYPE_ID', 'INCIDENCE_ID', 'DISCIPLINARY_TYPE_ID'], 'required'],
             [['STUDENT_INCIDENCE_ID', 'CASE_TYPE_ID', 'INCIDENCE_ID'], 'integer'],
             [['STUDENT_INCIDENCE_ID'], 'unique'],
             [['INCIDENCE_ID'], 'exist', 'skipOnError' => true, 'targetClass' => CASEINCIDENCES::className(), 'targetAttribute' => ['INCIDENCE_ID' => 'INCIDENCE_ID']],
             [['INCIDENCE_ID'], 'exist', 'skipOnError' => true, 'targetClass' => CASEINCIDENCES::className(), 'targetAttribute' => ['INCIDENCE_ID' => 'INCIDENCE_ID']],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'DISCIPLINARY_TYPE_ID' => \Yii::t('app', 'Case Reported'),
         ];
     }
 

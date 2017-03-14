@@ -21,7 +21,7 @@ class CASE_TYPE_MODEL extends DISCIPLINARYCASETYPES
     public function rules()
     {
         return [
-            [['CASE_TYPE_NAME','DISCIPLINARY_TYPE_ID'], 'required'],
+            [['CASE_TYPE_NAME', 'DISCIPLINARY_TYPE_ID'], 'required'],
             [['CASE_TYPE_ID', 'DISCIPLINARY_TYPE_ID'], 'integer'],
             [['CASE_TYPE_NAME'], 'string', 'max' => 200],
             [['CASE_TYPE_ID'], 'unique'],
@@ -29,10 +29,25 @@ class CASE_TYPE_MODEL extends DISCIPLINARYCASETYPES
         ];
     }
 
-    public static function GetCaseTypesList()
+    /**
+     * return array list of disciplinary case types
+     * @param $disc_id
+     * @return array
+     */
+    public static function GetCaseTypesList($disc_id = 1)
     {
-        $list = self::find()->select(['CASE_TYPE_ID', 'CASE_TYPE_NAME'])->asArray()->all();
-        $status_code_list = ArrayHelper::map($list, 'CASE_TYPE_ID', 'CASE_TYPE_NAME');
+        $list = self::find()
+            ->select(['CASE_TYPE_ID', 'CASE_TYPE_NAME'])
+            ->where(['DISCIPLINARY_TYPE_ID' => $disc_id])
+            ->asArray()
+            ->all();
+
+        //lets build the array based on teh dependednt dropdown template
+        $status_code_list = array();
+        foreach ($list as $value) {
+            $status_code_list[] = ['id' => $value['CASE_TYPE_ID'], 'name' => $value['CASE_TYPE_NAME']];
+        }
+        //$status_code_list = ArrayHelper::map($list, 'CASE_TYPE_ID', 'CASE_TYPE_NAME');
         return $status_code_list;
     }
 }
