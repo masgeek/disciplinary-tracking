@@ -7,7 +7,8 @@
  */
 
 return [
-    'class' => 'yii\db\Connection',
+    //'class' => 'yii\db\Connection',
+    'class' => '\sfedosimov\oci8pdo\Oci8PDO_Connection',
     //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
     //'dsn' => 'sqlite:/path/to/database/file', // SQLite
     //'dsn' => 'pgsql:host=localhost;port=5432;dbname=mydatabase', // PostgreSQL
