@@ -89,6 +89,7 @@ class ReportController extends Controller
     {
 
         //get the case type session
+        $connection = \Yii::$app->db; //for use in transactions
         $session = Yii::$app->session;
 
         $case_type_id = $session->get('CASE_TYPE_ID');
@@ -100,18 +101,40 @@ class ReportController extends Controller
         $student_case->CASE_TYPE_ID = $case_type_id;
         $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
         if (Yii::$app->request->isPost) {
-            var_dump($_POST);
-        }
+            $transaction = $connection->beginTransaction();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                //save the first model
+                $student_case->INCIDENCE_ID = $model->INCIDENCE_ID; //get the saved id
+                if ($student_case->load(Yii::$app->request->post()) && $student_case->save()) {
+                    //now save the second and final one
+                    $transaction->commit(); //commit the transactions
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'uploads' => $uploads,
-                'student_case' => $student_case
-            ]);
+                    //now redirect to file upload interface
+                    return $this->redirect(['file-upload', 'incidence_id' => $model->INCIDENCE_ID]);
+                } else {
+                    $transaction->rollback(); //rollback the transaction
+                }
+            } else {
+                $transaction->rollback(); //rollback the transaction
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+            'uploads' => $uploads,
+            'student_case' => $student_case
+        ]);
+
+    }
+
+    public function actionAppealCase($reg_no)
+    {
+
+    }
+
+    public function actionFileUpload($incidence_id)
+    {
+        //lets check if user has file to upload
+        return $incidence_id;
     }
 
     /**
