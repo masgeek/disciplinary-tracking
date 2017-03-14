@@ -2,11 +2,13 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\models\CASE_TYPE_MODEL;
 use app\models\STUDENT_INCIDENCE;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
 use app\modules\reporting\models\INCIDENCE_MODEL;
 use yii\data\ActiveDataProvider;
+use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -114,10 +116,10 @@ class ReportController extends Controller
     {
         $out = [];
         if (Yii::$app->request->isPost) {
-            $parents = $_POST['depdrop_parents'];
+            $parents = Yii::$app->request->post('depdrop_parents');
             if ($parents != null) {
-                $cat_id = $parents[0];
-                $out = self::getSubCatList($cat_id);
+                $disc_id = $parents[0];
+                $out = CASE_TYPE_MODEL::GetCaseTypesList($disc_id);
                 // the getSubCatList function will query the database based on the
                 // cat_id and return an array like below:
                 // [
@@ -126,6 +128,7 @@ class ReportController extends Controller
                 // ]
             }
         }
+
         return Json::encode(['output' => $out, 'selected' => '']);
     }
 
