@@ -4,8 +4,52 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b6ca417ff9a6064d5cc54a4d750581da",
+    "content-hash": "e10aec381494d5a1958463e5d44f415a",
     "packages": [
+        {
+            "name": "bobsbg/yii2-oci2pdo",
+            "version": "v1.0.4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/neutrinobg/yii2-oci2pdo.git",
+                "reference": "d0170a2722c72521c510f8dddf8028185506e465"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/neutrinobg/yii2-oci2pdo/zipball/d0170a2722c72521c510f8dddf8028185506e465",
+                "reference": "d0170a2722c72521c510f8dddf8028185506e465",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "bobsbg\\oci2pdo\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Tonkin"
+                }
+            ],
+            "description": "Yii2 extension to simulate a PDO connection to Oracle database using PHP OCI8",
+            "keywords": [
+                "db",
+                "oci",
+                "oci8",
+                "oracle",
+                "pdo",
+                "php",
+                "yii2"
+            ],
+            "time": "2016-11-30T08:34:21+00:00"
+        },
         {
             "name": "bower-asset/bootstrap",
             "version": "v3.3.7",
