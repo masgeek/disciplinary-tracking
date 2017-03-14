@@ -76,20 +76,21 @@ class UploadsController extends Controller
 
     public function actionFileUpload()
     {
-        $output = []; //empty if successfull
-        $user_id = (Yii::$app->request->post('USER_ID'));
+        $output = ['error' => 'Upload failed, please try again.']; //empty if successful
+        $incidence_id = (Yii::$app->request->post('INCIDENCE_ID'));
 
-        $model = new UPLOAD_MODEL();
-        if (Yii::$app->request->isPost) {
-            $model->imageFiles = UploadedFile::getInstances($model, 'FILE_SELECTOR');
-            if (!$model->upload($user_id)) {
-                $output = ['error' => 'Unable to upload file. please try again'];
+            $model = new UPLOAD_MODEL();
+            if (Yii::$app->request->isPost) {
+                $model->imageFiles = UploadedFile::getInstances($model, 'FILE_SELECTOR');
+                if (!$model->upload($incidence_id)) {
+                    $output = ['error' => 'Unable to upload file. please try again'];
+                }
+
+                var_dump($model);
+                die;
             } else {
-                $output = ['path' => 6];
+                $output = ['error' => 'No files were processed.'];
             }
-        } else {
-            $output = ['error' => 'No files were processed.'];
-        }
         // return a json encoded response for plugin to process successfully
         return json_encode($output);
     }

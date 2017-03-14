@@ -35,23 +35,26 @@ class UPLOAD_MODEL extends FILEUPLOAD
         ];
     }
 
-    public function upload($user_id)
+    /**
+     * @param $incidence_id
+     */
+    public function upload($incidence_id)
     {
         $imagesFolder = Yii::$app->params['uploadsFolder'];
-        $path = Yii::$app->basePath . $imagesFolder . $user_id . '/';
-
+        $rel_folder = $imagesFolder . $incidence_id . '/';
+        $path = Yii::$app->basePath . $rel_folder;
         if (!file_exists($path)) {
             mkdir($path, 0777); //if directory does not exists create it with full permissions
         }
 
-        if ($this->validate()) {
-            foreach ($this->imageFiles as $file) {
-                $file_name = $path . $file->baseName . '.' . $file->extension;
-                $file->saveAs($file_name);
-            }
-            return true;
-        } else {
-            return false;
+        foreach ($this->imageFiles as $file) {
+            $file_name = $file->baseName . '.' . $file->extension;
+            $relative_path = $rel_folder . $file_name;
+            $save_path = $path . $file->baseName . '.' . $file->extension;
+            $file->saveAs($save_path);
+
+            $this->FILE_PATH = $relative_path;
+            $this->FILE_NAME = $file_name;
         }
     }
 

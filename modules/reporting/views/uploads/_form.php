@@ -6,13 +6,14 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model \app\modules\reporting\models\UPLOAD_MODEL */
 /* @var $form yii\widgets\ActiveForm */
+/* @var $incidence_id */
 ?>
 
 <div class="user-uploads-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'INCIDENCE_ID')->textInput() ?>
+    <?= $form->field($model, 'INCIDENCE_ID')->textInput(['value' => $incidence_id]) ?>
 
     <?= $form->field($model, 'FILE_SELECTOR')->widget(\kartik\file\FileInput::className(), [
         'options' => [
@@ -26,7 +27,7 @@ use yii\widgets\ActiveForm;
             'showPreview' => false,
             //'showUpload' => false,
             'uploadExtraData' => [
-                'INCIDENCE_ID' => $model->INCIDENCE_ID,
+                'INCIDENCE_ID' => $incidence_id,
                 '_csrf' => Yii::$app->request->csrfToken
             ],
             'uploadUrl' => \yii\helpers\Url::to(['//report/uploads/file-upload']),

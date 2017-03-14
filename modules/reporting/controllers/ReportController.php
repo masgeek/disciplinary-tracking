@@ -137,7 +137,7 @@ class ReportController extends Controller
         $model = new UPLOAD_MODEL();
         return $this->render('/uploads/create', [
             'model' => $model,
-            'incidence' => $incidence_id
+            'incidence_id' => $incidence_id
         ]);
     }
 
