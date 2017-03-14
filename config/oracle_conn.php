@@ -6,9 +6,7 @@
  * Time: 11:57 AM
  */
 
-var_dump(YII_LOCAL);
-die;
-if (YII_LOCAL) {
+if (YII_LOCAL==true) {
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
