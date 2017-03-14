@@ -7,8 +7,10 @@ use yii\grid\GridView;
 /* @var $searchModel \app\modules\reporting\models\UPLOAD_MODEL */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
+<?php \yii\widgets\Pjax::begin(); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
+    'id' => 'me',
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
@@ -19,4 +21,5 @@ use yii\grid\GridView;
         ['class' => 'yii\grid\ActionColumn'],
     ],
 ]); ?>
+<?php \yii\widgets\Pjax::end(); ?>
 

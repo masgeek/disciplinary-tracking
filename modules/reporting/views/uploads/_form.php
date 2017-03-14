@@ -16,14 +16,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'FILE_SELECTOR')->widget(\kartik\file\FileInput::className(), [
         'options' => [
             //'accept' => 'image/*',
-            'multiple' => false
+            'multiple' => true
         ],
         'pluginOptions' => [
             'allowedFileExtensions' => ['jpg', 'jpeg', 'gif', 'png', 'pdf', 'docx', 'rtf', 'odt'],
             'maxFileCount' => 10,
             'uploadAsync' => true,
-            'showPreview' => false,
-            //'showUpload' => false,
+            'showPreview' => true,
+            'showUpload' => true,
             'uploadExtraData' => [
                 'INCIDENCE_ID' => $incidence_id,
                 '_csrf' => Yii::$app->request->csrfToken
@@ -34,6 +34,7 @@ use yii\widgets\ActiveForm;
             'fileuploaded' => "function(event, data, previewId, index){
                 console.log(data.filenames);
                 console.log(data.response.path);
+                $.pjax.reload({container:'#me'});
             }" //after uploading enable the submit button
         ]
     ]); ?>
