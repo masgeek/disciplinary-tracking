@@ -10,13 +10,13 @@ use yii\grid\GridView;
 <?php \yii\widgets\Pjax::begin(); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'id' => 'me',
+    'id' => 'uploads_grid',
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
         'FILE_UPLOAD_ID',
         'INCIDENCE_ID',
-        'FILE_PATH',
+        'FILE_PATH', //add file download link
         'DATE_UPLOADED',
         ['class' => 'yii\grid\ActionColumn'],
     ],

@@ -34,7 +34,7 @@ use yii\widgets\ActiveForm;
             'fileuploaded' => "function(event, data, previewId, index){
                 console.log(data.filenames);
                 console.log(data.response.path);
-                $.pjax.reload({container:'#me'});
+                $.pjax.reload({container:'#uploads_grid'});
             }" //after uploading enable the submit button
         ]
     ]); ?>
