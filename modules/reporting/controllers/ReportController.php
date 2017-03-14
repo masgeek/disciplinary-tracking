@@ -5,6 +5,7 @@ namespace app\modules\reporting\controllers;
 use app\models\CASE_TYPE_MODEL;
 use app\models\DISCIPLINARY_TYPE_MODEL;
 use app\models\STUDENT_INCIDENCE;
+use app\modules\reporting\models\UPLOAD_MODEL;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
 use app\modules\reporting\models\INCIDENCE_MODEL;
@@ -128,13 +129,16 @@ class ReportController extends Controller
 
     public function actionAppealCase($reg_no)
     {
-
     }
 
     public function actionFileUpload($incidence_id)
     {
         //lets check if user has file to upload
-        return $incidence_id;
+        $model = new UPLOAD_MODEL();
+        return $this->render('/uploads/create', [
+            'model' => $model,
+            'incidence' => $incidence_id
+        ]);
     }
 
     /**

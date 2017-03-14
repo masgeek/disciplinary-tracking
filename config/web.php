@@ -66,6 +66,7 @@ $config = [
                 'discipline' => 'disciplinarytype/index',
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
+                'first-case' => 'report/report/first-case',
                 'first-case' => 'report/report/first-case'
 
             ],

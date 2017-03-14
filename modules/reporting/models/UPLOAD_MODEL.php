@@ -12,6 +12,7 @@ namespace app\modules\reporting\models;
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\FILEUPLOAD;
 use yii\db\Expression;
+use Yii;
 
 class UPLOAD_MODEL extends FILEUPLOAD
 {

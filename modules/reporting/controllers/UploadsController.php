@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\user\controllers;
+namespace app\modules\reporting\controllers;
 
 use app\modules\reporting\models\UPLOAD_MODEL;
 use Yii;
