@@ -69,7 +69,7 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
-        if(Yii::$app->request->isPost){
+        if (Yii::$app->request->isPost) {
             var_dump($_POST);
         }
 
@@ -96,7 +96,7 @@ class ReportController extends Controller
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
 
-        if(Yii::$app->request->isPost){
+        if (Yii::$app->request->isPost) {
             var_dump($_POST);
         }
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -108,6 +108,25 @@ class ReportController extends Controller
                 'student_case' => $student_case
             ]);
         }
+    }
+
+    public function actionCaseTypes()
+    {
+        $out = [];
+        if (Yii::$app->request->isPost) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $cat_id = $parents[0];
+                $out = self::getSubCatList($cat_id);
+                // the getSubCatList function will query the database based on the
+                // cat_id and return an array like below:
+                // [
+                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
+                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
+                // ]
+            }
+        }
+        return Json::encode(['output' => $out, 'selected' => '']);
     }
 
     /**
