@@ -25,7 +25,7 @@ class UPLOAD_MODEL extends FILEUPLOAD
     public function rules()
     {
         return [
-            [['FILE_NAME', 'FILE_PATH'], 'required'],
+            [['FILE_NAME', 'FILE_PATH', 'INCIDENCE_ID'], 'required'],
             [['FILE_UPLOAD_ID', 'INCIDENCE_ID'], 'integer'],
             [['DATE_UPLOADED'], 'safe'],
             [['FILE_NAME'], 'string', 'max' => 100],
@@ -55,6 +55,7 @@ class UPLOAD_MODEL extends FILEUPLOAD
 
             $this->FILE_PATH = $relative_path;
             $this->FILE_NAME = $file_name;
+            $this->INCIDENCE_ID = $incidence_id;
         }
     }
 

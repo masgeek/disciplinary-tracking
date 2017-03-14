@@ -13,8 +13,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'INCIDENCE_ID')->textInput(['value' => $incidence_id]) ?>
-
     <?= $form->field($model, 'FILE_SELECTOR')->widget(\kartik\file\FileInput::className(), [
         'options' => [
             //'accept' => 'image/*',
@@ -39,13 +37,6 @@ use yii\widgets\ActiveForm;
             }" //after uploading enable the submit button
         ]
     ]); ?>
-    <?= $form->field($model, 'FILE_PATH')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'FILE_NAME')->textInput() ?>
-
-    <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-    </div>
-
     <?php ActiveForm::end(); ?>
 
 </div>

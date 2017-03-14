@@ -17,21 +17,5 @@ $this->params['breadcrumbs'][] = $this->title;
     <p>
         <?= Html::a(Yii::t('app', 'Create User Uploads'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'UPLOAD_ID',
-            'USER_ID',
-            'FILE_PATH',
-            'COMMENTS:ntext',
-            'PUBLICLY_AVAILABLE',
-            // 'DATE_UPLOADED',
-            // 'UPDATED',
-            // 'DELETED',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+    <?= $this->render('_file-grid', ['dataProvider' => $dataProvider]) ?>
 </div>

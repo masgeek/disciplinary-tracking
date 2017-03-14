@@ -135,8 +135,15 @@ class ReportController extends Controller
     {
         //lets check if user has file to upload
         $model = new UPLOAD_MODEL();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => UPLOAD_MODEL::find()//->where(['INCIDENCE_ID' => $incidence_id]),
+        ]);
+
+
         return $this->render('/uploads/create', [
             'model' => $model,
+            'dataProvider' => $dataProvider,
             'incidence_id' => $incidence_id
         ]);
     }
