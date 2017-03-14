@@ -42,14 +42,21 @@ if (!$model->isNewRecord) {
 
     <?= $form->field($model, 'REPORTED_BY')->textInput(['maxlength' => true]) ?>
 
-    <!--?= $form->field($model, 'DISCIPLINARY_TYPE_ID')->dropDownList(\app\models\DISCIPLINARY_TYPE_MODEL::GetDisciplinaryTypeList()) ?-->
+    <?= $form->field($student_case, 'DISCIPLINARY_TYPE_ID')->dropDownList(\app\models\DISCIPLINARY_TYPE_MODEL::GetDisciplinaryTypeList(), ['prompt' => 'Select Case Type']) ?>
 
-    <?= $form->field($student_case, 'CASE_TYPE_ID')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($student_case, 'CASE_TYPE_ID')->widget(\kartik\depdrop\DepDrop::classname(), [
+        'options' => ['id' => 'case_type_id'],
+        'pluginOptions' => [
+            'depends' => ['student_incidence-disciplinary_type_id'], //depends on th above dropdown :-)
+            'placeholder' => 'Select case type...',
+            'url' => \yii\helpers\Url::to(['/site/subcat'])
+        ]
+    ]); ?>
 
-    <?= $form->field($student_case, 'STUDENT_INCIDENCE_ID')->textInput(['maxlength' => true]) ?>
+    <!--?= $form->field($student_case, 'CASE_TYPE_ID')->textInput(['maxlength' => true]) ?-->
 
     <div class="form-group">
-        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Submit Incidence') : Yii::t('app', 'Update Incidence'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
