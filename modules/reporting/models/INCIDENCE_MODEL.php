@@ -6,9 +6,10 @@
  * Time: 18:16
  */
 
-namespace app\models;
+namespace app\modules\reporting\models;
 
 
+use app\models\STUDENTS_MODEL;
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\STUDENTSSTATUS;
 use yii\helpers\ArrayHelper;
@@ -38,14 +39,19 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     public function attributeLabels()
     {
         return [
-            'STATUS_CODE' => \Yii::t('app', 'Student Status'),
+            'STATUS_CODE' => \Yii::t('app', \Yii::t('app', 'Student Status')),
         ];
     }
 
 
+
     public static function GetStudentsList()
     {
-        $list = STUDENTS_MODEL::find()->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES))) AS NAMES'])->asArray()->all();
+        $list = STUDENTS_MODEL::find()
+            ->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES))) AS NAMES'])
+            ->asArray()
+            ->limit(10)
+            ->all();
         $students_list = ArrayHelper::map($list, 'REGISTRATION_NUMBER', 'NAMES');
         return $students_list;
     }

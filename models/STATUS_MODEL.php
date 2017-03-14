@@ -22,14 +22,13 @@ class STATUS_MODEL extends STUDENTSSTATUS
     {
         return [
             'STATUS_CODE' => Yii::t('app', 'Student Status'),
-            'STATUS_CODE' => Yii::t('app', 'Student Status'),
         ];
     }
 
     public static function GetStatusList()
     {
-        $list = self::find()->select(['STATUS_CODE', 'STATUS_NAME'])->asArray()->all();
-        $status_code_list = ArrayHelper::map($list, 'STATUS_CODE', 'STATUS_NAME');
+        $list = self::find()->select(['STATUS_CODE', 'STATUS_DESCRIPTION'])->asArray()->all();
+        $status_code_list = ArrayHelper::map($list, 'STATUS_CODE', 'STATUS_DESCRIPTION');
         return $status_code_list;
     }
 }

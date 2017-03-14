@@ -14,6 +14,10 @@ $config = [
         'setups' => [
             'class' => 'app\modules\setup\setups',
         ],
+        'report' => [
+            'class' => 'app\modules\reporting\report',
+            'defaultRoute' => 'report/create', //default controller
+        ],
     ],
     'components' => [
         'request' => [
@@ -49,7 +53,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
                 //default rules
