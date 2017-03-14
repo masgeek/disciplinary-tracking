@@ -43,7 +43,7 @@ $config = [
             ],
         ],
         'db' => $db,
-
+/*
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
@@ -54,6 +54,7 @@ $config = [
                 'add-case' => 'studentincidence/create'
             ],
         ],
+*/
 
     ],
     'params' => $params,
