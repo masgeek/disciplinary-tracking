@@ -29,6 +29,7 @@ if (YII_LOCAL) {
         'dsn' => 'oci:dbname=proddb2.uonbi.ac.ke/proddb2', // Oracle
         'username' => 'muthoni',
         'password' => 'muthoni_2015_schema',
+        'charset' => 'utf8',
         'tablePrefix' => 'DT_',
         'attributes' => [PDO::ATTR_PERSISTENT => true],
         'enableSchemaCache' => true, //Oracle dictionaries is too slow :(, enable caching
