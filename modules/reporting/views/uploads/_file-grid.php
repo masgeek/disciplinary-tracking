@@ -7,10 +7,12 @@ use yii\grid\GridView;
 /* @var $searchModel \app\modules\reporting\models\UPLOAD_MODEL */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
-<?php \yii\widgets\Pjax::begin(); ?>
+<?php \yii\widgets\Pjax::begin([
+    'id' => 'uploads_grid',
+]); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'id' => 'uploads_grid',
+    //'pjax' => true, // pjax is set to always true for this demo
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 

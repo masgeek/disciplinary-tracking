@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
         ],
         'pluginOptions' => [
             'allowedFileExtensions' => ['jpg', 'jpeg', 'gif', 'png', 'pdf', 'docx', 'rtf', 'odt'],
-            'maxFileCount' => 10,
+            'maxFileCount' => 50,
             'uploadAsync' => true,
             'showPreview' => true,
             'showUpload' => true,
@@ -34,6 +34,7 @@ use yii\widgets\ActiveForm;
             'fileuploaded' => "function(event, data, previewId, index){
                 console.log(data.filenames);
                 console.log(data.response.path);
+                $.pjax.defaults.timeout = false;//IMPORTANT
                 $.pjax.reload({container:'#uploads_grid'});
             }" //after uploading enable the submit button
         ]
