@@ -3,7 +3,9 @@
 namespace app\modules\reporting\controllers;
 
 use app\models\CASE_TYPE_MODEL;
+use app\models\DISCIPLINARY_TYPE_MODEL;
 use app\models\STUDENT_INCIDENCE;
+use app\modules\reporting\models\UPLOAD_MODEL;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
 use app\modules\reporting\models\INCIDENCE_MODEL;
@@ -48,6 +50,25 @@ class ReportController extends Controller
         ]);
     }
 
+    public function actionReportCase()
+    {
+        $session = Yii::$app->session;
+
+        $model = new STUDENT_INCIDENCE();
+
+        if (Yii::$app->request->isPost) {
+            //store the values in a sessions
+            $post = Yii::$app->request->post('STUDENT_INCIDENCE');
+            $session['DISCIPLINARY_TYPE_ID'] = $post['DISCIPLINARY_TYPE_ID'];
+            $session['CASE_TYPE_ID'] = $post['CASE_TYPE_ID'];
+            //redirect to the create table now
+            return $this->redirect(['first-case']);
+        }
+        return $this->render('new-case', [
+            'model' => $model,
+        ]);
+    }
+
     /**
      * Displays a single INCIDENCE_MODEL model.
      * @param integer $id
@@ -65,25 +86,66 @@ class ReportController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionFirstCase()
     {
+
+        //get the case type session
+        $connection = \Yii::$app->db; //for use in transactions
+        $session = Yii::$app->session;
+
+        $case_type_id = $session->get('CASE_TYPE_ID');
+        $discp_type_id = $session->get('DISCIPLINARY_TYPE_ID');
+
         $model = new INCIDENCE_MODEL();
         $student_case = new STUDENT_INCIDENCE();
         $uploads = new FILEUPLOAD();
-
+        $student_case->CASE_TYPE_ID = $case_type_id;
+        $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
         if (Yii::$app->request->isPost) {
-            var_dump($_POST);
-        }
+            $transaction = $connection->beginTransaction();
+            if ($model->load(Yii::$app->request->post()) && $model->save()) {
+                //save the first model
+                $student_case->INCIDENCE_ID = $model->INCIDENCE_ID; //get the saved id
+                if ($student_case->load(Yii::$app->request->post()) && $student_case->save()) {
+                    //now save the second and final one
+                    $transaction->commit(); //commit the transactions
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->INCIDENCE_ID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-                'uploads' => $uploads,
-                'student_case' => $student_case
-            ]);
+                    //now redirect to file upload interface
+                    return $this->redirect(['file-upload', 'incidence_id' => $model->INCIDENCE_ID]);
+                } else {
+                    $transaction->rollback(); //rollback the transaction
+                }
+            } else {
+                $transaction->rollback(); //rollback the transaction
+            }
         }
+        return $this->render('create', [
+            'model' => $model,
+            'uploads' => $uploads,
+            'student_case' => $student_case
+        ]);
+
+    }
+
+    public function actionAppealCase($reg_no)
+    {
+    }
+
+    public function actionFileUpload($incidence_id)
+    {
+        //lets check if user has file to upload
+        $model = new UPLOAD_MODEL();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => UPLOAD_MODEL::find()//->where(['INCIDENCE_ID' => $incidence_id]),
+        ]);
+
+
+        return $this->render('/uploads/create', [
+            'model' => $model,
+            'dataProvider' => $dataProvider,
+            'incidence_id' => $incidence_id
+        ]);
     }
 
     /**
