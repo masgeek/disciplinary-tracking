@@ -112,7 +112,7 @@ class ReportController extends Controller
 
                     //now redirect to file upload interface
                     $session['DISCIPLINARY_TYPE_ID'] = $model->INCIDENCE_ID;
-                    return $this->redirect(['file-upload', 'incidence_id' => $model->INCIDENCE_ID]);
+                    return $this->redirect(['file-upload']);
                 } else {
                     $transaction->rollback(); //rollback the transaction
                 }
