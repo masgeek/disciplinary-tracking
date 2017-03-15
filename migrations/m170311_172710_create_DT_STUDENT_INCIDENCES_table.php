@@ -14,8 +14,9 @@ class m170311_172710_create_DT_STUDENT_INCIDENCES_table extends Migration
     {
         $this->createTable('DT_STUDENT_INCIDENCES', [
             'STUDENT_INCIDENCE_ID' => $this->primaryKey(11),
-            'CASE_TYPE_ID' => $this->integer(11),
-            'INCIDENCE_ID' => $this->integer(11),
+            'CASE_TYPE_ID' => $this->integer(11)->notNull(),
+            'INCIDENCE_ID' => $this->integer(11)->notNull(),
+            'DATE_ADDED'=>$this->dateTime()
         ]);
     }
 

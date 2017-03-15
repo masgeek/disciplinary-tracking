@@ -6,7 +6,7 @@
  * Time: 11:57 AM
  */
 
-if (YII_LOCAL=='local') {
+if (YII_ENV_DEV=='dev') {
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
@@ -16,8 +16,8 @@ if (YII_LOCAL=='local') {
         //'dsn' => 'sqlsrv:Server=localhost;Database=mydatabase', // MS SQL Server, sqlsrv driver
         //'dsn' => 'dblib:host=localhost;dbname=mydatabase', // MS SQL Server, dblib driver
         //'dsn' => 'mssql:host=localhost;dbname=mydatabase', // MS SQL Server, mssql driver
-        'dsn' => 'oci:dbname=//localhost:1521/XE', // Oracle
-        //'dsn' => 'oci:dbname=proddb2.uonbi.ac.ke/proddb2', // Oracle
+        //'dsn' => 'oci:dbname=//localhost:1521/XE', // Oracle
+        'dsn' => 'oci:dbname=proddb2.uonbi.ac.ke/proddb2', // Oracle
         'username' => 'muthoni',
         'password' => 'muthoni_2015_schema',
         //'charset' => 'utf8',
