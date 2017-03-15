@@ -12,6 +12,7 @@ namespace app\models;
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\DISCIPLINARYCASETYPES;
 use app\modules\tracking\models\STUDENTINCIDENCES;
+use yii\db\Expression;
 
 /**
  * Class STUDENT_INCIDENCE
@@ -43,6 +44,19 @@ class STUDENT_INCIDENCE extends STUDENTINCIDENCES
         return [
             'DISCIPLINARY_TYPE_ID' => \Yii::t('app', 'Case Reported'),
         ];
+    }
+
+    public function beforeSave($insert)
+    {
+
+        $date = new Expression('SYSDATE');
+        if (parent::beforeSave($insert)) {
+            if ($this->isNewRecord) {
+                $this->DATE_ADDED = $date;
+            }
+            return true;
+        }
+        return false;
     }
 
 }
