@@ -30,7 +30,7 @@ class DISCIPLINARYCASETYPES extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['CASE_TYPE_ID', 'CASE_TYPE_NAME'], 'required'],
+            [['CASE_TYPE_ID', 'DISCIPLINARY_TYPE_ID', 'CASE_TYPE_NAME'], 'required'],
             [['CASE_TYPE_ID', 'DISCIPLINARY_TYPE_ID'], 'integer'],
             [['CASE_TYPE_NAME'], 'string', 'max' => 200],
             [['CASE_TYPE_ID'], 'unique'],

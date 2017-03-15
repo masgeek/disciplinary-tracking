@@ -111,7 +111,7 @@ class ReportController extends Controller
                     $transaction->commit(); //commit the transactions
 
                     //now redirect to file upload interface
-                    return $this->redirect(['file-upload', 'incidence_id' => $model->INCIDENCE_ID]);
+                    return $this->redirect(['file-upload', 'incidence_id' => $model->INCIDENCE_ID, 'case_type_id' => $student_case->CASE_TYPE_ID]);
                 } else {
                     $transaction->rollback(); //rollback the transaction
                 }
@@ -131,20 +131,21 @@ class ReportController extends Controller
     {
     }
 
-    public function actionFileUpload($incidence_id)
+    public function actionFileUpload($incidence_id, $case_type_id)
     {
         //lets check if user has file to upload
         $model = new UPLOAD_MODEL();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => UPLOAD_MODEL::find()//->where(['INCIDENCE_ID' => $incidence_id]),
+            'query' => UPLOAD_MODEL::find()->where(['INCIDENCE_ID' => $incidence_id]),
         ]);
 
 
         return $this->render('/uploads/create', [
             'model' => $model,
             'dataProvider' => $dataProvider,
-            'incidence_id' => $incidence_id
+            'incidence_id' => $incidence_id,
+            'case_type_id' => $case_type_id
         ]);
     }
 
