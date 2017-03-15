@@ -80,9 +80,10 @@ class OracleController extends Controller
         $sequence_name = strtoupper($table_name . '_SEQ');
         $seq_resp = 1;
         $notification_seq = <<<TRIGGER
-   DROP SEQUENCE  "$schema_name"."$sequence_name"
+   DROP SEQUENCE  "$schema_name"."$sequence_name";
 TRIGGER;
 
+//return $notification_seq;
 
         $seq_resp = Yii::$app->db->createCommand($notification_seq)->execute();
         if ($seq_resp == 0) {
@@ -99,7 +100,7 @@ TRIGGER;
         $trigger_name = strtoupper($table_name . '_TRG');
 
         $notification_seq_trigger = <<<SQL
-DROP TRIGGER $trigger_name
+DROP TRIGGER $trigger_name;
 SQL;
         $trigger_resp = Yii::$app->db->createCommand($notification_seq_trigger)->execute();
         if ($trigger_resp == 0) {
@@ -116,7 +117,7 @@ SQL;
         $sequence_name = strtoupper($table_name . '_SEQ');
 
         $notification_seq = <<<TRIGGER
-   CREATE SEQUENCE  "$schema_name"."$sequence_name"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE
+   CREATE SEQUENCE  "$schema_name"."$sequence_name"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE;
 TRIGGER;
 
         $seq_resp = Yii::$app->db->createCommand($notification_seq)->execute();

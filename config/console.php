@@ -30,7 +30,7 @@ $config = [
         ],
         'migrate' => [
             'class' => 'yii\console\controllers\MigrateController',
-            'migrationTable' => 'BACKEND_MIGRATION',
+            'migrationTable' => 'DT_BACKEND_MIGRATION',
         ],
     ],
 
