@@ -6,7 +6,7 @@
  * Time: 11:57 AM
  */
 
-if (YII_LOCAL=='local') {
+if (YII_ENV_DEV=='dev') {
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB

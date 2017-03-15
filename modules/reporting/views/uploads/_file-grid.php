@@ -7,16 +7,18 @@ use yii\grid\GridView;
 /* @var $searchModel \app\modules\reporting\models\UPLOAD_MODEL */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 ?>
-<?php \yii\widgets\Pjax::begin(); ?>
+<?php \yii\widgets\Pjax::begin([
+    'id' => 'uploads_grid',
+]); ?>
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
-    'id' => 'me',
+    //'pjax' => true, // pjax is set to always true for this demo
     'columns' => [
         ['class' => 'yii\grid\SerialColumn'],
 
         'FILE_UPLOAD_ID',
         'INCIDENCE_ID',
-        'FILE_PATH',
+        'FILE_PATH', //add file download link
         'DATE_UPLOADED',
         ['class' => 'yii\grid\ActionColumn'],
     ],

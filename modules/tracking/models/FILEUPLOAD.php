@@ -11,6 +11,7 @@ use Yii;
  * @property integer $INCIDENCE_ID
  * @property string $FILE_NAME
  * @property string $FILE_PATH
+ * @property integer $FILE_DELETED
  * @property string $DATE_UPLOADED
  *
  * @property CASEINCIDENCES $iNCIDENCE
@@ -32,7 +33,7 @@ class FILEUPLOAD extends \yii\db\ActiveRecord
     {
         return [
             [['FILE_UPLOAD_ID', 'FILE_NAME', 'FILE_PATH'], 'required'],
-            [['FILE_UPLOAD_ID', 'INCIDENCE_ID'], 'integer'],
+            [['FILE_UPLOAD_ID', 'INCIDENCE_ID', 'FILE_DELETED'], 'integer'],
             [['DATE_UPLOADED'], 'safe'],
             [['FILE_NAME'], 'string', 'max' => 100],
             [['FILE_PATH'], 'string', 'max' => 200],
@@ -51,6 +52,7 @@ class FILEUPLOAD extends \yii\db\ActiveRecord
             'INCIDENCE_ID' => Yii::t('app', 'Incidence  ID'),
             'FILE_NAME' => Yii::t('app', 'File  Name'),
             'FILE_PATH' => Yii::t('app', 'File  Path'),
+            'FILE_DELETED' => Yii::t('app', 'This is a soft delete flag 0|1|3 3 permanent deletion'),
             'DATE_UPLOADED' => Yii::t('app', 'Date  Uploaded'),
         ];
     }

@@ -31,7 +31,7 @@ class USERS extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['USER_ID', 'PF_NO', 'ROLE'], 'required'],
+            [['USER_ID', 'ACTOR_ID', 'PF_NO', 'ROLE'], 'required'],
             [['USER_ID', 'ACTOR_ID'], 'integer'],
             [['PF_NO'], 'string', 'max' => 10],
             [['ROLE', 'EMAIL_ADDRESS'], 'string', 'max' => 50],
