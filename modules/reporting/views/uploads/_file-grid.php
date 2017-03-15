@@ -36,10 +36,11 @@ $gridColumns = [
         'dropdownOptions' => ['class' => 'pull-right'],
         'template' => '{delete}',
         'urlCreator' => function ($action, $model, $key, $index) {
+            $url = '#';
             if ($action == 'delete') {
-                return 6;
+                $url = \yii\helpers\Url::toRoute(['uploads/delete', 'id' => $model->FILE_UPLOAD_ID]);
             }
-            return '#';
+            return $url;
         },
         'viewOptions' => ['title' => 'This will launch the book details page. Disabled for this demo!', 'data-toggle' => 'tooltip'],
         'updateOptions' => ['title' => 'This will launch the book update page. Disabled for this demo!', 'data-toggle' => 'tooltip'],

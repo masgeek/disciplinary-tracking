@@ -111,7 +111,7 @@ class ReportController extends Controller
                     $transaction->commit(); //commit the transactions
 
                     //now redirect to file upload interface
-                    $session['DISCIPLINARY_TYPE_ID'] = $model->INCIDENCE_ID;
+                    $session['INCIDENCE_ID'] = $model->INCIDENCE_ID;
                     return $this->redirect(['file-upload']);
                 } else {
                     $transaction->rollback(); //rollback the transaction
@@ -143,7 +143,7 @@ class ReportController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => UPLOAD_MODEL::find()
                 ->where(['INCIDENCE_ID' => $incidence_id])
-                ->andWhere(['FILE_DELETED' => 1]),
+                ->andWhere(['FILE_DELETED' => 0]),
         ]);
 
         return $this->render('/uploads/create', [
