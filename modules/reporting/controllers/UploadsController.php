@@ -35,43 +35,18 @@ class UploadsController extends Controller
      */
     public function actionIndex()
     {
+        $session = Yii::$app->session;
+        $incidence_id = $session->get('INCIDENCE_ID');
+
         $dataProvider = new ActiveDataProvider([
-            'query' => UPLOAD_MODEL::find(),
+            'query' => UPLOAD_MODEL::find()
+                ->where(['INCIDENCE_ID' => $incidence_id])
+                ->andWhere(['FILE_DELETED' => 0]),
         ]);
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
         ]);
-    }
-
-    /**
-     * Displays a single UserUploads model.
-     * @param integer $id
-     * @return mixed
-     */
-    public function actionView($id)
-    {
-        return $this->render('view', [
-            'model' => $this->findModel($id),
-        ]);
-    }
-
-    /**
-     * Creates a new UserUploads model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
-    public function actionCreate($user_id)
-    {
-        $model = new UPLOAD_MODEL();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->FILE_UPLOAD_ID]);
-        } else {
-            return $this->render('create', [
-                'model' => $model
-            ]);
-        }
     }
 
     public function actionFileUpload()
@@ -121,9 +96,12 @@ class UploadsController extends Controller
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        /* @var $model \app\modules\reporting\models\UPLOAD_MODEL */
+        $model = $this->findModel($id);
+        $model->FILE_DELETED = 1;
+        $model->save();
 
-        return $this->redirect(['index']);
+        return $this->redirect(['//report/report/file-upload']);
     }
 
     /**
