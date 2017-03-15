@@ -7,6 +7,7 @@ use yii\helpers\Html;
 /* @var $model \app\modules\reporting\models\UPLOAD_MODEL */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 /* @var $incidence_id*/
+/* @var $case_type_id*/
 
 $this->title = Yii::t('app', 'Incidence Uploads');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Uploads'), 'url' => ['index']];
@@ -23,5 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= $this->render('_file-grid', [
         'dataProvider' => $dataProvider,
+        'case_type_id'=>$case_type_id
     ]) ?>
 </div>
