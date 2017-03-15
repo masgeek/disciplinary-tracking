@@ -19,7 +19,7 @@ class HelperComponent
     public static function GenerateDownloadLink($file_path)
     {
 
-        $web_root = \Yii::$app->request->hostInfo . \Yii::getAlias('@web');
+        $web_root = \Yii::$app->request->hostInfo;// . \Yii::getAlias('@web');
         $file_url = $web_root . \Yii::$app->request->baseUrl . $file_path;
         return $file_url;
     }

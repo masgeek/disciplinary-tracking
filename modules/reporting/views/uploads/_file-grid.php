@@ -19,15 +19,17 @@ $gridColumns = [
         'format' => 'raw',
         'value' => function ($data) {
             $file_url = \app\components\HelperComponent::GenerateDownloadLink($data->FILE_PATH);
+
+
             $download_link = Html::a(
                 'View/Download <span class="glyphicon glyphicon-download">&nbsp;</span>',
                 $file_url,
                 [
                     'class' => 'btn btn-primary btn-sm',
                     'title' => 'Download ' . $data->FILE_NAME,
-                    'target'=>'_blank'
+                    'target' => '_blank',
+                    'data-pjax' => '0'
                 ]);
-
             return $download_link;
         }
     ],
@@ -53,12 +55,11 @@ $gridColumns = [
 
 ];
 ?>
-
-
 <h2></h2>
 <?php \yii\widgets\Pjax::begin([
     'id' => 'uploads_grid',
 ]); ?>
+
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
     //'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
