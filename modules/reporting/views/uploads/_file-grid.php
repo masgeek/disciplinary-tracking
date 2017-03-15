@@ -24,7 +24,8 @@ $gridColumns = [
                 $file_url,
                 [
                     'class' => 'btn btn-primary btn-sm',
-                    'title' => 'Download ' . $data->FILE_NAME
+                    'title' => 'Download ' . $data->FILE_NAME,
+                    'target'=>'_blank'
                 ]);
 
             return $download_link;
