@@ -2,6 +2,8 @@
 
 namespace app\modules\reporting\controllers;
 
+use yii\filters\VerbFilter;
+
 class ProgressController extends \yii\web\Controller
 {
     /**
@@ -27,6 +29,7 @@ class ProgressController extends \yii\web\Controller
 
     public function actionFirstOffice()
     {
+        var_dump($_POST);
         return $this->render('first-office');
     }
 

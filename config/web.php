@@ -7,7 +7,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
-        'gridview' =>  [
+        'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
         'tracking' => [
@@ -56,7 +56,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => false,//YII_DEBUG,
+            'enablePrettyUrl' => YII_DEBUG ? true : false,
             'showScriptName' => false,
             'rules' => [
                 //default rules
@@ -70,7 +70,7 @@ $config = [
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
                 'first-case' => 'report/report/first-case',
-                'first-office' => 'report/report/first-office'
+                'first-office' => 'report/progress/first-office'
 
             ],
         ]
