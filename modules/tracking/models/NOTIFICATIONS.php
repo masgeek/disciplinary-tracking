@@ -12,6 +12,7 @@ use Yii;
  * @property string $RECIPIENT
  * @property string $MESSAGE_TYPE
  * @property integer $STATUS
+ * @property string $DATE_ADDED
  * @property string $DATE_SENT
  *
  * @property NOTIFICATIONTYPES $nOTIFICATIONTYPE
@@ -32,9 +33,9 @@ class NOTIFICATIONS extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['NOTIFICATION_ID', 'RECIPIENT', 'MESSAGE_TYPE'], 'required'],
+            [['NOTIFICATION_ID', 'NOTIFICATION_TYPE_ID', 'RECIPIENT', 'MESSAGE_TYPE'], 'required'],
             [['NOTIFICATION_ID', 'NOTIFICATION_TYPE_ID', 'STATUS'], 'integer'],
-            [['DATE_SENT'], 'safe'],
+            [['DATE_ADDED', 'DATE_SENT'], 'safe'],
             [['RECIPIENT'], 'string', 'max' => 30],
             [['MESSAGE_TYPE'], 'string', 'max' => 10],
             [['NOTIFICATION_ID'], 'unique'],
@@ -53,6 +54,7 @@ class NOTIFICATIONS extends \yii\db\ActiveRecord
             'RECIPIENT' => Yii::t('app', 'Recipient'),
             'MESSAGE_TYPE' => Yii::t('app', 'COULD BE SMS , EMAIL OR WHATEVER'),
             'STATUS' => Yii::t('app', 'SENT 1 NOT SENT 0 2 DELETED'),
+            'DATE_ADDED' => Yii::t('app', 'Date  Added'),
             'DATE_SENT' => Yii::t('app', 'Date  Sent'),
         ];
     }
