@@ -43,10 +43,8 @@ $gridColumns = [
             }
             return $url;
         },
-        'viewOptions' => ['title' => 'This will launch the book details page. Disabled for this demo!', 'data-toggle' => 'tooltip'],
-        'updateOptions' => ['title' => 'This will launch the book update page. Disabled for this demo!', 'data-toggle' => 'tooltip'],
         'deleteOptions' => [
-            'title' => 'This will launch the book delete action. Disabled for this demo!',
+            'title' => 'This will launch the uploaded file item!',
             'data-toggle' => 'tooltip',
             //'label' => '<i class="glyphicon glyphicon-remove"></i>'
         ],
