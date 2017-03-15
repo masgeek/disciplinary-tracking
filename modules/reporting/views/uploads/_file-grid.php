@@ -55,7 +55,7 @@ $gridColumns = [
 
 ];
 ?>
-<h2></h2>
+
 <?php \yii\widgets\Pjax::begin([
     'id' => 'uploads_grid',
 ]); ?>
