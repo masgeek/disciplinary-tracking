@@ -137,7 +137,7 @@ class ReportController extends Controller
         $model = new UPLOAD_MODEL();
 
         $dataProvider = new ActiveDataProvider([
-            'query' => UPLOAD_MODEL::find()//->where(['INCIDENCE_ID' => $incidence_id]),
+            'query' => UPLOAD_MODEL::find()->where(['INCIDENCE_ID' => $incidence_id]),
         ]);
 
 
