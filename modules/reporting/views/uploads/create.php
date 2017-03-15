@@ -19,7 +19,7 @@ $this->title = Yii::t('app', 'Incidence Uploads');
 //$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'User Uploads'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="user-uploads-create">
+<div class="user-uploads-create row">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -33,3 +33,16 @@ $this->params['breadcrumbs'][] = $this->title;
         'case_type_id' => $case_type_id
     ]) ?>
 </div>
+
+<!-- add foward next button -->
+<?= Html::a(Yii::t('app', 'Forward to Next Office'), [
+    '//report/report/first-office'], [
+    'data' => [
+        //'confirm' => 'Are you sure',
+        'method' => 'post',
+        'params' => [
+            'NCIDENCE_ID' => $incidence_id
+        ]
+    ],
+    'class' => 'btn btn-default btn-lg btn-block',
+]) ?>

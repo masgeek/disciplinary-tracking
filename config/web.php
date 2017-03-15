@@ -56,7 +56,7 @@ $config = [
         'db' => $db,
 
         'urlManager' => [
-            'enablePrettyUrl' => false,
+            'enablePrettyUrl' => false,//YII_DEBUG,
             'showScriptName' => false,
             'rules' => [
                 //default rules
@@ -70,7 +70,7 @@ $config = [
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
                 'first-case' => 'report/report/first-case',
-                'first-case' => 'report/report/first-case'
+                'first-office' => 'report/report/first-office'
 
             ],
         ]

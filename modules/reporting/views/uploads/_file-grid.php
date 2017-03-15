@@ -35,7 +35,7 @@ $gridColumns = [
     ],
     [
         'class' => 'kartik\grid\ActionColumn',
-        'dropdown' => true,
+        'dropdown' => false,
         'dropdownOptions' => ['class' => 'pull-right'],
         'template' => '{delete}',
         'urlCreator' => function ($action, $model, $key, $index) {
