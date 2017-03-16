@@ -24,7 +24,7 @@ class OracleController extends Controller
      * This command echoes what you have entered as the message.
      * @param string $message the message to be echoed.
      */
-    public function actionIndex($message = 'hello Oracle, this is neo')
+    public function actionIndex($message = 'hello Oracle, this is neo again')
     {
         echo $message . "\n";
     }
@@ -35,16 +35,22 @@ class OracleController extends Controller
      */
     public function actionSequence($action = "create")
     {
+
         $tables = Yii::$app->db->schema->getTableSchemas();
         foreach ($tables as $table) {
-            $pk_col = $table->primaryKey[0];
             $table_name = $table->name;
             //$col = $table;
+
             if (strpos($table_name, 'DT_') === 0) { //only process tables with the DT_ prefix
-                if ($action == 'drop') {
-                    echo $this->DropSequences($table_name, $pk_col) . "\n";
+                if (count($table->primaryKey) > 0) {
+                    $pk_col = $table->primaryKey[0];
+                    if ($action == 'drop') {
+                        echo $this->DropSequences($table_name, $pk_col) . "\n";
+                    } else {
+                        echo $this->BuildSequences($table_name, $pk_col) . "\n";
+                    }
                 } else {
-                    echo $this->BuildSequences($table_name, $pk_col) . "\n";
+                    echo "$table_name has no primary key defined, skipping generation" . "\n";
                 }
             }
 
@@ -56,35 +62,39 @@ class OracleController extends Controller
      * @inheritdoc
      * @param string $action
      */
-    public function actionTrigger($action = "create")
+    public
+    function actionTrigger($action = "create")
     {
         $tables = Yii::$app->db->schema->getTableSchemas();
         foreach ($tables as $table) {
-            $pk_col = $table->primaryKey[0];
             $table_name = $table->name;
             //$col = $table;
-            if (strpos($table_name, 'DT_') === 0) {
-                if ($action == 'drop') {
-                    echo $this->DropTrigger($table_name, $pk_col) . "\n";
-                } else {
-                    echo $this->BuildTrigger($table_name, $pk_col) . "\n";
+            if (count($table->primaryKey) > 0) {
+                $pk_col = $table->primaryKey[0];
+                if (strpos($table_name, 'DT_') === 0) {
+                    if ($action == 'drop') {
+                        echo $this->DropTrigger($table_name, $pk_col) . "\n";
+                    } else {
+                        echo $this->BuildTrigger($table_name, $pk_col) . "\n";
+                    }
                 }
+            } else {
+                echo "$table_name has no primary key defined, skipping generation" . "\n";
             }
 
         }
     }
 
-    private function DropSequences($table_name, $pk_column, $schema_name = 'MUTHONI')
+    private
+    function DropSequences($table_name, $pk_column, $schema_name = 'MUTHONI')
     {
-        $message = 'Failed';
         $sequence_name = strtoupper($table_name . '_SEQ');
-        $seq_resp = 1;
-        $notification_seq = <<<TRIGGER
+
+        $table_sequence_ddl = <<<TRIGGER
    DROP SEQUENCE  "$schema_name"."$sequence_name"
 TRIGGER;
 
-
-        $seq_resp = Yii::$app->db->createCommand($notification_seq)->execute();
+        $seq_resp = Yii::$app->db->createCommand($table_sequence_ddl)->execute();
         if ($seq_resp == 0) {
             $message = "Successfully dropped sequence for table $table_name";
         } else {
@@ -94,14 +104,15 @@ TRIGGER;
         return $message;
     }
 
-    private function DropTrigger($table_name, $pk_column, $schema_name = 'MUTHONI')
+    private
+    function DropTrigger($table_name, $pk_column, $schema_name = 'MUTHONI')
     {
         $trigger_name = strtoupper($table_name . '_TRG');
 
-        $notification_seq_trigger = <<<SQL
+        $table_tigger_ddl = <<<SQL
 DROP TRIGGER $trigger_name
 SQL;
-        $trigger_resp = Yii::$app->db->createCommand($notification_seq_trigger)->execute();
+        $trigger_resp = Yii::$app->db->createCommand($table_tigger_ddl)->execute();
         if ($trigger_resp == 0) {
             $message = "Successfully dropped trigger for table $table_name";
         } else {
@@ -111,7 +122,8 @@ SQL;
         return $message;
     }
 
-    private function BuildSequences($table_name, $pk_column, $schema_name = 'MUTHONI')
+    private
+    function BuildSequences($table_name, $pk_column, $schema_name = 'MUTHONI')
     {
         $sequence_name = strtoupper($table_name . '_SEQ');
 
@@ -129,7 +141,8 @@ SEQUENCE;
         return $message;
     }
 
-    private function BuildTrigger($table_name, $pk_column)
+    private
+    function BuildTrigger($table_name, $pk_column)
     {
         $trigger_name = strtoupper($table_name . '_TRG');
         $sequence_name = strtoupper($table_name . '_SEQ');
