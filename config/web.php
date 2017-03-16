@@ -7,6 +7,9 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
+        'modules' => [
+            'audit' => 'bedezign\yii2\audit\Audit',
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
@@ -92,8 +95,13 @@ if (YII_ENV_DEV) {
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        // uncomment the following to add your IP if you are not connecting from localhost.
         'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170'],
+        'generators' => [
+            'model' => [
+                'class' => 'yii\gii\generators\model\Generator',
+                'templates' => ['mymodel' => '@app/mygenerators/model/beforesave']
+            ]
+        ]
     ];
 }
 
