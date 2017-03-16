@@ -25,16 +25,6 @@ class ACTORS extends \yii\db\ActiveRecord
     }
 
     /**
-    * Audit trail component
-    * @inheritdoc
-    */
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
-        ];
-    }
-    /**
      * @inheritdoc
      */
     public function rules()
