@@ -27,7 +27,8 @@
         "kartik-v/yii2-grid": "^3.1",
         "kartik-v/yii2-widget-fileinput": "^1.0",
         "kartik-v/yii2-widget-typeahead": "^1.0",
-        "sammaye/yii2-audittrail": "^1.2"
+        "sammaye/yii2-audittrail": "^1.2",
+        "asinfotrack/yii2-audittrail": "^0.8.2"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
