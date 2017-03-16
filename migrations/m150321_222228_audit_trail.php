@@ -18,7 +18,7 @@ class m150321_222228_audit_trail extends Migration
         $this->createTable(
             $this->table,
             [
-                'id' => Schema::TYPE_PK,
+                'id' => $this->integer(),
                 'old_value' => Schema::TYPE_TEXT,
                 'new_value' => Schema::TYPE_TEXT,
                 'action' => Schema::TYPE_STRING . ' NOT NULL',
