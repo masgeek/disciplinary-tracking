@@ -71,4 +71,11 @@ class UPLOAD_MODEL extends FILEUPLOAD
         }
         return false;
     }
+
+    public function behaviors()
+    {
+        return [
+            'sammaye\audittrail\LoggableBehavior'
+        ];
+    }
 }

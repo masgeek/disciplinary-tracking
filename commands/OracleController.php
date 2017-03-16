@@ -83,7 +83,6 @@ class OracleController extends Controller
    DROP SEQUENCE  "$schema_name"."$sequence_name"
 TRIGGER;
 
-return $notification_seq;
 
         $seq_resp = Yii::$app->db->createCommand($notification_seq)->execute();
         if ($seq_resp == 0) {
