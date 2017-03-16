@@ -7,9 +7,6 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
-        'modules' => [
-            'audit' => 'bedezign\yii2\audit\Audit',
-        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
