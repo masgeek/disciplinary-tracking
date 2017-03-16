@@ -3,7 +3,7 @@
 use yii\db\Schema;
 use yii\db\Migration;
 
-class m150321_222228_audit_trail extends Migration
+class m170312_222228_audit_trail extends Migration
 {
     public $table = 'DT_AUDIT_TRAIL';
 
@@ -18,27 +18,25 @@ class m150321_222228_audit_trail extends Migration
         $this->createTable(
             $this->table,
             [
-                'id' => $this->integer(),
-                'old_value' => Schema::TYPE_TEXT,
-                'new_value' => Schema::TYPE_TEXT,
-                'action' => Schema::TYPE_STRING . ' NOT NULL',
-                'model' => Schema::TYPE_STRING . ' NOT NULL',
-                'field' => Schema::TYPE_STRING,
+                //'id' => $this->integer(),
+                'old_value' => $this->text(),
+                'new_value' => $this->text(),
+                'action' => $this->string()->notNull(),
+                'model' => $this->string()->notNull(),
+                'field' => $this->string()->defaultValue('NA'),
                 'stamp' => $this->string(20)->notNull(),
-                'user_id' => Schema::TYPE_STRING,
-                'model_id' => Schema::TYPE_STRING . ' NOT NULL',
+                'user_id' => $this->integer(11),
+                'model_id' => $this->string()->notNull(),
             ]
         );
+
+        $this->addForeignKey('fk_trail_id', $this->table, 'user_id', 'DT_USERS', 'USER_ID');
 
         //Index these bad boys for speedy lookups
         $this->createIndex('idx_audit_trail_user_id', $this->table, 'user_id');
         $this->createIndex('idx_audit_trail_model_id', $this->table, 'model_id');
         $this->createIndex('idx_audit_trail_model', $this->table, 'model');
         $this->createIndex('idx_audit_trail_field', $this->table, 'field');
-        /* http://stackoverflow.com/a/1827099/383478
-         $this->createIndex( 'idx_audit_trail_old_value', 'tbl_audit_trail', 'old_value');
-        $this->createIndex( 'idx_audit_trail_new_value', 'tbl_audit_trail', 'new_value');
-        */
         $this->createIndex('idx_audit_trail_action', $this->table, 'action');
     }
 
