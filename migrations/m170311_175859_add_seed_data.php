@@ -47,7 +47,7 @@ class m170311_175859_add_seed_data extends Migration
         ]);
 
         $this->insert('DT_USERS', [
-            'USER_ID' => 1,
+            'USER_ID' => 100,
             'ACTOR_ID' => 1,
             'PF_NO' => '219350',
             'ROLE' => 'APPROVE',

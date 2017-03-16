@@ -7,6 +7,14 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
     'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'accessIps' => ['127.0.0.1', '192.168.*'],
+            // Role or list of roles with access to the viewer, null for everyone (if the user matches)
+            'accessRoles' => ['admin'],
+            // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
+            'accessUsers' => [1, 2, 200,100],
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],

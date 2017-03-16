@@ -74,8 +74,24 @@ class UPLOAD_MODEL extends FILEUPLOAD
 
     public function behaviors()
     {
-        return [
+       /* return [
             'bedezign\yii2\audit\AuditTrailBehavior'
+        ];*/
+
+        return [
+            'AuditTrailBehavior' => [
+                'class' => 'bedezign\yii2\audit\AuditTrailBehavior',
+                // Array with fields to save. You don't need to configure both `allowed` and `ignored`
+                'allowed' => ['some_field'],
+                // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
+                'ignored' => ['another_field'],
+                // Array with classes to ignore
+                'ignoredClasses' => ['common\models\Model'],
+                // Is the behavior is active or not
+                'active' => true,
+                // Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
+                'dateFormat' =>  new Expression('NOW'),
+            ]
         ];
         /*return [
             'LoggableBehavior' => [
