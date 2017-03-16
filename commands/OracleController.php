@@ -96,9 +96,9 @@ TRIGGER;
 
         $seq_resp = Yii::$app->db->createCommand($table_sequence_ddl)->execute();
         if ($seq_resp == 0) {
-            $message = "Successfully dropped sequence for table $table_name";
+            $message = "Successfully dropped sequence for table $table_name sequence name $sequence_name";
         } else {
-            $message = "Failed to drop sequence for table $table_name";
+            $message = "Failed to drop sequence for table $table_name sequence name $sequence_name";
         }
 
         return $message;
@@ -110,13 +110,13 @@ TRIGGER;
         $trigger_name = strtoupper($table_name . '_TRG');
 
         $table_tigger_ddl = <<<SQL
-DROP TRIGGER $trigger_name
+DROP TRIGGER "$trigger_name"
 SQL;
         $trigger_resp = Yii::$app->db->createCommand($table_tigger_ddl)->execute();
         if ($trigger_resp == 0) {
-            $message = "Successfully dropped trigger for table $table_name";
+            $message = "Successfully dropped trigger for table $table_name trigger name $trigger_name";
         } else {
-            $message = "Failed to drop trigger for table $table_name";
+            $message = "Failed to drop trigger for table $table_name trigger name $trigger_name";
         }
 
         return $message;
@@ -133,9 +133,9 @@ SEQUENCE;
 
         $seq_resp = Yii::$app->db->createCommand($notification_seq)->execute();
         if ($seq_resp == 0) {
-            $message = "Successfully created sequence for table $table_name";
+            $message = "Successfully created sequence for table $table_name sequence name $sequence_name";
         } else {
-            $message = "Failed to create sequence for table $table_name";
+            $message = "Failed to create sequence for table $table_name sequence name $sequence_name";
         }
 
         return $message;
@@ -148,10 +148,10 @@ SEQUENCE;
         $sequence_name = strtoupper($table_name . '_SEQ');
 
         $notification_seq_trigger = <<<SQL
-CREATE OR REPLACE TRIGGER $trigger_name
-BEFORE INSERT ON $table_name FOR EACH ROW
+CREATE OR REPLACE TRIGGER "$trigger_name"
+BEFORE INSERT ON "$table_name" FOR EACH ROW
 BEGIN
- SELECT $sequence_name.NEXTVAL INTO :NEW.$pk_column FROM SYS.DUAL;
+ SELECT "$sequence_name".NEXTVAL INTO :NEW."$pk_column" FROM SYS.DUAL;
 END;
 SQL;
 
@@ -159,9 +159,9 @@ SQL;
         $message = "Successfully created sequence for table $table_name";
         $trigger_resp = Yii::$app->db->createCommand($notification_seq_trigger)->execute();
         if ($trigger_resp == 0) {
-            $message = "Successfully created trigger for table $table_name";
+            $message = "Successfully created trigger for table $table_name trigger name $trigger_name";
         } else {
-            $message = "Failed to create trigger for table $table_name";
+            $message = "Failed to create trigger for table $table_name trigger name $trigger_name";
         }
 
         return $message;

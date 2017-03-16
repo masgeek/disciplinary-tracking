@@ -75,11 +75,14 @@ class UPLOAD_MODEL extends FILEUPLOAD
     public function behaviors()
     {
         return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+        /*return [
             'LoggableBehavior' => [
                 'class' => 'sammaye\audittrail\LoggableBehavior',
                 'ignored' => ['DATE_UPLOADED'], // This ignores fields from a selection of all fields, not needed with allowed
                 //'allowed' => ['another_field'] // optional, not needed if you use ignore
             ]
-        ];
+        ];*/
     }
 }
