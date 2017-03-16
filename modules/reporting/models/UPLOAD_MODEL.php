@@ -92,7 +92,7 @@ class UPLOAD_MODEL extends FILEUPLOAD
                 // Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
                 'dateFormat' => 'Y-m-d H:i:s',
                 //Indicates whether the database value is used
-                'useDatabaseValue' => false,
+                'useDatabaseValue' => true,
                 //Function for date in the respective database
                 'databaseDateFunction'=>'SYSDATE'
             ]
