@@ -9,7 +9,6 @@
 /* @var $className string class name */
 /* @var $queryClassName string query class name */
 /* @var $tableSchema yii\db\TableSchema */
-/* @var $properties array list of properties (property => [type, name. comment]) */
 /* @var $labels string[] list of attribute labels (name => label) */
 /* @var $rules string[] list of validation rules */
 /* @var $relations array list of relations (name => relation declaration) */
@@ -20,13 +19,12 @@ echo "<?php\n";
 namespace <?= $generator->ns ?>;
 
 use Yii;
-use yii\db\Expression;
 
 /**
  * This is the model class for table "<?= $generator->generateTableName($tableName) ?>".
  *
-<?php foreach ($properties as $property => $data): ?>
- * @property <?= "{$data['type']} \${$property}"  . ($data['comment'] ? ' ' . strtr($data['comment'], ["\n" => ' ']) : '') . "\n" ?>
+<?php foreach ($tableSchema->columns as $column): ?>
+ * @property <?= "{$column->phpType} \${$column->name}\n" ?>
 <?php endforeach; ?>
 <?php if (!empty($relations)): ?>
  *
@@ -56,45 +54,23 @@ class <?= $className ?> extends <?= '\\' . ltrim($generator->baseClass, '\\') . 
 <?php endif; ?>
 
     /**
+    * Audit trail component
+    * @inheritdoc
+    */
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+    /**
      * @inheritdoc
      */
     public function rules()
     {
-        return [<?= empty($rules) ? '' : ("\n            " . implode(",\n            ", $rules) . ",\n        ") ?>];
+        return [<?= "\n            " . implode(",\n            ", $rules) . ",\n        " ?>];
     }
 
-    /**
-    * @inheritdoc
-    */
-    public function beforeSave($insert)
-    {
-        $date = new Expression('NOW()');
-        if (parent::beforeSave($insert)) {
-            if ($this->isNewRecord) {
-                //$this->DATE_CREATED = $date; //@TODO edit to mach data field columns
-            }
-            //$this->DATE_UPDATED = $date; //@TODO edit to mach data field columns
-            return true;
-        }
-        return false;
-    }
-
-    /**
-    * @inheritdoc
-    */
-    public function beforeValidate()
-    {
-        $date = new Expression('NOW()');
-        if (parent::beforeValidate()) {
-            if ($this->isNewRecord) {
-                //$this->DATE_ADDED = $date; //@TODO edit to mach data field columns
-                //$this->EXPIRY_DATE = ProductManager::SetProductExpiryDate(); //@TODO edit to mach data field columns
-            }
-                //$this->DATE_BOUGHT = $date; //@TODO edit to mach data field columns
-                return true;
-        }
-        return false;
-    }
     /**
      * @inheritdoc
      */
