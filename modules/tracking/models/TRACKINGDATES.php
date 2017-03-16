@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "DT_TRACKING_DATES".
+ * This is the model class for table "{{%TRACKING_DATES}}".
  *
  * @property integer $TRACKING_DATE_ID
  * @property integer $TRACKING_ID
@@ -24,7 +24,7 @@ class TRACKINGDATES extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'DT_TRACKING_DATES';
+        return '{{%TRACKING_DATES}}';
     }
 
     /**
