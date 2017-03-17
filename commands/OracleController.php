@@ -22,18 +22,28 @@ class OracleController extends Controller
 {
     /**
      * This command echoes what you have entered as the message.
-     * @param string $message the message to be echoed.
+     * @param string $action the action to be performed
      */
-    public function actionIndex($message = 'hello Oracle, this is neo again')
+    public function actionIndex($action = "create")
     {
-        echo $message . "\n";
+        echo "Running command for $action \n";
+        if ($action == 'drop') {
+            //run the drop commands
+            //drop trigger first
+            $this->Trigger($action);
+            $this->Sequence($action);
+        } else {
+            //run the create commands
+            $this->Sequence($action);
+            $this->Trigger($action);
+        }
     }
 
     /**
      * @inheritdoc
      * @param string $action
      */
-    public function actionSequence($action = "create")
+    public function Sequence($action = "create")
     {
 
         $tables = Yii::$app->db->schema->getTableSchemas();
@@ -63,7 +73,7 @@ class OracleController extends Controller
      * @param string $action
      */
     public
-    function actionTrigger($action = "create")
+    function Trigger($action = "create")
     {
         $tables = Yii::$app->db->schema->getTableSchemas();
         foreach ($tables as $table) {
