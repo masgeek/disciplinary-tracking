@@ -18,7 +18,9 @@ class m170311_172555_create_DT_PROCESS_table extends Migration
             'CASE_TYPE_ID' => $this->integer(11)->notNull(),
             'PROCESS_NAME' => $this->string(200)->notNull(),
             'DESCRIPTION' => $this->string(500),
-            'ORDER_NO' => $this->integer(2)->notNull()
+            'ORDER_NO' => $this->integer(2)->notNull(),
+            'DATE_ADDED' => $this->dateTime(),
+            'DATE_MODIFIED' => $this->dateTime()
         ]);
     }
 

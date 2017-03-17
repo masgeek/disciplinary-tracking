@@ -5,14 +5,15 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%TRACKING}}".
+ * This is the model class for table "DT_TRACKING".
  *
  * @property integer $TRACKING_ID
  * @property integer $INCIDENCE_ID
  * @property integer $PROCESS_ID
  * @property string $COMMENTS
- * @property string $DATE_RECEIVED
  * @property integer $TRACKING_STATUS
+ * @property string $DATE_RECEIVED
+ * @property string $DATE_UPDATED
  *
  * @property PROCESS $pROCESS
  * @property TRACKINGDATES[] $tRACKINGDATESs
@@ -24,7 +25,7 @@ class TRACKING extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%TRACKING}}';
+        return 'DT_TRACKING';
     }
 
     /**
@@ -35,8 +36,8 @@ class TRACKING extends \yii\db\ActiveRecord
         return [
             [['TRACKING_ID'], 'required'],
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
-            [['DATE_RECEIVED'], 'safe'],
-            [['COMMENTS'], 'string', 'max' => 500],
+            [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
+            [['COMMENTS'], 'string', 'max' => 1000],
             [['TRACKING_ID'], 'unique'],
             [['PROCESS_ID'], 'exist', 'skipOnError' => true, 'targetClass' => PROCESS::className(), 'targetAttribute' => ['PROCESS_ID' => 'PROCESS_ID']],
         ];
@@ -52,8 +53,9 @@ class TRACKING extends \yii\db\ActiveRecord
             'INCIDENCE_ID' => Yii::t('app', 'Incidence  ID'),
             'PROCESS_ID' => Yii::t('app', 'Process  ID'),
             'COMMENTS' => Yii::t('app', 'Comments'),
-            'DATE_RECEIVED' => Yii::t('app', 'Date  Received'),
             'TRACKING_STATUS' => Yii::t('app', 'Tracking  Status'),
+            'DATE_RECEIVED' => Yii::t('app', 'Date  Received'),
+            'DATE_UPDATED' => Yii::t('app', 'Date  Updated'),
         ];
     }
 

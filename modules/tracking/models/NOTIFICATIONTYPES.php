@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%NOTIFICATION_TYPES}}".
+ * This is the model class for table "DT_NOTIFICATION_TYPES".
  *
  * @property integer $NOTIFICATION_TYPE_ID
  * @property integer $RECIPIENT_TYPE_ID
@@ -21,7 +21,7 @@ class NOTIFICATIONTYPES extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%NOTIFICATION_TYPES}}';
+        return 'DT_NOTIFICATION_TYPES';
     }
 
     /**

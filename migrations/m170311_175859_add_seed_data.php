@@ -25,18 +25,18 @@ class m170311_175859_add_seed_data extends Migration
 
         $this->insert('DT_DISCIPLINARY_TYPE', [
             'DISCIPLINARY_TYPE_ID' => 1,
-            'DISCIPLINARY_TYPE_NAME' => 'Exam Disciplinary',
+            'DISCIPLINARY_TYPE_NAME' => 'EXAMINATION',
         ]);
 
         $this->insert('DT_DISCIPLINARY_CASE_TYPES', [
             'CASE_TYPE_ID' => 1,
             'DISCIPLINARY_TYPE_ID' => 1,
-            'CASE_TYPE_NAME' => 'Exam Cheating',
+            'CASE_TYPE_NAME' => 'EXAM CHEATING',
         ]);
         $this->insert('DT_DISCIPLINARY_CASE_TYPES', [
             'CASE_TYPE_ID' => 2,
             'DISCIPLINARY_TYPE_ID' => 1,
-            'CASE_TYPE_NAME' => 'Exam Appeal',
+            'CASE_TYPE_NAME' => 'EXAM APPEAL',
         ]);
 
         $this->insert('DT_ACTORS', [

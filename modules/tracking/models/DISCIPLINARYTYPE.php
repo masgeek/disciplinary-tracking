@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%DISCIPLINARY_TYPE}}".
+ * This is the model class for table "DT_DISCIPLINARY_TYPE".
  *
  * @property integer $DISCIPLINARY_TYPE_ID
  * @property string $DISCIPLINARY_TYPE_NAME
@@ -19,7 +19,7 @@ class DISCIPLINARYTYPE extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%DISCIPLINARY_TYPE}}';
+        return 'DT_DISCIPLINARY_TYPE';
     }
 
     /**

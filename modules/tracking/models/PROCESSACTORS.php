@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%PROCESS_ACTORS}}".
+ * This is the model class for table "DT_PROCESS_ACTORS".
  *
  * @property integer $PROCESS_ACTOR_ID
  * @property integer $ACTOR_ID
@@ -20,7 +20,7 @@ class PROCESSACTORS extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%PROCESS_ACTORS}}';
+        return 'DT_PROCESS_ACTORS';
     }
 
     /**

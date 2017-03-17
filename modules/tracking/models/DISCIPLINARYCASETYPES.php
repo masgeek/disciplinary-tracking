@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%DISCIPLINARY_CASE_TYPES}}".
+ * This is the model class for table "DT_DISCIPLINARY_CASE_TYPES".
  *
  * @property integer $CASE_TYPE_ID
  * @property integer $DISCIPLINARY_TYPE_ID
@@ -21,7 +21,7 @@ class DISCIPLINARYCASETYPES extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%DISCIPLINARY_CASE_TYPES}}';
+        return 'DT_DISCIPLINARY_CASE_TYPES';
     }
 
     /**
