@@ -5,13 +5,15 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%PROCESS}}".
+ * This is the model class for table "DT_PROCESS".
  *
  * @property integer $PROCESS_ID
  * @property integer $CASE_TYPE_ID
  * @property string $PROCESS_NAME
  * @property string $DESCRIPTION
  * @property integer $ORDER_NO
+ * @property string $DATE_ADDED
+ * @property string $DATE_MODIFIED
  *
  * @property DISCIPLINARYCASETYPES $cASETYPE
  * @property PROCESSACTORS[] $pROCESSACTORSs
@@ -24,7 +26,7 @@ class PROCESS extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%PROCESS}}';
+        return 'DT_PROCESS';
     }
 
     /**
@@ -35,6 +37,7 @@ class PROCESS extends \yii\db\ActiveRecord
         return [
             [['PROCESS_ID', 'CASE_TYPE_ID', 'PROCESS_NAME', 'ORDER_NO'], 'required'],
             [['PROCESS_ID', 'CASE_TYPE_ID', 'ORDER_NO'], 'integer'],
+            [['DATE_ADDED', 'DATE_MODIFIED'], 'safe'],
             [['PROCESS_NAME'], 'string', 'max' => 200],
             [['DESCRIPTION'], 'string', 'max' => 500],
             [['PROCESS_ID'], 'unique'],
@@ -53,6 +56,8 @@ class PROCESS extends \yii\db\ActiveRecord
             'PROCESS_NAME' => Yii::t('app', 'Process  Name'),
             'DESCRIPTION' => Yii::t('app', 'Description'),
             'ORDER_NO' => Yii::t('app', 'Order  No'),
+            'DATE_ADDED' => Yii::t('app', 'Date  Added'),
+            'DATE_MODIFIED' => Yii::t('app', 'Date  Modified'),
         ];
     }
 

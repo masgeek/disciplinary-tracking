@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "{{%USERS}}".
+ * This is the model class for table "DT_USERS".
  *
  * @property integer $USER_ID
  * @property integer $ACTOR_ID
@@ -22,7 +22,7 @@ class USERS extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return '{{%USERS}}';
+        return 'DT_USERS';
     }
 
     /**
