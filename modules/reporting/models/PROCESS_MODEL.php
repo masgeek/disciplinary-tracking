@@ -15,6 +15,17 @@ use app\modules\tracking\models\PROCESS;
 class PROCESS_MODEL extends PROCESS
 {
 
+    public function behaviors()
+    {
+        return [
+            'sortable' => [
+                'class' => \kotchuprik\sortable\behaviors\Sortable::className(),
+                'query' => self::find(),
+            ],
+        ];
+    }
+
+    //public $id;
     public function rules()
     {
         return [
