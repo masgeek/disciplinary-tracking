@@ -44,7 +44,7 @@
         "sammaye/yii2-audittrail": "^1.2",
         "kartik-v/yii2-sortable": "^1.2",
         "inblank/yii2-sortable": "^0.1.5",
-        "fatelord/yii2-sortable-widgets": "^2.0",
+        "fatelord/yii2-sortable-widgets": "dev-master",
         "fatelord/yii2-audit": "dev-master"
     },
     "require-dev": {

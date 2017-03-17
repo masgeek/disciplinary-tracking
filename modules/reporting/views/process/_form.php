@@ -12,8 +12,6 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'PROCESS_ID')->textInput() ?>
-
     <?= $form->field($model, 'CASE_TYPE_ID')->textInput() ?>
 
     <?= $form->field($model, 'PROCESS_NAME')->textInput(['maxlength' => true]) ?>

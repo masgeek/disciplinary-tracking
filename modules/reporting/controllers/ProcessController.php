@@ -25,21 +25,24 @@ class ProcessController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'sorting' => ['POST'],
                 ],
             ],
         ];
     }
+    /*
+        public function actions()
+        {
+            $t =  [
+                'sorting' => [
+                    'class' => Sorting::className(),
+                    'query' => PROCESS_MODEL::find(),
+            ],
+        ];
 
-    public function actions()
-    {
-        return [
-            'sorting' => [
-                'class' => Sorting::className(),
-                'query' => PROCESS_MODEL::find(),
-        ],
-    ];
-}
-
+            var_dump($t);
+    }
+    */
     /**
      * Lists all PROCESS_MODEL models.
      * @return mixed
@@ -47,7 +50,8 @@ class ProcessController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => PROCESS_MODEL::find(),
+            'query' => PROCESS_MODEL::find()
+                ->orderBy(['ORDER_NO' => SORT_ASC]),
         ]);
 
         return $this->render('index', [
@@ -58,8 +62,23 @@ class ProcessController extends Controller
 
     public function actionSorting()
     {
-        //update teh table based on the sorting
-        var_dump($_REQUEST);
+        $resp = [];
+        //update the table based on the sorting
+        if (Yii::$app->request->isAjax) {
+            $post = Yii::$app->request->post('sorting');
+            //pass the array to the model for saving
+            //$resp = $model->SaveSortedItems($post);
+            foreach ($post as $order => $item_id) {
+                $newOrder = (int)$order + 1;
+
+                $model = PROCESS_MODEL::findOne($item_id);
+                $model->ORDER_NO = $newOrder;
+                $model->save();
+            }
+
+        }
+
+        return json_encode($resp);
     }
 
     /**

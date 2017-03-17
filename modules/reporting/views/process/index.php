@@ -44,9 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'class' => \kotchuprik\sortable\grid\Column::className(),
             ],
+            'ORDER_NO',
             'PROCESS_ID',
             'PROCESS_NAME',
-            'ORDER_NO',
+            'cASETYPE.CASE_TYPE_NAME',
+            'DATE_ADDED',
+            'DATE_MODIFIED',
+            ['class' => 'yii\grid\ActionColumn'],
         ],
         'options' => [
             'data' => [
