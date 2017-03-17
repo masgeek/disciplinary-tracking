@@ -6,14 +6,23 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'en', //allows for translation,
+    'aliases' => [
+        '@bower' => 'vendor/bower-asset',
+    ],
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
+            'maxAge' => 'debug',
+            'accessRoles' => ['admin'],
+            'trackActions' => ['*'],
+            // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
+            'ignoreActions' => ['audit/*', 'debug/*'],
             'accessIps' => ['127.0.0.1', '192.168.*'],
             // Role or list of roles with access to the viewer, null for everyone (if the user matches)
-            'accessRoles' => ['admin'],
+            //'accessRoles' => ['admin'],
             // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
-            'accessUsers' => [1, 2, 200,100],
+            'accessUsers' => [1, 2, 200, 100],
         ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
@@ -64,8 +73,8 @@ $config = [
         'db' => $db,
         'formatter' => [
             'dateFormat' => 'dd/MMM/yyyy',
-            'timeFormat'=>'h:mm:ss a',
-            'datetimeFormat'=>'dd/MMM/yyyy H:mm:ss',
+            'timeFormat' => 'h:mm:ss a',
+            'datetimeFormat' => 'dd/MMM/yyyy H:mm:ss',
             //'defaultTimeZone'=>'America/Chicago'
         ],
         'urlManager' => [

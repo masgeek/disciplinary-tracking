@@ -74,9 +74,9 @@ class UPLOAD_MODEL extends FILEUPLOAD
 
     public function behaviors()
     {
-       /* return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
-        ];*/
+        /* return [
+             'bedezign\yii2\audit\AuditTrailBehavior'
+         ];*/
 
         return [
             'AuditTrailBehavior' => [
@@ -84,7 +84,7 @@ class UPLOAD_MODEL extends FILEUPLOAD
                 // Array with fields to save. You don't need to configure both `allowed` and `ignored`
                 //'allowed' => ['some_field'],
                 // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
-                //'ignored' => ['another_field'],
+                'ignored' => ['FILE_UPLOAD_ID', 'DATE_UPLOADED'],
                 // Array with classes to ignore
                 'ignoredClasses' => ['common\models\Model'],
                 // Is the behavior is active or not
@@ -94,7 +94,7 @@ class UPLOAD_MODEL extends FILEUPLOAD
                 //Indicates whether the database value is used
                 'useDatabaseValue' => true,
                 //Function for date in the respective database
-                'databaseDateFunction'=>'SYSDATE'
+                'databaseDateFunction' => 'SYSDATE'
             ]
         ];
         /*return [
