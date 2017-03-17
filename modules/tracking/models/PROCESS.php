@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "DT_PROCESS".
+ * This is the model class for table "{{%PROCESS}}".
  *
  * @property integer $PROCESS_ID
  * @property integer $CASE_TYPE_ID
@@ -24,7 +24,7 @@ class PROCESS extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'DT_PROCESS';
+        return '{{%PROCESS}}';
     }
 
     /**

@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "DT_RECIPIENT_TYPES".
+ * This is the model class for table "{{%RECIPIENT_TYPES}}".
  *
  * @property integer $RECIPIENT_TYPE_ID
  * @property string $RECIPIENT_TYPE_NAME
@@ -19,7 +19,7 @@ class RECIPIENTTYPES extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'DT_RECIPIENT_TYPES';
+        return '{{%RECIPIENT_TYPES}}';
     }
 
     /**

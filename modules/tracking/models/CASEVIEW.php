@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "DT_CASE_VIEW".
+ * This is the model class for table "{{%CASE_VIEW}}".
  *
  * @property integer $INCIDENCE_ID
  * @property integer $STUDENT_INCIDENCE_ID
@@ -19,7 +19,7 @@ class CASEVIEW extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'DT_CASE_VIEW';
+        return '{{%CASE_VIEW}}';
     }
 
     /**

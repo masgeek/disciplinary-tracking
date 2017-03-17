@@ -39,6 +39,20 @@ class m170311_175859_add_seed_data extends Migration
             'CASE_TYPE_NAME' => 'Exam Appeal',
         ]);
 
+        $this->insert('DT_ACTORS', [
+            'ACTOR_ID' => 1,
+            'ACTOR_NAME' => 'Exam Office',
+            'EMAIL_ADDRESS' => 'smbarasa@uonbi.ac.ke',
+            'ACTIVE' => 1,
+        ]);
+
+        $this->insert('DT_USERS', [
+            'USER_ID' => 100,
+            'ACTOR_ID' => 1,
+            'PF_NO' => '219350',
+            'ROLE' => 'APPROVE',
+            'EMAIL_ADDRESS' => 'smbarasa@uonbi.ac.ke',
+        ]);
         //create incidence types
 
         return true;

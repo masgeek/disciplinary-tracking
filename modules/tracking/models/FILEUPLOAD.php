@@ -5,7 +5,7 @@ namespace app\modules\tracking\models;
 use Yii;
 
 /**
- * This is the model class for table "DT_FILE_UPLOAD".
+ * This is the model class for table "{{%FILE_UPLOAD}}".
  *
  * @property integer $FILE_UPLOAD_ID
  * @property integer $INCIDENCE_ID
@@ -23,7 +23,7 @@ class FILEUPLOAD extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'DT_FILE_UPLOAD';
+        return '{{%FILE_UPLOAD}}';
     }
 
     /**

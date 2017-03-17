@@ -30,6 +30,7 @@ class ReportController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'first-office' => ['POST'],
                 ],
             ],
         ];
@@ -196,6 +197,13 @@ class ReportController extends Controller
         }
 
         return Json::encode(['output' => $out, 'selected' => '']);
+    }
+
+
+    public function actionFirstOffice()
+    {
+        //return 2;
+        var_dump($_POST);
     }
 
     /**
