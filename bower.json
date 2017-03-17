@@ -4,7 +4,7 @@
     "Sammy Barasa <barsamms@gmail.com>"
   ],
   "description": "Disciplinary tracking systems for examination center",
-  "main": "index.php",
+  "main": "/index.php",
   "keywords": [
     "yii2",
     "examination",
@@ -21,5 +21,8 @@
     "vendor/bower",
     "test",
     "tests"
-  ]
+  ],
+  "dependencies": {
+    "jquery": "^3.2.0"
+  }
 }
