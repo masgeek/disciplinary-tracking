@@ -62,7 +62,12 @@ $config = [
             ],
         ],
         'db' => $db,
-
+        'formatter' => [
+            'dateFormat' => 'dd/MMM/yyyy',
+            'timeFormat'=>'h:mm:ss a',
+            'datetimeFormat'=>'dd/MMM/yyyy H:mm:ss',
+            //'defaultTimeZone'=>'America/Chicago'
+        ],
         'urlManager' => [
             'enablePrettyUrl' => false,//YII_DEBUG ? true : false,
             'showScriptName' => false,

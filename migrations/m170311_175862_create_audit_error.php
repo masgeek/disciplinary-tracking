@@ -13,8 +13,8 @@ class m170311_175862_create_audit_error extends Migration
         $this->createTable(self::TABLE, [
             'id' => Schema::TYPE_PK,
             'entry_id' => $this->integer()->notNull(),
-            'created' => $this->integer()->notNull(),
-            'message' => $this->text(),
+            'created' => $this->dateTime()->notNull(),
+            'message' => $this->string(1000),
             'code' => $this->integer()->defaultValue(0),
             'file' => $this->string(512),
             'line' => $this->integer()->notNull(),

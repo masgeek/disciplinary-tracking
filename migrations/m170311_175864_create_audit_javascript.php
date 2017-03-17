@@ -14,7 +14,7 @@ class m170311_175864_create_audit_javascript extends Migration
             'entry_id'   => Schema::TYPE_INTEGER . ' NOT NULL',
             'created'    => $this->dateTime()->notNull(),
             'type'       => Schema::TYPE_STRING . '(20) NOT NULL',
-            'message'    => Schema::TYPE_TEXT . ' NOT NULL',
+            'message'    => $this->string(1000)->notNull(),
             'origin'     => Schema::TYPE_STRING . '(512)',
             'data'       => Schema::TYPE_BINARY,
         ], $this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null);
