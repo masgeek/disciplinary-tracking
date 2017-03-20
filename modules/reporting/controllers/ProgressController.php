@@ -2,9 +2,12 @@
 
 namespace app\modules\reporting\controllers;
 
-use app\modules\reporting\models\PROCESS_MODEL;
-use app\modules\reporting\models\TRACKING_MODEL;
+use Yii;
 use yii\filters\VerbFilter;
+use app\models\STUDENT_INCIDENCE;
+use app\modules\reporting\models\PROCESS_ACTOR_MODEL;
+use app\modules\reporting\models\TRACKING_MODEL;
+
 
 class ProgressController extends \yii\web\Controller
 {
@@ -32,15 +35,19 @@ class ProgressController extends \yii\web\Controller
     public function actionFirstOffice()
     {
         $tracking = new TRACKING_MODEL();
-        $process_actor = new PROCESS_MODEL();
+        $process_actor = new PROCESS_ACTOR_MODEL();
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
+        $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 
-        //return print_r($_POST);
+        if ($tracking->load(Yii::$app->request->post())) {
+            var_dump($tracking);
+            die;
+        }
 
         return $this->render('first-office', [
             'tracking' => $tracking,
             'process_actor' => $process_actor,
-            'incidence_id' => $incidence_id
+            'incidence' => $incidence
         ]);
     }
 
