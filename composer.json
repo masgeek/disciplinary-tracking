@@ -20,6 +20,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/fatelord/yii2-audit.git"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/fatelord/yii2-sortable-widgets.git"
         }
     ],
     "minimum-stability": "stable",
@@ -38,6 +42,9 @@
         "kartik-v/yii2-widget-fileinput": "^1.0",
         "kartik-v/yii2-widget-typeahead": "^1.0",
         "sammaye/yii2-audittrail": "^1.2",
+        "kartik-v/yii2-sortable": "^1.2",
+        "inblank/yii2-sortable": "^0.1.5",
+        "fatelord/yii2-sortable-widgets": "dev-master",
         "fatelord/yii2-audit": "dev-master"
     },
     "require-dev": {
