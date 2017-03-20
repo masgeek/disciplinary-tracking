@@ -48,9 +48,11 @@ class TRACKING_MODEL extends TRACKING
     public static function GetFirstProcess($case_type_id)
     {
         $process = PROCESS_MODEL::find()
-            ->select('ORDER_NO', 'PROCESS_NAME')
+            ->select(['PROCESS_NAME','PROCESS_ID'])
             ->where(['CASE_TYPE_ID' => $case_type_id])
-            ->all();
+            ->orderBy(['ORDER_NO' => SORT_ASC])
+            //->min('ORDER_NO');
+            ->one();
 
         return $process;
     }
