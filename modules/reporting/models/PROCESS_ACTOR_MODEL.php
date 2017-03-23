@@ -13,5 +13,8 @@ use app\modules\tracking\models\PROCESSACTORS;
 
 class PROCESS_ACTOR_MODEL extends PROCESSACTORS
 {
+    public static function GetProcessActors($process_id)
+    {
 
+    }
 }

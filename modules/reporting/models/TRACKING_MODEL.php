@@ -45,7 +45,7 @@ class TRACKING_MODEL extends TRACKING
     }
 
 
-    public static function GetFirstProcess($case_type_id)
+    public static function GetFirstProcessId($case_type_id)
     {
         $process = PROCESS_MODEL::find()
             ->select(['PROCESS_NAME','PROCESS_ID'])
