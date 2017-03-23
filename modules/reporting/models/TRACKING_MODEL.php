@@ -43,17 +43,4 @@ class TRACKING_MODEL extends TRACKING
         }
         return false;
     }
-
-
-    public static function GetFirstProcessId($case_type_id)
-    {
-        $process = PROCESS_MODEL::find()
-            ->select(['PROCESS_NAME','PROCESS_ID'])
-            ->where(['CASE_TYPE_ID' => $case_type_id])
-            ->orderBy(['ORDER_NO' => SORT_ASC])
-            //->min('ORDER_NO');
-            ->one();
-
-        return $process;
-    }
 }

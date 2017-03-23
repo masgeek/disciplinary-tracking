@@ -41,7 +41,7 @@ class ProgressController extends \yii\web\Controller
 
         if ($tracking->load(Yii::$app->request->post())) {
             var_dump($tracking);
-            die;
+            return $this->refresh();
         }
 
         return $this->render('first-office', [
