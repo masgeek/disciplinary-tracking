@@ -9,6 +9,7 @@
 namespace app\modules\reporting\models;
 
 
+use app\components\CONSTANTS;
 use app\modules\tracking\models\PROCESS;
 use app\modules\tracking\models\TRACKING;
 use yii\db\Expression;
@@ -38,7 +39,7 @@ class TRACKING_MODEL extends TRACKING
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->DATE_RECEIVED = $date;
-                $this->TRACKING_STATUS = 1; //1 for active
+                $this->TRACKING_STATUS = CONSTANTS::STATUS_ACTIVE
             }
             return true;
         }
