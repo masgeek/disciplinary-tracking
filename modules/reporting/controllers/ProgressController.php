@@ -48,6 +48,7 @@ class ProgressController extends \yii\web\Controller
 
         $process_actor = new PROCESS_ACTOR_MODEL();
         $user_id = yii::$app->user->id;
+
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 
@@ -74,6 +75,9 @@ class ProgressController extends \yii\web\Controller
             $first_tracking->INCIDENCE_ID = $incidence_id;
             $first_tracking->PROCESS_ID = $process->PROCESS_ID;
             $first_tracking->COMMENTS = $process->DESCRIPTION;
+            $first_tracking->ADDED_BY = $user_id;
+            $first_tracking->ACTED_ON_BY = $user_id;
+            $first_tracking->TRACKING_STATUS = 'APPROVED';
 
             if ($first_tracking->save()) {
                 $tracking_date = new TRACKING_DATE_MODEL();
@@ -85,9 +89,11 @@ class ProgressController extends \yii\web\Controller
                     $trans->commit();
                 } else {
                     $trans->rollBack();
+                    var_dump(1);
                 }
             } else {
                 $trans->rollBack();
+                var_dump($first_tracking->getErrors());
             }
         } else {
             //first let us file the incidence and haveing been files first
