@@ -11,7 +11,7 @@ use Yii;
  * @property integer $TRACKING_ID
  * @property string $EVENT_DATE
  * @property string $COMMENTS
- * @property string $STATUS
+ * @property integer $STATUS
  * @property string $DATE_ADDED
  * @property string $DATE_MODIFIED
  *
@@ -34,10 +34,9 @@ class TRACKINGDATES extends \yii\db\ActiveRecord
     {
         return [
             [['TRACKING_DATE_ID', 'EVENT_DATE', 'COMMENTS'], 'required'],
-            [['TRACKING_DATE_ID', 'TRACKING_ID'], 'integer'],
+            [['TRACKING_DATE_ID', 'TRACKING_ID', 'STATUS'], 'integer'],
             [['EVENT_DATE', 'DATE_ADDED', 'DATE_MODIFIED'], 'safe'],
             [['COMMENTS'], 'string', 'max' => 500],
-            [['STATUS'], 'string', 'max' => 10],
             [['TRACKING_DATE_ID'], 'unique'],
             [['TRACKING_ID'], 'exist', 'skipOnError' => true, 'targetClass' => TRACKING::className(), 'targetAttribute' => ['TRACKING_ID' => 'TRACKING_ID']],
         ];
