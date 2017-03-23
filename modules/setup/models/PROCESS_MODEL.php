@@ -82,27 +82,27 @@ class PROCESS_MODEL extends PROCESS
 
 
     /**
-     * Get the first process for first submission
+     * Get the next process for approval/submission
      * @param integer $case_type_id
      * @param boolean $return_array
      * @param array $processes_arr
      * @return array|null|\yii\db\ActiveRecord
      */
-    public static function GetFirstProcess($case_type_id, $return_array = true, $processes_arr = [])
+    public static function GetNextTrackingProcess($case_type_id, $return_array = true, $processes_arr = [])
     {
         if (!is_array($processes_arr)) {
             throw new \InvalidArgumentException("Not an array");
         }
-        $list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME','DESCRIPTION'])
+        $process_list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME','DESCRIPTION'])
             ->where(['CASE_TYPE_ID' => $case_type_id])
             ->andWhere(['NOT IN', 'PROCESS_ID', $processes_arr,])
             ->orderBy(['ORDER_NO' => SORT_ASC]);
 
         if ($return_array) {
-            $first_process_list = ArrayHelper::map($list->asArray()->one(), 'PROCESS_ID', 'PROCESS_NAME');
+            $first_process_list = ArrayHelper::map($process_list->asArray()->one(), 'PROCESS_ID', 'PROCESS_NAME');
             return $first_process_list;
         }
 
-        return $list->one();
+        return $process_list->one();
     }
 }

@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 $case_name = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseName($incidence->CASE_TYPE_ID);
 
-$p = \app\modules\setup\models\PROCESS_MODEL::GetFirstProcess($incidence->CASE_TYPE_ID, false);
+$p = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false);
 
 ?>
 <h1>progress/first-office</h1>

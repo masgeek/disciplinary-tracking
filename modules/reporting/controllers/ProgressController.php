@@ -45,9 +45,6 @@ class ProgressController extends \yii\web\Controller
      */
     public function actionFirstOffice()
     {
-        $tracking = new TRACKING_MODEL();
-
-        $process_actor = new PROCESS_ACTOR_MODEL();
         $user_id = yii::$app->user->id;
 
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
@@ -70,7 +67,7 @@ class ProgressController extends \yii\web\Controller
             $trans = $connection->beginTransaction();
             //insert the first incidence
             $first_tracking = new TRACKING_MODEL();
-            $process = PROCESS_MODEL::GetFirstProcess($incidence->CASE_TYPE_ID, false);
+            $process = PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false);
 
             $first_tracking->INCIDENCE_ID = $incidence_id;
             $first_tracking->PROCESS_ID = $process->PROCESS_ID;
@@ -100,6 +97,11 @@ class ProgressController extends \yii\web\Controller
         //check the next process again
         $contains_one_process = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
         if (count($contains_one_process) == 1) :
+
+            $tracking = new TRACKING_MODEL();
+
+            $process_actor = new PROCESS_ACTOR_MODEL();
+
             //first let us file the incidence and having been files first
             if ($tracking->load(Yii::$app->request->post())):
                 var_dump($tracking);
