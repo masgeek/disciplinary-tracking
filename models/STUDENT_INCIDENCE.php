@@ -18,7 +18,7 @@ use yii\db\Expression;
  * Class STUDENT_INCIDENCE
  * @package app\models
  *
- *  * @property DISCIPLINARYCASETYPES $cASETYPE
+ * @property DISCIPLINARYCASETYPES $cASETYPE
  */
 class STUDENT_INCIDENCE extends STUDENTINCIDENCES
 {

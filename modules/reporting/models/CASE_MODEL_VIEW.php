@@ -23,10 +23,10 @@ class CASE_MODEL_VIEW extends CASEVIEW
 
     public static function GetCaseNameArray($incidence_id)
     {
-        echo $incidence_id;
         $process_list = self::find()->select(['CASE_TYPE_ID', 'CASE_TYPE_NAME'])
             ->where(['INCIDENCE_ID' => $incidence_id])
-            ->asArray()->all();
+            ->asArray()
+            ->all();
 
 
         $case_name_list = ArrayHelper::map($process_list, 'CASE_TYPE_ID', 'CASE_TYPE_NAME');
