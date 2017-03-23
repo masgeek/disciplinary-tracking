@@ -32,11 +32,16 @@ class PROCESS_MODEL extends PROCESS
     public function attributeLabels()
     {
         return [
-            'PROCESS_ID' => Yii::t('app', 'Process  ID'),
-            'CASE_TYPE_ID' => Yii::t('app', 'Case  Types'),
-            'PROCESS_NAME' => Yii::t('app', 'Process  Name'),
+            'PROCESS_ID' => Yii::t('app', 'Process ID'),
+            'CASE_TYPE_ID' => Yii::t('app', 'Case Types'),
+            'PROCESS_NAME' => Yii::t('app', 'Process Name'),
             'DESCRIPTION' => Yii::t('app', 'Process Description'),
             'ORDER_NO' => Yii::t('app', 'Order  No'),
         ];
+    }
+
+    public static function GetFirstProcess()
+    {
+
     }
 }
