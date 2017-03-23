@@ -47,7 +47,7 @@ class ProgressController extends \yii\web\Controller
         $tracking = new TRACKING_MODEL();
 
         $process_actor = new PROCESS_ACTOR_MODEL();
-
+        $user_id = yii::$app->user->id;
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 

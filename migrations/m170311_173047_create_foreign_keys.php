@@ -8,10 +8,10 @@ class m170311_173047_create_foreign_keys extends Migration
     {
         //foreign keys
         /* Actors table*/
-        $this->addForeignKey('FK_ACTOR_ID', 'DT_USERS', 'ACTOR_ID', 'DT_ACTORS', 'ACTOR_ID');
+        $this->addForeignKey('FK_OFFICE_ACTOR_ID', 'DT_USERS', 'OFFICE_ACTOR_ID', 'DT_OFFICE_ACTORS', 'OFFICE_ACTOR_ID');
 
         /* Porcess actors table */
-        $this->addForeignKey('FK_PROCESS_ACTOR_ID', 'DT_PROCESS_ACTORS', 'ACTOR_ID', 'DT_ACTORS', 'ACTOR_ID');
+        $this->addForeignKey('FK_PROCESS_ACTOR_ID', 'DT_PROCESS_ACTORS', 'OFFICE_ACTOR_ID', 'DT_OFFICE_ACTORS', 'OFFICE_ACTOR_ID');
         $this->addForeignKey('FK_PROCESS_ID', 'DT_PROCESS_ACTORS', 'PROCESS_ID', 'DT_PROCESS', 'PROCESS_ID');
 
         /* discplinary types */
@@ -46,7 +46,7 @@ class m170311_173047_create_foreign_keys extends Migration
          * Add the table comments
          */
 
-        $this->addCommentOnTable('DT_ACTORS', 'Hold the actors/offices that will be performing the various functions');
+        $this->addCommentOnTable('DT_OFFICE_ACTORS', 'Hold the actors/offices that will be performing the various functions');
         $this->addCommentOnTable('DT_USERS', 'Hold the individual users');
         $this->addCommentOnTable('DT_PROCESS', 'Hold teh processes involved in each case, lookup table');
         $this->addCommentOnTable('DT_DISCIPLINARY_TYPE', 'Hold the types of disciplinary types i.e exam, staff');
@@ -66,7 +66,7 @@ class m170311_173047_create_foreign_keys extends Migration
     public function down()
     {
         /* drop foreign key references first before dropping the table*/
-        $this->dropForeignKey('FK_ACTOR_ID', 'DT_USERS');
+        $this->dropForeignKey('FK_OFFICE_ACTOR_ID', 'DT_USERS');
         $this->dropForeignKey('FK_PROCESS_ACTOR_ID', 'DT_PROCESS_ACTORS');
         $this->dropForeignKey('FK_PROCESS_ID', 'DT_PROCESS_ACTORS');
         $this->dropForeignKey('FK_DISCIPLINARY_TYPE_ID', 'DT_DISCIPLINARY_CASE_TYPES');
