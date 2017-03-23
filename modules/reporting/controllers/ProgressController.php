@@ -2,6 +2,7 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\components\CONSTANTS;
 use app\modules\reporting\models\TRACKING_DATE_MODEL;
 use app\modules\setup\models\PROCESS_MODEL;
 use Yii;
@@ -77,14 +78,14 @@ class ProgressController extends \yii\web\Controller
             $first_tracking->COMMENTS = $process->DESCRIPTION;
             $first_tracking->ADDED_BY = $user_id;
             $first_tracking->ACTED_ON_BY = $user_id;
-            $first_tracking->TRACKING_STATUS = 'APPROVED';
+            $first_tracking->TRACKING_STATUS = CONSTANTS::STATUS_APPROVED;
 
             if ($first_tracking->save()) {
                 $tracking_date = new TRACKING_DATE_MODEL();
                 $tracking_date->TRACKING_ID = $first_tracking->TRACKING_ID;
                 $tracking_date->EVENT_DATE = new Expression('SYSDATE');
                 $tracking_date->COMMENTS = $first_tracking->COMMENTS;
-                $tracking_date->STATUS = 'COMPLETE';
+                $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE;
                 if ($tracking_date->save()) {
                     $trans->commit();
                 } else {
