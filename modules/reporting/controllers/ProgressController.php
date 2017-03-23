@@ -2,6 +2,7 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\components\CONSTANTS;
 use app\modules\reporting\models\TRACKING_DATE_MODEL;
 use app\modules\setup\models\PROCESS_MODEL;
 use Yii;
@@ -48,6 +49,7 @@ class ProgressController extends \yii\web\Controller
 
         $process_actor = new PROCESS_ACTOR_MODEL();
         $user_id = yii::$app->user->id;
+
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 
@@ -74,20 +76,25 @@ class ProgressController extends \yii\web\Controller
             $first_tracking->INCIDENCE_ID = $incidence_id;
             $first_tracking->PROCESS_ID = $process->PROCESS_ID;
             $first_tracking->COMMENTS = $process->DESCRIPTION;
+            $first_tracking->ADDED_BY = $user_id;
+            $first_tracking->ACTED_ON_BY = $user_id;
+            $first_tracking->TRACKING_STATUS = CONSTANTS::STATUS_APPROVED;
 
             if ($first_tracking->save()) {
                 $tracking_date = new TRACKING_DATE_MODEL();
                 $tracking_date->TRACKING_ID = $first_tracking->TRACKING_ID;
                 $tracking_date->EVENT_DATE = new Expression('SYSDATE');
                 $tracking_date->COMMENTS = $first_tracking->COMMENTS;
-                $tracking_date->STATUS = 'COMPLETE';
+                $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE;
                 if ($tracking_date->save()) {
                     $trans->commit();
                 } else {
                     $trans->rollBack();
+                    var_dump($tracking_date->getErrors());
                 }
             } else {
                 $trans->rollBack();
+                var_dump($first_tracking->getErrors());
             }
         } else {
             //first let us file the incidence and haveing been files first

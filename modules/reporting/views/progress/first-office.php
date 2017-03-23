@@ -10,7 +10,7 @@ use yii\widgets\ActiveForm;
 
 $case_name = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseName($incidence->CASE_TYPE_ID);
 
-$p = \app\modules\setup\models\PROCESS_MODEL::GetFirstProcess($incidence->CASE_TYPE_ID,[67]);
+$p = \app\modules\setup\models\PROCESS_MODEL::GetFirstProcess($incidence->CASE_TYPE_ID, false);
 
 var_dump($p);
 ?>
@@ -21,7 +21,7 @@ var_dump($p);
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID]) ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $incidence->INCIDENCE_ID]) ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $p->PROCESS_ID]) ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">

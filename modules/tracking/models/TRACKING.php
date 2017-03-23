@@ -36,7 +36,7 @@ class TRACKING extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY', 'ACTED_ON_BY'], 'required'],
+            [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY'], 'required'],
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
             [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
             [['COMMENTS'], 'string', 'max' => 500],

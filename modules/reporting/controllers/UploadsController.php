@@ -2,6 +2,7 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\components\CONSTANTS;
 use app\modules\reporting\models\UPLOAD_MODEL;
 use Yii;
 use yii\web\Controller;
@@ -41,7 +42,7 @@ class UploadsController extends Controller
         $dataProvider = new ActiveDataProvider([
             'query' => UPLOAD_MODEL::find()
                 ->where(['INCIDENCE_ID' => $incidence_id])
-                ->andWhere(['FILE_DELETED' => 0]),
+                ->andWhere(['FILE_DELETED' => CONSTANTS::NOT_DELETED]),
         ]);
 
         return $this->render('index', [
@@ -98,7 +99,7 @@ class UploadsController extends Controller
     {
         /* @var $model \app\modules\reporting\models\UPLOAD_MODEL */
         $model = $this->findModel($id);
-        $model->FILE_DELETED = 1;
+        $model->FILE_DELETED = CONSTANTS::DELETED;
         $model->save();
 
         return $this->redirect(['//report/report/file-upload']);
