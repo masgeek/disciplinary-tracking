@@ -15,7 +15,8 @@ use Yii;
 
 class PROCESS_MODEL extends PROCESS
 {
-public $DISC_TYPE_ID;
+    public $DISC_TYPE_ID;
+
     public function rules()
     {
         return [
