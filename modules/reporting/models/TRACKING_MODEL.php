@@ -39,7 +39,7 @@ class TRACKING_MODEL extends TRACKING
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->DATE_RECEIVED = $date;
-                $this->TRACKING_STATUS = CONSTANTS::STATUS_ACTIVE
+                $this->TRACKING_STATUS = CONSTANTS::STATUS_ACTIVE;
             }
             return true;
         }
