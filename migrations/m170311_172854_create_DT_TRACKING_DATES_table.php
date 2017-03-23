@@ -17,7 +17,7 @@ class m170311_172854_create_DT_TRACKING_DATES_table extends Migration
             'TRACKING_ID' => $this->integer(11),
             'EVENT_DATE' => $this->dateTime()->notNull(),
             'COMMENTS' => $this->string(500)->notNull(),
-            'STATUS' => $this->string(10)->defaultValue('ACTIVE')->notNull(),
+            'STATUS' => $this->integer(2)->defaultValue(1)->notNull(),
             'DATE_ADDED' => $this->dateTime(),
             'DATE_MODIFIED' => $this->dateTime()
         ]);
