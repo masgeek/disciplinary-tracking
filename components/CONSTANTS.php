@@ -11,15 +11,19 @@ namespace app\components;
 
 class CONSTANTS
 {
-const STATUS_PENDING = 'PENDING';
-const STATUS_APPROVED = 'APPROVED';
-const STATUS_COMPLETE = 'COMPLETE';
-const STATUS_REJECTED = 'REJECTED';
-const STATUS_CANCELLED = 'CANCELLED';
 
-const STATUS_ACTIVE = 1;
-const STATUS_INACTIVE = 0;
+    /**
+     * Indicated the status of a record
+     */
+    const STATUS_PENDING = 0;
+    const STATUS_APPROVED = 1;
+    const STATUS_COMPLETE = 2;
+    const STATUS_REJECTED = 3;
+    const STATUS_CANCELLED = 4;
 
-const DELETED = 1;
-const NOT_DELETED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_INACTIVE = 0;
+
+    const DELETED = 1;
+    const NOT_DELETED = 0;
 }
