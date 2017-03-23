@@ -3,6 +3,7 @@
 namespace app\modules\reporting\models;
 
 
+use app\components\CONSTANTS;
 use app\modules\tracking\models\OFFICEACTORS;
 use app\modules\tracking\models\PROCESS;
 use app\modules\tracking\models\PROCESSACTORS;
@@ -43,8 +44,9 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
     {
         $processActors = self::find()
             ->where(['PROCESS_ID' => $process_id])
-            ->one();
+            //->andWhere(['ACTIVE' => CONSTANTS::STATUS_ACTIVE])
+            ->all();
 
-        var_dump($processActors->pROCESS);
+        var_dump($processActors);
     }
 }
