@@ -104,8 +104,9 @@ class ProgressController extends \yii\web\Controller
 
             //first let us file the incidence and having been files first
             if ($tracking->load(Yii::$app->request->post())):
-                var_dump($tracking);
+                //var_dump($tracking);
             endif;
+
             return $this->render('first-office', [
                 'tracking' => $tracking,
                 'process_actor' => $process_actor,

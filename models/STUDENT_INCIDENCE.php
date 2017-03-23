@@ -17,6 +17,8 @@ use yii\db\Expression;
 /**
  * Class STUDENT_INCIDENCE
  * @package app\models
+ *
+ *  * @property DISCIPLINARYCASETYPES $cASETYPE
  */
 class STUDENT_INCIDENCE extends STUDENTINCIDENCES
 {
@@ -31,7 +33,7 @@ class STUDENT_INCIDENCE extends STUDENTINCIDENCES
             [['CASE_TYPE_ID', 'INCIDENCE_ID', 'DISCIPLINARY_TYPE_ID'], 'required'],
             [['STUDENT_INCIDENCE_ID', 'CASE_TYPE_ID', 'INCIDENCE_ID'], 'integer'],
             [['STUDENT_INCIDENCE_ID'], 'unique'],
-            [['INCIDENCE_ID'], 'exist', 'skipOnError' => true, 'targetClass' => CASEINCIDENCES::className(), 'targetAttribute' => ['INCIDENCE_ID' => 'INCIDENCE_ID']],
+            [['CASE_TYPE_ID'], 'exist', 'skipOnError' => true, 'targetClass' => DISCIPLINARYCASETYPES::className(), 'targetAttribute' => ['CASE_TYPE_ID' => 'CASE_TYPE_ID']],
             [['INCIDENCE_ID'], 'exist', 'skipOnError' => true, 'targetClass' => CASEINCIDENCES::className(), 'targetAttribute' => ['INCIDENCE_ID' => 'INCIDENCE_ID']],
         ];
     }
@@ -59,4 +61,12 @@ class STUDENT_INCIDENCE extends STUDENTINCIDENCES
         return false;
     }
 
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getCASETYPE()
+    {
+        return $this->hasOne(DISCIPLINARYCASETYPES::className(), ['CASE_TYPE_ID' => 'CASE_TYPE_ID']);
+    }
 }
