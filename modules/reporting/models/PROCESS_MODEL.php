@@ -77,9 +77,12 @@ class PROCESS_MODEL extends PROCESS
             ->select(['ORDER_NO'])
             ->orderBy(['ORDER_NO' => SORT_DESC])
             ->one();
-
-        $last_order_no = $model->ORDER_NO;
-        $next_order = $last_order_no + 1;
+        if ($model != null) {
+            $last_order_no = $model->ORDER_NO;
+            $next_order = $last_order_no + 1;
+        } else {
+            $next_order = 1;
+        }
 
         return $next_order;
     }

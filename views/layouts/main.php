@@ -20,6 +20,9 @@ use yii\widgets\Breadcrumbs;
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <script>paceOptions = {ajax: {trackMethods: ['GET', 'POST']}};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/red/pace-theme-minimal.css" rel="stylesheet" />
     <?php $this->head() ?>
 </head>
 <body>
