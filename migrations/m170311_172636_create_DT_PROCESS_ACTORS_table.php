@@ -14,7 +14,7 @@ class m170311_172636_create_DT_PROCESS_ACTORS_table extends Migration
     {
         $this->createTable('DT_PROCESS_ACTORS', [
             'PROCESS_ACTOR_ID' => $this->primaryKey(11),
-            'ACTOR_ID' => $this->integer(11),
+            'OFFICE_ACTOR_ID' => $this->integer(11),
             'PROCESS_ID' => $this->integer(11)
         ]);
     }
