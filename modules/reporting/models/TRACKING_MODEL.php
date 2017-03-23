@@ -53,11 +53,11 @@ class TRACKING_MODEL extends TRACKING
     public static function GetTrackedProcesses($incidence_id)
     {
 
-        $incidence_list = self::find()->select('PROCESS_ID')
+        $incidence_array = self::find()->select('PROCESS_ID')
             ->where(['INCIDENCE_ID' => $incidence_id])
             //->orderBy(['ORDER_NO' => SORT_ASC])
             ->asArray()
             ->all();
-        return $incidence_list;
+        return $incidence_array;
     }
 }
