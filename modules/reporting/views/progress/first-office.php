@@ -12,7 +12,6 @@ $case_name = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseName($inciden
 
 $p = \app\modules\setup\models\PROCESS_MODEL::GetFirstProcess($incidence->CASE_TYPE_ID, false);
 
-var_dump($p);
 ?>
 <h1>progress/first-office</h1>
 

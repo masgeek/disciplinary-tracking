@@ -51,6 +51,11 @@ class ProgressController extends \yii\web\Controller
         $user_id = yii::$app->user->id;
 
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
+        if (\Yii::$app->request->post('TRACKING_MODEL')) {
+            $post = \Yii::$app->request->post('TRACKING_MODEL');
+            $incidence_id = $post['INCIDENCE_ID'];
+        }
+
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 
         $check_tracked_processes = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
@@ -90,11 +95,14 @@ class ProgressController extends \yii\web\Controller
                 $trans->rollBack();
                 var_dump($first_tracking->getErrors());
             endif;
-        elseif (count($check_tracked_processes) == 1) :
+        endif;
+
+        //check the next process again
+        $contains_one_process = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
+        if (count($contains_one_process) == 1) :
             //first let us file the incidence and having been files first
             if ($tracking->load(Yii::$app->request->post())):
                 var_dump($tracking);
-
             endif;
             return $this->render('first-office', [
                 'tracking' => $tracking,
