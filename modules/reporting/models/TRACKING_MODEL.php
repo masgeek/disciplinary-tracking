@@ -21,10 +21,11 @@ class TRACKING_MODEL extends TRACKING
     public function rules()
     {
         return [
-            [['INCIDENCE_ID', 'PROCESS_ID'], 'required'],
+            [['INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY', 'ACTED_ON_BY'], 'required'],
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
             [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
-            [['COMMENTS'], 'string', 'max' => 1000],
+            [['COMMENTS'], 'string', 'max' => 500],
+            [['ADDED_BY', 'ACTED_ON_BY'], 'string', 'max' => 20],
             [['TRACKING_ID'], 'unique'],
             [['PROCESS_ID'], 'exist', 'skipOnError' => true, 'targetClass' => PROCESS::className(), 'targetAttribute' => ['PROCESS_ID' => 'PROCESS_ID']],
         ];
@@ -42,5 +43,21 @@ class TRACKING_MODEL extends TRACKING
             return true;
         }
         return false;
+    }
+
+    /**
+     * Get the first process for first submission
+     * @param integer $incidence_id
+     * @return array
+     */
+    public static function GetTrackedProcesses($incidence_id)
+    {
+
+        $incidence_list = self::find()->select('PROCESS_ID')
+            ->where(['INCIDENCE_ID' => $incidence_id])
+            //->orderBy(['ORDER_NO' => SORT_ASC])
+            ->asArray()
+            ->all();
+        return $incidence_list;
     }
 }

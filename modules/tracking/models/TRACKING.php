@@ -12,6 +12,8 @@ use Yii;
  * @property integer $PROCESS_ID
  * @property string $COMMENTS
  * @property integer $TRACKING_STATUS
+ * @property string $ADDED_BY
+ * @property string $ACTED_ON_BY
  * @property string $DATE_RECEIVED
  * @property string $DATE_UPDATED
  *
@@ -34,10 +36,11 @@ class TRACKING extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['TRACKING_ID'], 'required'],
+            [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY', 'ACTED_ON_BY'], 'required'],
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
             [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
-            [['COMMENTS'], 'string', 'max' => 1000],
+            [['COMMENTS'], 'string', 'max' => 500],
+            [['ADDED_BY', 'ACTED_ON_BY'], 'string', 'max' => 20],
             [['TRACKING_ID'], 'unique'],
             [['PROCESS_ID'], 'exist', 'skipOnError' => true, 'targetClass' => PROCESS::className(), 'targetAttribute' => ['PROCESS_ID' => 'PROCESS_ID']],
         ];
@@ -54,6 +57,8 @@ class TRACKING extends \yii\db\ActiveRecord
             'PROCESS_ID' => Yii::t('app', 'Process  ID'),
             'COMMENTS' => Yii::t('app', 'Comments'),
             'TRACKING_STATUS' => Yii::t('app', 'Tracking  Status'),
+            'ADDED_BY' => Yii::t('app', 'Added  By'),
+            'ACTED_ON_BY' => Yii::t('app', 'Acted  On  By'),
             'DATE_RECEIVED' => Yii::t('app', 'Date  Received'),
             'DATE_UPDATED' => Yii::t('app', 'Date  Updated'),
         ];

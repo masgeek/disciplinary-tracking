@@ -80,34 +80,29 @@ class PROCESS_MODEL extends PROCESS
         return $next_order;
     }
 
+
     /**
      * Get the first process for first submission
-     * @param $case_type_id
-     * @return array
+     * @param integer $case_type_id
+     * @param boolean $return_array
+     * @param array $processes_arr
+     * @return array|null|\yii\db\ActiveRecord
      */
-    /*public static function GetFirstProcessId($case_type_id)
+    public static function GetFirstProcess($case_type_id, $return_array = true, $processes_arr = [])
     {
-        $process = PROCESS_MODEL::find()
-            ->select(['PROCESS_NAME','PROCESS_ID'])
+        if (!is_array($processes_arr)) {
+            throw new \InvalidArgumentException("Not an array");
+        }
+        $list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME','DESCRIPTION'])
             ->where(['CASE_TYPE_ID' => $case_type_id])
-            ->orderBy(['ORDER_NO' => SORT_ASC])
-            //->min('ORDER_NO');
-            ->one();
+            ->andWhere(['NOT IN', 'PROCESS_ID', $processes_arr,])
+            ->orderBy(['ORDER_NO' => SORT_ASC]);
 
-        return $process;
-    }*/
-    public static function GetFirstProcess($case_type_id)
-    {
-        $list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME'])
-            ->where(['CASE_TYPE_ID' => $case_type_id])
-            ->orderBy(['ORDER_NO' => SORT_DESC])
-            ->asArray()
-            ->one();
+        if ($return_array) {
+            $first_process_list = ArrayHelper::map($list->asArray()->one(), 'PROCESS_ID', 'PROCESS_NAME');
+            return $first_process_list;
+        }
 
-
-        var_dump($list);
-        die;
-        $first_process_list = ArrayHelper::map($list, 'PROCESS_ID', 'PROCESS_NAME');
-        return $first_process_list;
+        return $list->one();
     }
 }
