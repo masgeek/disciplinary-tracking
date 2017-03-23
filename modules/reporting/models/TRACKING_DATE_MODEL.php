@@ -19,10 +19,9 @@ class TRACKING_DATE_MODEL extends TRACKINGDATES
     {
         return [
             [['EVENT_DATE', 'COMMENTS'], 'required'],
-            [['TRACKING_DATE_ID', 'TRACKING_ID'], 'integer'],
+            [['TRACKING_DATE_ID', 'TRACKING_ID', 'STATUS'], 'integer'],
             [['EVENT_DATE', 'DATE_ADDED', 'DATE_MODIFIED'], 'safe'],
             [['COMMENTS'], 'string', 'max' => 500],
-            [['STATUS'], 'string', 'max' => 10],
             [['TRACKING_DATE_ID'], 'unique'],
             [['TRACKING_ID'], 'exist', 'skipOnError' => true, 'targetClass' => TRACKING::className(), 'targetAttribute' => ['TRACKING_ID' => 'TRACKING_ID']],
         ];
