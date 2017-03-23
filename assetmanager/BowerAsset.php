@@ -28,6 +28,7 @@ class BowerAsset extends AssetBundle
     ];
 
     public $js = [
+        'PACE/pace.js'
     ];
 
     public $depends = [

@@ -17,6 +17,7 @@ class ThemeAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'css/bootstrap/bootstrap-theme.min.css',
+        'css/pace/pace-theme.min.css',
     ];
     public $js = [
     ];
