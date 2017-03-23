@@ -2,9 +2,8 @@
 
 namespace app\modules\reporting\controllers;
 
-use kotchuprik\sortable\actions\Sorting;
+use app\modules\setup\models\PROCESS_MODEL;
 use Yii;
-use app\modules\reporting\models\PROCESS_MODEL;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
