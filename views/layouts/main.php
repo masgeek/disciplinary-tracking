@@ -10,6 +10,7 @@ use yii\widgets\Breadcrumbs;
 
 
 \app\assetmanager\AppAsset::register($this);
+\app\assetmanager\BowerAsset::register($this);
 \app\assetmanager\ThemeAsset::register($this);
 ?>
 <?php $this->beginPage() ?>
@@ -21,8 +22,6 @@ use yii\widgets\Breadcrumbs;
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
     <script>paceOptions = {ajax: {trackMethods: ['GET', 'POST']}};</script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/pace.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/red/pace-theme-minimal.css" rel="stylesheet" />
     <?php $this->head() ?>
 </head>
 <body>
@@ -44,7 +43,7 @@ use yii\widgets\Breadcrumbs;
             ['label' => 'About', 'url' => ['/site/about']],
             ['label' => 'Contact', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+            ['label' => 'Login', 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')

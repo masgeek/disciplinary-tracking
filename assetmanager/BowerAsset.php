@@ -21,13 +21,21 @@ class BowerAsset extends AssetBundle
         'position' => \yii\web\View::POS_HEAD
     );
 
+    public $cssOptions = array(
+       // 'position' => \yii\web\View::POS_END
+    );
+
     public $css = [
-    ];
-    public $publishOptions = [
-        //'forceCopy'=>true,
+        //'//cdnjs.cloudflare.com/ajax/libs/pace/1.0.2/themes/red/pace-theme-minimal.css',
+        'PACE/themes/orange/pace-theme-minimal.css'
     ];
 
     public $js = [
+        'PACE/pace.js'
+    ];
+
+    public $publishOptions = [
+        //'forceCopy'=>true,
     ];
 
     public $depends = [

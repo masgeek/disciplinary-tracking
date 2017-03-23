@@ -24,6 +24,7 @@
   ],
   "dependencies": {
     "jquery": "^3.2.0",
-    "sortable": "^0.8.0"
+    "sortable": "^0.8.0",
+    "PACE": "pace#^1.0.2"
   }
 }
