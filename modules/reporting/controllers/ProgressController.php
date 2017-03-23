@@ -90,7 +90,7 @@ class ProgressController extends \yii\web\Controller
                     $trans->commit();
                 } else {
                     $trans->rollBack();
-                    var_dump(1);
+                    var_dump($tracking_date->getErrors());
                 }
             } else {
                 $trans->rollBack();
