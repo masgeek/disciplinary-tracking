@@ -56,15 +56,9 @@ class ProgressController extends \yii\web\Controller
         $check_tracked_processes = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
 
         if (count($check_tracked_processes) > 1):
-        elseif (count($check_tracked_processes) <= 0):
-        elseif (count($check_tracked_processes) == 1):
-        else:
-            //throw error here
-        endif;
-        if (count($check_tracked_processes) > 1) {
             //means we have a tracking already in progress, so redirect to actor action view
             return $this->redirect(['actor-action', 'incidence_id' => $incidence_id]);
-        } else if (count($check_tracked_processes) <= 0) {
+        elseif (count($check_tracked_processes) <= 0) :
             //wrap in a transaction
             $connection = \Yii::$app->db;
 
@@ -80,35 +74,35 @@ class ProgressController extends \yii\web\Controller
             $first_tracking->ACTED_ON_BY = $user_id;
             $first_tracking->TRACKING_STATUS = CONSTANTS::STATUS_APPROVED;
 
-            if ($first_tracking->save()) {
+            if ($first_tracking->save()):
                 $tracking_date = new TRACKING_DATE_MODEL();
                 $tracking_date->TRACKING_ID = $first_tracking->TRACKING_ID;
                 $tracking_date->EVENT_DATE = new Expression('SYSDATE');
                 $tracking_date->COMMENTS = $first_tracking->COMMENTS;
                 $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE;
-                if ($tracking_date->save()) {
+                if ($tracking_date->save()):
                     $trans->commit();
-                } else {
+                else :
                     $trans->rollBack();
                     var_dump($tracking_date->getErrors());
-                }
-            } else {
+                endif;
+            else:
                 $trans->rollBack();
                 var_dump($first_tracking->getErrors());
-            }
-        } else {
-            //first let us file the incidence and haveing been files first
-            if ($tracking->load(Yii::$app->request->post())) {
+            endif;
+        elseif (count($check_tracked_processes) == 1) :
+            //first let us file the incidence and having been files first
+            if ($tracking->load(Yii::$app->request->post())):
                 var_dump($tracking);
-                return $this->refresh();
-            }
 
+            endif;
             return $this->render('first-office', [
                 'tracking' => $tracking,
                 'process_actor' => $process_actor,
                 'incidence' => $incidence
             ]);
-        }
-
+        else:
+            throw new NotFoundHttpException('The requested page does not exist.');
+        endif;
     }
 }
