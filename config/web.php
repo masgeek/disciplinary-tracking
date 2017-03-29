@@ -78,7 +78,7 @@ $config = [
             //'defaultTimeZone'=>'America/Chicago'
         ],
         'urlManager' => [
-            'enablePrettyUrl' => false,//YII_DEBUG ? true : false,
+            'enablePrettyUrl' => true,//YII_DEBUG ? true : false,
             'showScriptName' => false,
             'rules' => [
                 //default rules
