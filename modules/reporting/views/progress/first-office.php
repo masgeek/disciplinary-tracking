@@ -18,9 +18,10 @@ $nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($
 
 $process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, true);
 
-var_dump($nextProcess);
+$this->title = $nextProcess->PROCESS_NAME;
+$this->params['breadcrumbs'][] = $this->title;
 ?>
-<h1>progress/first-office</h1>
+<h3><?= $nextProcess->DESCRIPTION ?></h3>
 
 <div class="progress-form">
 
@@ -30,7 +31,7 @@ var_dump($nextProcess);
     <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false) ?>
     <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false) ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
-        ->dropDownList($process_actors, ['prompt' => 'Select Office Actor'])
+        ->dropDownList($process_actors, ['prompt' => '---SELECT OFFICE ACTOR---'])
     ?>
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
 

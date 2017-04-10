@@ -41,6 +41,7 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
     }
 
     /**
+     * Get actors associated with a process
      * @param $process_id
      * @param bool $return_list
      * @return array|\yii\db\ActiveRecord[]
@@ -49,13 +50,12 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
     {
         $processActors = self::find()
             ->where(['PROCESS_ID' => $process_id])
-            //->andWhere(['ACTIVE' => CONSTANTS::STATUS_ACTIVE])
             ->with('aCTORS')//use relations in class
             ->all();
 
         $processActorsData = $processActors;
         if ($return_list) {
-            //return as array for dropdown
+            //return as array for drop-down
             $processActorsData = ArrayHelper::map($processActors, 'PROCESS_ACTOR_ID', 'aCTORS.ACTOR_NAME');
         }
 
