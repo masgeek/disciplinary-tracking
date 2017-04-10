@@ -35,7 +35,7 @@ var_dump($nextProcess);
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton(Yii::t('app', 'Foward Case'), ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
