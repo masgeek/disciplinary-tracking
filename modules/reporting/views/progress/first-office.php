@@ -12,9 +12,9 @@ use yii\widgets\ActiveForm;
 $case_name_arr = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseNameArray($incidence->INCIDENCE_ID);
 
 
-$contains_one_process = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence->INCIDENCE_ID);
+$process_exclusion_arr = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence->INCIDENCE_ID);
 
-$nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $contains_one_process);
+$nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $process_exclusion_arr);
 
 $process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, true);
 
