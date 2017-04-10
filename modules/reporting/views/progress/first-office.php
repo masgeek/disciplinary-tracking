@@ -16,7 +16,7 @@ $contains_one_process = \app\modules\reporting\models\TRACKING_MODEL::GetTracked
 
 $nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $contains_one_process);
 
-$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID);
+$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, true);
 
 var_dump($nextProcess);
 ?>
@@ -29,8 +29,10 @@ var_dump($nextProcess);
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
     <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false) ?>
     <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false) ?>
+    <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
+        ->dropDownList($process_actors, ['prompt' => 'Select Office Actor'])
+    ?>
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
-    <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-primary']) ?>

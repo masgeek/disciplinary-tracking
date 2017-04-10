@@ -3,10 +3,10 @@
 namespace app\modules\reporting\models;
 
 
-use app\components\CONSTANTS;
 use app\modules\tracking\models\OFFICEACTORS;
 use app\modules\tracking\models\PROCESS;
 use app\modules\tracking\models\PROCESSACTORS;
+use yii\helpers\ArrayHelper;
 
 /**
  * Class STUDENT_INCIDENCE
@@ -40,13 +40,25 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
         return $this->hasOne(OFFICEACTORS::className(), ['OFFICE_ACTOR_ID' => 'OFFICE_ACTOR_ID']);
     }
 
-    public static function GetProcessActors($process_id)
+    /**
+     * @param $process_id
+     * @param bool $return_list
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function GetProcessActors($process_id, $return_list = false)
     {
         $processActors = self::find()
             ->where(['PROCESS_ID' => $process_id])
             //->andWhere(['ACTIVE' => CONSTANTS::STATUS_ACTIVE])
+            ->with('aCTORS')//use relations in class
             ->all();
 
-        var_dump($processActors);
+        $processActorsData = $processActors;
+        if ($return_list) {
+            //return as array for dropdown
+            $processActorsData = ArrayHelper::map($processActors, 'PROCESS_ACTOR_ID', 'aCTORS.ACTOR_NAME');
+        }
+
+        return $processActorsData;
     }
 }
