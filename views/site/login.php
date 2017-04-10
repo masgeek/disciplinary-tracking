@@ -11,10 +11,6 @@ $this->title = 'Login';
 //$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login col-md-8 col-md-offset-2">
-    <h1><?= Html::encode($this->title) ?></h1>
-
-    <p>Please fill out the following fields to login:</p>
-
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
         //'layout' => 'horizontal',
