@@ -96,17 +96,16 @@ class ProgressController extends \yii\web\Controller
 
         //check the next process again
         $contains_one_process = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
+
+        //if process is one lets got to foward to second office, first process is viewed as having been reported
         if (count($contains_one_process) == 1) :
-
             $tracking = new TRACKING_MODEL();
-
             $process_actor = new PROCESS_ACTOR_MODEL();
-
             //first let us file the incidence and having been files first
             if ($tracking->load(Yii::$app->request->post())):
-                //var_dump($tracking);
+                //lets save the forwarding request
+                var_dump($_POST);
             endif;
-
             return $this->render('first-office', [
                 'tracking' => $tracking,
                 'process_actor' => $process_actor,
