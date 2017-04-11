@@ -55,6 +55,7 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     {
         return [
             'STATUS_CODE' => \Yii::t('app', \Yii::t('app', 'Student Status')),
+            'FACULTY_CODE' => \Yii::t('app', \Yii::t('app', 'Faculty Name')),
         ];
     }
 

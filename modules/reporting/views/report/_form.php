@@ -43,6 +43,8 @@ if (!$model->isNewRecord) {
 
     <?= $form->field($model, 'STATUS_CODE')
         ->dropDownList(\app\models\STATUS_MODEL::GetStatusList(), ['prompt' => 'Select student status']) ?>
+
+    <?= $form->field($model, 'FACULTY_CODE')->textInput(['maxlength' => true]) ?>
     <?= $form->field($model, 'REPORTED_BY')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($student_case, 'CASE_TYPE_ID')->hiddenInput(['readonly' => true])->label(false) ?>
