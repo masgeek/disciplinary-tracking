@@ -74,8 +74,8 @@ $this->registerJs(<<< EOT_JS_CODE
 function FetchStudentInfo(reg_no){
 console.log(reg_no);
     $.post('$studentInfoUrl',{STUDENT_REG_NO:reg_no}, function(data) {
-        $("result").html( data );
-    });
+        $("#result").html(data.REGISTRATION_NUMBER);
+    },'json');
 }
 EOT_JS_CODE
 );
