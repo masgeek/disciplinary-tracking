@@ -17,6 +17,8 @@ if (!$model->isNewRecord) {
         $description = $model->CASE_DESCRIPTION;
     }
 }
+
+$studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 ?>
 
 <div class="incidence--model-form">
@@ -25,8 +27,15 @@ if (!$model->isNewRecord) {
     <?= $form->field($student_case, 'DISCIPLINARY_TYPE_ID')
         ->dropDownList(\app\models\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true), ['disabled' => true]) ?>
 
-    <?= $form->field($model, 'STUDENT_REG_NO')->dropDownList(\app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList()) ?>
-
+    <!--?= $form->field($model, 'STUDENT_REG_NO')->dropDownList($studentList) ?-->
+    <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
+        'data' => $studentList,
+        //'language' => 'de',
+        'options' => ['placeholder' => 'Select a state ...'],
+        'pluginOptions' => [
+            'allowClear' => true
+        ],
+    ]); ?>
     <!--?= $form->field($model, 'DATE_REPORTED')->textInput(['maxlength' => true]) ?-->
     <?= $form->field($model, 'DATE_REPORTED')->widget(\kartik\date\DatePicker::classname(), [
         'options' => ['placeholder' => 'Enter reporting date ...'],

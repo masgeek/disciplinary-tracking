@@ -64,7 +64,7 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     public static function GetStudentsList()
     {
         $list = STUDENTS_MODEL::find()
-            ->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES))) AS NAMES'])
+            ->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(\' \', CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES)))) AS NAMES'])
             ->asArray()
             ->limit(10)
             ->all();
