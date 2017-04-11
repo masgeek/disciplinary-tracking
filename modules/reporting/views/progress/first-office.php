@@ -30,15 +30,15 @@ var_dump($nextProcess);
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
-    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false) ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false) ?>
+    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false)  ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false)  ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
         ->dropDownList($process_actors, ['prompt' => '---SELECT OFFICE ACTOR---'])
     ?>
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Foward Case'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton('Forward Case', ['class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
