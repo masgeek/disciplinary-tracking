@@ -23,11 +23,11 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     public function rules()
     {
         return [
-            [['STUDENT_REG_NO', 'DATE_REPORTED', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY'], 'required'],
+            [['INCIDENCE_ID', 'STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'DATE_ADDED', 'FACULTY_CODE'], 'required'],
             [['INCIDENCE_ID'], 'integer'],
-            [['DATE_REPORTED'], 'safe'],
-            [['STUDENT_REG_NO', 'REPORTED_BY'], 'string', 'max' => 20],
-            [['CASE_DESCRIPTION'], 'string', 'max' => 4000],
+            [['DATE_REPORTED', 'DATE_ADDED'], 'safe'],
+            [['STUDENT_REG_NO', 'REPORTED_BY', 'FACULTY_CODE'], 'string', 'max' => 20],
+            [['CASE_DESCRIPTION'], 'string', 'max' => 500],
             [['STATUS_CODE'], 'string', 'max' => 8],
             [['INCIDENCE_ID'], 'unique'],
             [['STATUS_CODE'], 'exist', 'skipOnError' => true, 'targetClass' => STUDENTSSTATUS::className(), 'targetAttribute' => ['STATUS_CODE' => 'STATUS_CODE']],
