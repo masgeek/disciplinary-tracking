@@ -20,6 +20,8 @@ $process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessA
 
 $this->title = $nextProcess->PROCESS_NAME;
 $this->params['breadcrumbs'][] = $this->title;
+
+var_dump($nextProcess);
 ?>
 <h3><?= $nextProcess->DESCRIPTION ?></h3>
 
@@ -28,8 +30,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
-    <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false) ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false) ?>
+    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false) ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false) ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
         ->dropDownList($process_actors, ['prompt' => '---SELECT OFFICE ACTOR---'])
     ?>
