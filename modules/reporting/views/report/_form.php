@@ -33,8 +33,12 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
         //'language' => 'de',
         'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
-            'allowClear' => true
+            'allowClear' => true,
         ],
+        'pluginEvents' => [
+                //lets fetch the relevant data from an ajax source
+            "select2:select" => "function() { alert(4); }",
+        ]
     ]); ?>
     <!--?= $form->field($model, 'DATE_REPORTED')->textInput(['maxlength' => true]) ?-->
     <?= $form->field($model, 'DATE_REPORTED')->widget(\kartik\date\DatePicker::classname(), [
@@ -64,3 +68,7 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+
+</script>
