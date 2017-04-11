@@ -17,7 +17,7 @@ if (!$model->isNewRecord) {
         $description = $model->CASE_DESCRIPTION;
     }
 }
-
+$studentInfoUrl = \yii\helpers\Url::toRoute(['//tracking-setup']);
 $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 ?>
 
@@ -30,14 +30,13 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
     <!--?= $form->field($model, 'STUDENT_REG_NO')->dropDownList($studentList) ?-->
     <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
         'data' => $studentList,
-        //'language' => 'de',
         'options' => ['placeholder' => 'Select a state ...'],
         'pluginOptions' => [
             'allowClear' => true,
         ],
         'pluginEvents' => [
-                //lets fetch the relevant data from an ajax source
-            "select2:select" => "function() { alert(4); }",
+            //lets fetch the relevant data from an ajax source
+            "select2:select" => "function() { FetchStudentInfo(); }",
         ]
     ]); ?>
     <!--?= $form->field($model, 'DATE_REPORTED')->textInput(['maxlength' => true]) ?-->
@@ -69,6 +68,15 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 
 </div>
 
-<script>
+<?php
 
-</script>
+$this->registerJs(<<< EOT_JS_CODE
+function FetchStudentInfo(){
+    $.post('$studentInfoUrl', function( data ) {
+        $("result").html( data );
+    });
+}
+EOT_JS_CODE
+);
+
+?>
