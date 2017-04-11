@@ -17,7 +17,7 @@ if (!$model->isNewRecord) {
         $description = $model->CASE_DESCRIPTION;
     }
 }
-$studentInfoUrl = \yii\helpers\Url::toRoute(['//tracking-setup']);
+$studentInfoUrl = \yii\helpers\Url::toRoute(['//student-info']);
 $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 ?>
 
@@ -36,7 +36,7 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
         ],
         'pluginEvents' => [
             //lets fetch the relevant data from an ajax source
-            "select2:select" => "function() { FetchStudentInfo(); }",
+            "select2:select" => "function() { FetchStudentInfo(this.value); }",
         ]
     ]); ?>
     <!--?= $form->field($model, 'DATE_REPORTED')->textInput(['maxlength' => true]) ?-->
@@ -67,12 +67,13 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
     <?php ActiveForm::end(); ?>
 
 </div>
-
+<div id="result"></div>
 <?php
 
 $this->registerJs(<<< EOT_JS_CODE
-function FetchStudentInfo(){
-    $.post('$studentInfoUrl', function( data ) {
+function FetchStudentInfo(reg_no){
+console.log(reg_no);
+    $.post('$studentInfoUrl',{STUDENT_REG_NO:reg_no}, function(data) {
         $("result").html( data );
     });
 }

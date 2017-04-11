@@ -92,7 +92,8 @@ $config = [
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
                 'first-case' => 'report/report/first-case',
-                'first-office' => 'report/progress/first-office'
+                'first-office' => 'report/progress/first-office',
+                'student-info' => 'tracking/ajax/student-details'
 
             ],
         ]
