@@ -20,12 +20,11 @@ if (!$model->isNewRecord) {
 $studentInfoUrl = \yii\helpers\Url::toRoute(['//student-info']);
 $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 $faculties = \app\modules\tracking\extended\FACULTY_MODEL::GetFaculties();
-$case_list=\app\modules\tracking\extended\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true);
+$case_list = \app\modules\tracking\extended\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true);
 $student_status = \app\modules\tracking\extended\STATUS_MODEL::GetStatusList();
 
-if(!Yii::$app->user->isGuest) {
-    $user_id = Yii::$app->user->identity->username;
-}
+$user_id = Yii::$app->user->identity->username;
+
 ?>
 
 <div class="incidence_model-form">
@@ -65,7 +64,7 @@ if(!Yii::$app->user->isGuest) {
     </div>
     <div class="row">
         <div class="col-md-12">
-        <?= $form->field($model, 'CASE_DESCRIPTION')->textarea(['rows' => 6, 'value' => $description]) ?>
+            <?= $form->field($model, 'CASE_DESCRIPTION')->textarea(['rows' => 6, 'value' => $description]) ?>
         </div>
     </div>
     <div class="row">
