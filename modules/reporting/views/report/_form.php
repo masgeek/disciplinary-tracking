@@ -40,6 +40,7 @@ $user_id = Yii::$app->user->identity->username;
             <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
                 'data' => $studentList,
                 'options' => ['placeholder' => '---SELECT STUDENT---'],
+                'theme' => \kartik\select2\Select2::THEME_BOOTSTRAP, // this is the default if theme is not set
                 'pluginOptions' => [
                     'allowClear' => true,
                 ],
