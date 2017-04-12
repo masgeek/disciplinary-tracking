@@ -52,6 +52,11 @@ $config = [
             'enableAutoLogin' => false,
             'authTimeout' => 400,
         ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            'timeout' => 60 * 60 * 24 * 7, // 1 weeks
+            'sessionTable' => 'DT_YII_SESSION',
+        ],
         'errorHandler' => [
             'errorAction' => 'site/error',
         ],
@@ -110,13 +115,13 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170','41.89.65.87'],
+        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170', '41.89.65.87'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170','41.89.65.87'],
+        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170', '41.89.65.87'],
         'generators' => [
             'model' => [
                 'class' => 'yii\gii\generators\model\Generator',
