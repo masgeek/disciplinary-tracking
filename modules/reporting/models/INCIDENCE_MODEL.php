@@ -23,7 +23,7 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     public function rules()
     {
         return [
-            [['INCIDENCE_ID', 'STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'DATE_ADDED', 'FACULTY_CODE'], 'required'],
+            [[/*'INCIDENCE_ID',*/ 'STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'DATE_ADDED', 'FACULTY_CODE'], 'required'],
             [['INCIDENCE_ID'], 'integer'],
             [['DATE_REPORTED', 'DATE_ADDED'], 'safe'],
             [['STUDENT_REG_NO', 'REPORTED_BY', 'FACULTY_CODE'], 'string', 'max' => 20],

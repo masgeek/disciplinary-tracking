@@ -109,11 +109,11 @@ class ReportController extends Controller
 
         $model = new INCIDENCE_MODEL();
         $student_case = new STUDENT_INCIDENCE();
-        $uploads = new FILEUPLOAD();
         $student_case->CASE_TYPE_ID = $case_type_id;
         $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
         if (Yii::$app->request->isPost) {
             $transaction = $connection->beginTransaction();
+
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 //save the first model
                 $student_case->INCIDENCE_ID = $model->INCIDENCE_ID; //get the saved id
@@ -126,14 +126,15 @@ class ReportController extends Controller
                     return $this->redirect(['file-upload']);
                 } else {
                     $transaction->rollback(); //rollback the transaction
+                    var_dump($student_case->getErrors());
                 }
             } else {
                 $transaction->rollback(); //rollback the transaction
+                var_dump($model->getErrors());
             }
         }
         return $this->render('create', [
             'model' => $model,
-            'uploads' => $uploads,
             'student_case' => $student_case
         ]);
 

@@ -70,11 +70,11 @@ $user_id = Yii::$app->user->identity->username;
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'STATUS_CODE')
-                ->dropDownList($student_status, ['prompt' => 'Select student status', 'disabled' => true]) ?>
+                ->dropDownList($student_status, ['prompt' => 'Select student status', 'readonly' => true]) ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'FACULTY_CODE')
-                ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'disabled' => true]) ?>
+                ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'readonly' => true]) ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'REPORTED_BY')->textInput(['value' => $user_id, 'readonly' => true]) ?>
