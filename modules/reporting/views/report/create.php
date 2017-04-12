@@ -9,17 +9,16 @@ use yii\helpers\Html;
 /* @var $student_case \app\models\STUDENT_INCIDENCE */
 
 
-$this->title = Yii::t('app', 'Create Incidence  Model');
-$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Incidence  Models'), 'url' => ['index']];
+$this->title = Yii::t('app', 'Report Incidence');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Reported Incidences'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="incidence--model-create">
+<div class="incidence-model-create">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
         'model' => $model,
-        'uploads' => $uploads,
         'student_case' => $student_case,
     ]) ?>
 
