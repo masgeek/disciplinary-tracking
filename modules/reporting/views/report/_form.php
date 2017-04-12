@@ -72,8 +72,8 @@ $user_id = Yii::$app->user->identity->username;
                 ->dropDownList($student_status, ['prompt' => 'Select student status', 'disabled' => true]) ?>
         </div>
         <div class="col-md-6">
-            <!--?= $form->field($model, 'FACULTY_CODE')
-                ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'disabled' => true]) ?-->
+            <?= $form->field($model, 'FACULTY_CODE')
+                ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'disabled' => true]) ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'REPORTED_BY')->textInput(['value' => $user_id, 'readonly' => true]) ?>
