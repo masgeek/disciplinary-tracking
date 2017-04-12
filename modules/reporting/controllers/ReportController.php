@@ -2,10 +2,9 @@
 
 namespace app\modules\reporting\controllers;
 
-use app\models\CASE_TYPE_MODEL;
-use app\models\DISCIPLINARY_TYPE_MODEL;
-use app\models\STUDENT_INCIDENCE;
 use app\modules\reporting\models\UPLOAD_MODEL;
+use app\modules\tracking\extended\CASE_TYPE_MODEL;
+use app\modules\tracking\extended\STUDENT_INCIDENCE;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
 use app\modules\reporting\models\INCIDENCE_MODEL;

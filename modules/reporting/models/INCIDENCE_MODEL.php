@@ -9,7 +9,7 @@
 namespace app\modules\reporting\models;
 
 
-use app\models\STUDENTS_MODEL;
+use app\modules\tracking\extended\STUDENT_MODEL;
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\STUDENTSSTATUS;
 use yii\db\Expression;
@@ -63,7 +63,7 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
 
     public static function GetStudentsList()
     {
-        $list = STUDENTS_MODEL::find()
+        $list = STUDENT_MODEL::find()
             ->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(\' \', CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES)))) AS NAMES'])
             ->where('STUDENT_STATUS IS NOT NULL')
             ->asArray()

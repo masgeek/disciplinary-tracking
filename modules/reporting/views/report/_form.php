@@ -20,6 +20,9 @@ if (!$model->isNewRecord) {
 $studentInfoUrl = \yii\helpers\Url::toRoute(['//student-info']);
 $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
 $faculties = \app\modules\tracking\extended\FACULTY_MODEL::GetFaculties();
+$case_list=\app\modules\tracking\extended\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true);
+$student_status = \app\modules\tracking\extended\STATUS_MODEL::GetStatusList();
+
 $user_id = Yii::$app->user->identity->username;
 ?>
 
@@ -30,7 +33,7 @@ $user_id = Yii::$app->user->identity->username;
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($student_case, 'DISCIPLINARY_TYPE_ID')
-                ->dropDownList(\app\models\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true), ['disabled' => true]) ?>
+                ->dropDownList($case_list, ['disabled' => true]) ?>
         </div>
         <div class="col-md-4">
             <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
@@ -66,7 +69,7 @@ $user_id = Yii::$app->user->identity->username;
     <div class="row">
         <div class="col-md-4">
             <?= $form->field($model, 'STATUS_CODE')
-                ->dropDownList(\app\models\STATUS_MODEL::GetStatusList(), ['prompt' => 'Select student status', 'disabled' => true]) ?>
+                ->dropDownList($student_status, ['prompt' => 'Select student status', 'disabled' => true]) ?>
         </div>
         <div class="col-md-6">
             <?= $form->field($model, 'FACULTY_CODE')

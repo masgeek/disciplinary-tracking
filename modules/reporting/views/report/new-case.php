@@ -20,7 +20,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($model, 'DISCIPLINARY_TYPE_ID')
-        ->dropDownList(\app\models\DISCIPLINARY_TYPE_MODEL::GetDisciplinaryTypeList(), ['prompt' => 'Select Case...', 'id' => 'disc_case']) ?>
+        ->dropDownList(\app\modules\tracking\extended\DISCIPLINARY_TYPE_MODEL::GetDisciplinaryTypeList(), ['prompt' => 'Select Case...', 'id' => 'disc_case']) ?>
 
     <?= $form->field($model, 'CASE_TYPE_ID')->widget(\kartik\depdrop\DepDrop::classname(), [
         'options' => ['id' => 'case_type_id'],
