@@ -2,15 +2,15 @@
 
 namespace app\modules\reporting\controllers;
 
-use app\components\CONSTANTS;
-use app\modules\reporting\models\TRACKING_DATE_MODEL;
-use app\modules\setup\models\PROCESS_MODEL;
+use app\modules\tracking\extended\STUDENT_INCIDENCE;
 use Yii;
 use yii\db\Expression;
 use yii\filters\VerbFilter;
-use app\models\STUDENT_INCIDENCE;
 use app\modules\reporting\models\PROCESS_ACTOR_MODEL;
 use app\modules\reporting\models\TRACKING_MODEL;
+use app\components\CONSTANTS;
+use app\modules\reporting\models\TRACKING_DATE_MODEL;
+use app\modules\setup\models\PROCESS_MODEL;
 
 
 class ProgressController extends \yii\web\Controller
@@ -45,6 +45,7 @@ class ProgressController extends \yii\web\Controller
      */
     public function actionFirstOffice()
     {
+        /* @var $process PROCESS_MODEL */
         $user_id = yii::$app->user->id;
 
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
