@@ -82,7 +82,7 @@ class ProgressController extends \yii\web\Controller
                 $tracking_date->TRACKING_ID = $first_tracking->TRACKING_ID;
                 $tracking_date->EVENT_DATE = new Expression('SYSDATE');
                 $tracking_date->COMMENTS = $first_tracking->COMMENTS;
-                $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE;
+                $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
                 if ($tracking_date->save()):
                     $trans->commit();
                 else :
@@ -99,7 +99,7 @@ class ProgressController extends \yii\web\Controller
         $contains_one_process = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
 
         //if process is one lets got to foward to second office, first process is viewed as having been reported
-        if (count($contains_one_process) == 1) :
+        if (count($contains_one_process) == CONSTANTS::FIRST_PROCESS_COUNT) :
             $tracking = new TRACKING_MODEL();
             $process_actor = new PROCESS_ACTOR_MODEL();
             //first let us file the incidence and having been files first

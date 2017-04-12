@@ -26,4 +26,9 @@ class CONSTANTS
 
     const DELETED = 1;
     const NOT_DELETED = 0;
+
+    /**
+     * Minimum count is 1
+     */
+    const FIRST_PROCESS_COUNT = 1;
 }
