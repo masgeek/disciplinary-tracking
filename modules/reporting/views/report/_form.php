@@ -19,15 +19,16 @@ if (!$model->isNewRecord) {
 }
 $studentInfoUrl = \yii\helpers\Url::toRoute(['//student-info']);
 $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
+$faculties = \app\modules\tracking\extended\FACULTY_MODEL::GetFaculties();
+$user_id = Yii::$app->user->identity->id ;
 ?>
 
-<div class="incidence--model-form">
+<div class="incidence_model-form">
 
     <?php $form = ActiveForm::begin(); ?>
     <?= $form->field($student_case, 'DISCIPLINARY_TYPE_ID')
         ->dropDownList(\app\models\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true), ['disabled' => true]) ?>
 
-    <!--?= $form->field($model, 'STUDENT_REG_NO')->dropDownList($studentList) ?-->
     <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
         'data' => $studentList,
         'options' => ['placeholder' => 'Select a state ...'],
@@ -39,6 +40,8 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
             "select2:select" => "function() { FetchStudentInfo(this.value); }",
         ]
     ]); ?>
+    <div id="result"></div>
+
     <!--?= $form->field($model, 'DATE_REPORTED')->textInput(['maxlength' => true]) ?-->
     <?= $form->field($model, 'DATE_REPORTED')->widget(\kartik\date\DatePicker::classname(), [
         'options' => ['placeholder' => 'Enter reporting date ...'],
@@ -54,10 +57,11 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
     <?= $form->field($model, 'CASE_DESCRIPTION')->textarea(['rows' => 6, 'value' => $description]) ?>
 
     <?= $form->field($model, 'STATUS_CODE')
-        ->dropDownList(\app\models\STATUS_MODEL::GetStatusList(), ['prompt' => 'Select student status']) ?>
+        ->dropDownList(\app\models\STATUS_MODEL::GetStatusList(), ['prompt' => 'Select student status', 'disabled' => true]) ?>
 
-    <?= $form->field($model, 'FACULTY_CODE')->textInput(['maxlength' => true]) ?>
-    <?= $form->field($model, 'REPORTED_BY')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'FACULTY_CODE')
+        ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'disabled' => true]) ?>
+    <?= $form->field($model, 'REPORTED_BY')->textInput(['value' => $user_id, 'readonly' => true]) ?>
 
     <?= $form->field($student_case, 'CASE_TYPE_ID')->hiddenInput(['readonly' => true])->label(false) ?>
     <div class="form-group">
@@ -67,14 +71,23 @@ $studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
     <?php ActiveForm::end(); ?>
 
 </div>
-<div id="result"></div>
 <?php
 
 $this->registerJs(<<< EOT_JS_CODE
 function FetchStudentInfo(reg_no){
-console.log(reg_no);
     $.post('$studentInfoUrl',{STUDENT_REG_NO:reg_no}, function(data) {
-        $("#result").html(data.REGISTRATION_NUMBER);
+        var status = null;
+        //$("#result").html(data.REGISTRATION_NUMBER);
+        //$("#result").html(data.sTUDENTSTATUS.STATUS_CODE);
+        
+        if(data.sTUDENTSTATUS!=null){
+            status = data.sTUDENTSTATUS.STATUS_CODE;
+        }
+
+//set the student faculty
+      $("#incidence_model-faculty_code").val(data.dEGREEPROGRAMME.FACUL_FAC_CODE);
+        //let us set the values for status dropdown
+        $("#incidence_model-status_code").val(status);
     },'json');
 }
 EOT_JS_CODE

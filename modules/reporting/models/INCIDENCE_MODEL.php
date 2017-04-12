@@ -65,8 +65,10 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
     {
         $list = STUDENTS_MODEL::find()
             ->select(['REGISTRATION_NUMBER', 'CONCAT(REGISTRATION_NUMBER,CONCAT(\' \', CONCAT(SURNAME,CONCAT(\' \',OTHER_NAMES)))) AS NAMES'])
+            ->where('STUDENT_STATUS IS NOT NULL')
             ->asArray()
-            ->limit(10)
+            ->limit(50)
+            ->orderBy(['REGISTRATION_NUMBER' => SORT_DESC])
             ->all();
         $students_list = ArrayHelper::map($list, 'REGISTRATION_NUMBER', 'NAMES');
         return $students_list;

@@ -64,7 +64,7 @@ use app\modules\tracking\models\UONSTUDENTS;
  * @property string $CURRENCY_ID
  * @property integer $BIO_INFO
  *
- * @property STUDENTCATEGORIES $sTCSTUDENTCATEGORY
+ * @property STUDENTCATEGORIES $sTUDENTCATEGORY
  * @property DEGREEPROGRAMMES $dEGREEPROGRAMME
  * @property STUDENTSSTATUS $sTUDENTSTATUS
  */
@@ -87,6 +87,12 @@ class STUDENT_MODEL extends UONSTUDENTS
         return $rules;
     }
 */
+
+    public function getSTUDENTCATEGORY()
+    {
+        return $this->hasOne(STUDENTCATEGORIES::className(), ['STUDENT_CATEGORY_ID' => 'STC_STUDENT_CATEGORY_ID']);
+    }
+
     /**
      * @return \yii\db\ActiveQuery
      */
