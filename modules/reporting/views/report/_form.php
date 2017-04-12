@@ -23,7 +23,9 @@ $faculties = \app\modules\tracking\extended\FACULTY_MODEL::GetFaculties();
 $case_list=\app\modules\tracking\extended\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true);
 $student_status = \app\modules\tracking\extended\STATUS_MODEL::GetStatusList();
 
-$user_id = Yii::$app->user->identity->username;
+if(!Yii::$app->user->isGuest) {
+    $user_id = Yii::$app->user->identity->username;
+}
 ?>
 
 <div class="incidence_model-form">
