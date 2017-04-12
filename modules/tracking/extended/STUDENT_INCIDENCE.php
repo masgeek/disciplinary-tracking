@@ -6,7 +6,7 @@
  * Time: 19:59
  */
 
-namespace app\models;
+namespace app\modules\tracking\extended;
 
 
 use app\modules\tracking\models\CASEINCIDENCES;

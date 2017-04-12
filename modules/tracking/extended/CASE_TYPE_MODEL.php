@@ -6,7 +6,7 @@
  * Time: 17:40
  */
 
-namespace app\models;
+namespace app\modules\tracking\extended;
 
 
 use app\modules\tracking\models\DISCIPLINARYCASETYPES;

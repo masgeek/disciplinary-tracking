@@ -10,7 +10,6 @@ namespace app\modules\tracking\extended;
 
 
 use app\modules\tracking\models\DEGREEPROGRAMMES;
-use app\modules\tracking\models\FACULTIES;
 use app\modules\tracking\models\STUDENTCATEGORIES;
 use app\modules\tracking\models\STUDENTSSTATUS;
 use app\modules\tracking\models\UONSTUDENTS;
@@ -87,6 +86,11 @@ class STUDENT_MODEL extends UONSTUDENTS
         return $rules;
     }
 */
+
+    function getFullName()
+    {
+        return $this->SURNAME.' '.$this->OTHER_NAMES;
+    }
 
     public function getSTUDENTCATEGORY()
     {
