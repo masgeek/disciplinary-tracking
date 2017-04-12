@@ -41,6 +41,7 @@ class ReportController extends Controller
                 'actions' => [
                     'delete' => ['POST'],
                     'first-office' => ['POST'],
+                    'first-case' => ['POST'],
                 ],
             ],
         ];

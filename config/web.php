@@ -11,7 +11,7 @@ $config = [
         '@bower' => 'vendor/bower-asset',
     ],
     'modules' => [
-        /*'audit' => [
+        'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
             'maxAge' => 'debug',
             'accessRoles' => ['admin'],
@@ -23,7 +23,7 @@ $config = [
             //'accessRoles' => ['admin'],
             // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
             'accessUsers' => [1, 2, 200, 100],
-        ],*/
+        ],
         'gridview' => [
             'class' => '\kartik\grid\Module'
         ],
