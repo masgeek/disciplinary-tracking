@@ -54,6 +54,13 @@ $config = [
         ],
         'session' => [
             'class' => 'yii\web\DbSession',
+            'writeCallback' => function ($session) {
+                return [
+                    'user_id' => \Yii::$app->user->identity->username,
+                    'ip' => $_SERVER['REMOTE_ADDR'],
+                    'is_trusted' => $session->get('is_trusted', false),
+                ];
+            },
             'timeout' => 60 * 60 * 24 * 7, // 1 weeks
             'sessionTable' => 'DT_YII_SESSION',
         ],
