@@ -42,19 +42,19 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
 
     /**
      * Get actors associated with a process
-     * @param $process_id
+     * @param integer $process_id
+     * @param string $faculty_code
      * @param bool $return_list
      * @return array|\yii\db\ActiveRecord[]
      */
-    public static function GetProcessActors($process_id, $department='S08', $return_list = false)
+    public static function GetProcessActors($process_id, $faculty_code, $return_list = false)
     {
         $processActors = self::find()
             ->where(['PROCESS_ID' => $process_id])
-            ->with('aCTORS')//use relations in class
+            ->innerJoin('DT_OFFICE_ACTORS', 'DT_OFFICE_ACTORS.OFFICE_ACTOR_ID =DT_PROCESS_ACTORS.OFFICE_ACTOR_ID')
+            ->where(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
             ->all();
 
-        var_dump($processActors);
-        die;
         $processActorsData = $processActors;
         if ($return_list) {
             //return as array for drop-down

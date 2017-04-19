@@ -9,6 +9,8 @@ use yii\widgets\ActiveForm;
 /* @var $incidence \app\models\STUDENT_INCIDENCE */
 /* @var $form yii\widgets\ActiveForm */
 
+$faculty_code = 'S08';//$incidence->iNCIDENCE->FACULTY_CODE;
+
 $case_name_arr = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseNameArray($incidence->INCIDENCE_ID);
 
 
@@ -16,12 +18,11 @@ $process_exclusion_arr = \app\modules\reporting\models\TRACKING_MODEL::GetTracke
 
 $nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $process_exclusion_arr);
 
-$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, true);
+$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, $faculty_code, true);
 
 $this->title = $nextProcess->PROCESS_NAME;
 $this->params['breadcrumbs'][] = $this->title;
 
-var_dump($nextProcess);
 ?>
 <h3><?= $nextProcess->DESCRIPTION ?></h3>
 
@@ -30,17 +31,34 @@ var_dump($nextProcess);
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
-    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false)  ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false)  ?>
+    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false)              ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false)              ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
-        ->dropDownList($process_actors, ['prompt' => '---SELECT OFFICE ACTOR---'])
-    ?>
+        ->dropDownList($process_actors, [
+            'prompt' => '---SELECT OFFICE ACTOR---',
+            'onchange' => 'forwardingOffice(this)'
+        ]) ?>
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Forward Case', ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton("Forward Case", ['id' => 'btn-forward', 'class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    function forwardingOffice($dropdown) {
+        var $forwardText = 'Forward Case';
+        var officeActor = $($dropdown).find("option:selected").text();
+
+        console.log(!!$dropdown.value); //will be true if empty
+        if (!!$dropdown.value) {
+            $forwardText = 'Forward to ' + officeActor;
+        } else {
+        }
+
+        $('#btn-forward').text($forwardText);
+    }
+</script>
