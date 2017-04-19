@@ -93,6 +93,8 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => true,//YII_DEBUG ? true : false,
             'showScriptName' => false,
+            'enableStrictParsing' => true,
+            'suffix' => '.html',
             'rules' => [
                 //default rules
 
