@@ -100,7 +100,6 @@ class ProgressController extends \yii\web\Controller
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
 
         $check_tracked_processes = TRACKING_MODEL::GetTrackedProcesses($incidence_id);
-
         if (count($check_tracked_processes) > 1):
             //means we have a tracking already in progress, so redirect to actor action view
             $session->set('INCIDENCE_ID', $incidence_id);
@@ -129,8 +128,8 @@ class ProgressController extends \yii\web\Controller
                 $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
                 if ($tracking_date->save()):
                     $trans->commit();
-                    $session->set('INCIDENCE_ID', $first_tracking->INCIDENCE_ID);
-                    return $this->redirect(['incidence-summary']); //got the actor action
+                    //$session->set('INCIDENCE_ID', $first_tracking->INCIDENCE_ID);
+                    //return $this->redirect(['incidence-summary']); //got the actor action
                 //return $this->redirect(['actor-action']); //got the actor action
                 else :
                     $trans->rollBack();
