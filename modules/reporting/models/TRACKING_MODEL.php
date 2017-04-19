@@ -12,6 +12,7 @@ namespace app\modules\reporting\models;
 use app\components\CONSTANTS;
 use app\modules\tracking\models\PROCESS;
 use app\modules\tracking\models\TRACKING;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 
 class TRACKING_MODEL extends TRACKING
@@ -74,5 +75,18 @@ class TRACKING_MODEL extends TRACKING
             ->asArray()
             ->all();
         return $incidence_array;
+    }
+
+    public function search($incidence_id)
+    {
+        $query = self::find();
+
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $query->where(['INCIDENCE_ID' => $incidence_id]);
+        return $dataProvider;
     }
 }

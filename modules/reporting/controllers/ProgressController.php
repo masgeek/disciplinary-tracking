@@ -2,10 +2,14 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\modules\reporting\models\INCIDENCE_MODEL;
 use app\modules\tracking\extended\STUDENT_INCIDENCE;
+use app\modules\tracking\models\TRACKING;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
+use yii\filters\AccessControl;
 use yii\filters\VerbFilter;
 use app\modules\reporting\models\PROCESS_ACTOR_MODEL;
 use app\modules\reporting\models\TRACKING_MODEL;
@@ -22,29 +26,70 @@ class ProgressController extends \yii\web\Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                     'first-office' => ['POST'],
+                    //'incidence-summary' => ['POST'],
                 ],
             ],
         ];
     }
 
     /**
-     * @param $incidence_id
      * @return string
      */
-    public function actionActorAction($incidence_id)
+    public function actionActorAction()
     {
+        $session = Yii::$app->session;
+
+        $incidence_id = $session->get('INCIDENCE_ID');
+
         return $this->render('actor-action');
     }
 
 
-    public function actionIncidenceSummary($incidence_id)
+    public function actionIndex()
     {
-        return $this->render('actor-action');
+        $dataProvider = new ActiveDataProvider([
+            'query' => INCIDENCE_MODEL::find(),
+        ]);
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
+    public function actionIncidenceSummary()
+    {
+        $session = Yii::$app->session;
+        $incidence_id = $session->get('INCIDENCE_ID');
+        $student_incidence = new TRACKING_MODEL();
+
+        $dataProvider = $student_incidence->search($incidence_id);
+
+//        var_dump($dataProvider);
+        //      die;
+            $student_incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
+        //  $incidence_details = $student_incidence->iNCIDENCE;
+
+        //$tracking = TRACKING_MODEL::findAll(['INCIDENCE_ID' => $incidence_id]);
+
+        //var_dump($tracking);
+        //var_dump($student_incidence->iNCIDENCE);
+        //var_dump($incidence_details);
+        return $this->render('incidence-summary', ['dataProvider' => $dataProvider]);
     }
 
     /**
@@ -53,6 +98,7 @@ class ProgressController extends \yii\web\Controller
     public function actionFirstOffice()
     {
         /* @var $process PROCESS_MODEL */
+        $session = Yii::$app->session;
         $user_id = yii::$app->user->id;
         $connection = \Yii::$app->db;
 
@@ -92,12 +138,13 @@ class ProgressController extends \yii\web\Controller
                 $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
                 if ($tracking_date->save()):
                     $trans->commit();
-                    return $this->redirect(['actor-action', 'incidence_id' => $incidence_id]); //got the actor action
+
+                    return $this->redirect(['actor-action']); //got the actor action
                 else :
                     $trans->rollBack();
                     //var_dump($tracking_date->getErrors());
                 endif;
-            else:
+            else: $session->set('INCIDENCE_ID', $first_tracking->INCIDENCE_ID);
                 $trans->rollBack();
                 //var_dump($first_tracking->getErrors());
             endif;
@@ -128,7 +175,8 @@ class ProgressController extends \yii\web\Controller
                     if ($tracking_date->save()):
                         $trans->commit();
                         //go to the forwarding summary
-                        return $this->redirect(['incidence-summary', 'incidence_id' => $incidence_id]); //got the actor action
+                        $session->set('INCIDENCE_ID', $tracking->INCIDENCE_ID);
+                        return $this->redirect(['incidence-summary']); //got the actor action
                     else :
                         $trans->rollBack();
                         //var_dump($tracking_date->getErrors());
@@ -136,7 +184,6 @@ class ProgressController extends \yii\web\Controller
                 else:
                     $trans->rollBack();
                 endif;
-                die;
             endif;
             return $this->render('first-office', [
                 'tracking' => $tracking,
