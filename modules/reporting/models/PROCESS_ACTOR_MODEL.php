@@ -68,7 +68,7 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
             ->where(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
             ->all();
 
-
+echo '<pre>';
         var_dump($processActors);
 die;
         $processActorsData = $processActors;
