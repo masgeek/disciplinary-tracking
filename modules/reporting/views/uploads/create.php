@@ -35,14 +35,14 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <!-- add foward next button -->
-<?= Html::a(Yii::t('app', 'Forward to Next Office'), [
+<?= Html::a(Yii::t('app', 'Proceed >>>'), [
     '//report/progress/first-office'], [
     'data' => [
-        //'confirm' => 'Are you sure',
+        'confirm' => 'Are you sure',
         'method' => 'post',
         'params' => [
             'INCIDENCE_ID' => $incidence_id
         ]
     ],
-    'class' => 'btn btn-default btn-lg btn-block',
+    'class' => 'btn btn-success btn-lg btn-block',
 ]) ?>

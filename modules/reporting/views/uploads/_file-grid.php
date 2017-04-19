@@ -73,8 +73,8 @@ $gridColumns = [
     //'pjax' => true, // pjax is set to always true for this demo
     'columns' => $gridColumns,
     'panel' => [
-        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-upload"></i> ' . ucfirst(strtolower($case_name)) . ' Uploads</h3>',
-        'type' => 'success',
+        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-upload"></i> ' . ucwords(strtolower($case_name)) . ' File Uploads</h3>',
+        'type' => 'default',
         'footer' => false
     ],
 ]); ?>
