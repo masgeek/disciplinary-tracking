@@ -3,6 +3,7 @@
 namespace app\modules\reporting\models;
 
 
+use Yii;
 use app\modules\tracking\models\OFFICEACTORS;
 use app\modules\tracking\models\PROCESS;
 use app\modules\tracking\models\PROCESSACTORS;
@@ -31,6 +32,18 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
         ];
     }
 
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'PROCESS_ACTOR_ID' => Yii::t('app', 'Office Actor Name'),
+            'OFFICE_ACTOR_ID' => Yii::t('app', 'Office Name'),
+            'PROCESS_ID' => Yii::t('app', 'Process Names'),
+        ];
+    }
 
     /**
      * @return \yii\db\ActiveQuery

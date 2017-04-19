@@ -31,8 +31,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
-    <?= $form->field($tracking, 'INCIDENCE_ID')->textInput(['value' => $incidence->INCIDENCE_ID])//->label(false)              ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->textInput(['value' => $nextProcess->PROCESS_ID])//->label(false)              ?>
+    <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false)              ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false)              ?>
     <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
         ->dropDownList($process_actors, [
             'prompt' => '---SELECT OFFICE ACTOR---',

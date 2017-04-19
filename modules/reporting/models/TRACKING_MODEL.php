@@ -33,6 +33,17 @@ class TRACKING_MODEL extends TRACKING
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'INCIDENCE_ID' => \Yii::t('app', 'Incidence Name'),
+            'PROCESS_ID' => \Yii::t('app', 'Process Name'),
+        ];
+    }
+
     public function beforeSave($insert)
     {
 
@@ -40,7 +51,7 @@ class TRACKING_MODEL extends TRACKING
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {
                 $this->DATE_RECEIVED = $date;
-                $this->TRACKING_STATUS = CONSTANTS::STATUS_COMPLETE;
+                //$this->TRACKING_STATUS = CONSTANTS::STATUS_COMPLETE;
             }
             return true;
         }

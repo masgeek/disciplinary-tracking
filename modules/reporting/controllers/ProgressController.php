@@ -3,6 +3,7 @@
 namespace app\modules\reporting\controllers;
 
 use app\modules\tracking\extended\STUDENT_INCIDENCE;
+use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 use Yii;
 use yii\db\Expression;
 use yii\filters\VerbFilter;
@@ -40,6 +41,12 @@ class ProgressController extends \yii\web\Controller
         return $this->render('actor-action');
     }
 
+
+    public function actionIncidenceSummary($incidence_id)
+    {
+        return $this->render('actor-action');
+    }
+
     /**
      * @return string|\yii\web\Response
      */
@@ -47,6 +54,7 @@ class ProgressController extends \yii\web\Controller
     {
         /* @var $process PROCESS_MODEL */
         $user_id = yii::$app->user->id;
+        $connection = \Yii::$app->db;
 
         $incidence_id = \Yii::$app->request->post('INCIDENCE_ID');
         if (\Yii::$app->request->post('TRACKING_MODEL')) {
@@ -63,7 +71,6 @@ class ProgressController extends \yii\web\Controller
             return $this->redirect(['actor-action', 'incidence_id' => $incidence_id]);
         elseif (count($check_tracked_processes) <= 0) :
             //wrap in a transaction
-            $connection = \Yii::$app->db;
 
             $trans = $connection->beginTransaction();
             //insert the first incidence
@@ -85,13 +92,14 @@ class ProgressController extends \yii\web\Controller
                 $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
                 if ($tracking_date->save()):
                     $trans->commit();
+                    return $this->redirect(['actor-action', 'incidence_id' => $incidence_id]); //got the actor action
                 else :
                     $trans->rollBack();
-                    var_dump($tracking_date->getErrors());
+                    //var_dump($tracking_date->getErrors());
                 endif;
             else:
                 $trans->rollBack();
-                var_dump($first_tracking->getErrors());
+                //var_dump($first_tracking->getErrors());
             endif;
         endif;
 
@@ -104,8 +112,31 @@ class ProgressController extends \yii\web\Controller
             $process_actor = new PROCESS_ACTOR_MODEL();
             //first let us file the incidence and having been files first
             if ($tracking->load(Yii::$app->request->post())):
+                $trans = $connection->beginTransaction();
                 //lets save the forwarding request
-                var_dump($_POST);
+                $tracking->ADDED_BY = $user_id;
+                $tracking->ACTED_ON_BY = $user_id;
+                $tracking->TRACKING_STATUS = CONSTANTS::STATUS_PENDING; //set as pending awaiting next action for the forwarded office
+
+                if ($tracking->save()):
+                    //save the tracking date information
+                    $tracking_date = new TRACKING_DATE_MODEL();
+                    $tracking_date->TRACKING_ID = $tracking->TRACKING_ID;
+                    $tracking_date->EVENT_DATE = new Expression('SYSDATE');
+                    $tracking_date->COMMENTS = $tracking->COMMENTS;
+                    $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
+                    if ($tracking_date->save()):
+                        $trans->commit();
+                        //go to the forwarding summary
+                        return $this->redirect(['incidence-summary', 'incidence_id' => $incidence_id]); //got the actor action
+                    else :
+                        $trans->rollBack();
+                        //var_dump($tracking_date->getErrors());
+                    endif;
+                else:
+                    $trans->rollBack();
+                endif;
+                die;
             endif;
             return $this->render('first-office', [
                 'tracking' => $tracking,
