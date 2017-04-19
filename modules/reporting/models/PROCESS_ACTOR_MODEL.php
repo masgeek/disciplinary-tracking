@@ -68,9 +68,6 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
             ->andWhere(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
             ->all();
 
-echo '<pre>';
-        var_dump($processActors);
-die;
         $processActorsData = $processActors;
         if ($return_list) {
             //return as array for drop-down
