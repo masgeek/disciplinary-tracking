@@ -52,11 +52,12 @@ class ProgressController extends \yii\web\Controller
      */
     public function actionActorAction()
     {
-        $session = Yii::$app->session;
+        //$session = Yii::$app->session;
 
-        $incidence_id = $session->get('INCIDENCE_ID');
+        //$incidence_id = $session->get('INCIDENCE_ID');
 
-        return $this->render('actor-action');
+        //return $this->render('actor-action');
+        return $this->redirect(['incidence-summary']);
     }
 
     public function actionIncidenceSummary()
