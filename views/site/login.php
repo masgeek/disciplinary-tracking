@@ -32,14 +32,14 @@ $this->title = 'Login';
 
 
     <div class="row">
-        <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-block', 'name' => 'login-button']) ?>
+        <?= Html::submitButton('Login', ['class' => 'btn btn-primary btn-lg btn-block', 'name' => 'login-button']) ?>
     </div>
 
 
     <?php ActiveForm::end(); ?>
 
     <div class="row">
-        <div class="col-lg-offset-1" style="color:#999;">
+        <div class="col-md-8 col-md-offset-2" style="color:#42b353;">
             You may login with <strong>admin/admin</strong> or <strong>demo/demo</strong>.<br>
         </div>
     </div>
