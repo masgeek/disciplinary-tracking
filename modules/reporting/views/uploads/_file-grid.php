@@ -46,9 +46,9 @@ $gridColumns = [
             return $url;
         },
         'deleteOptions' => [
-            'title' => 'This will launch the uploaded file item!',
+            'title' => 'This will delete the uploaded file item!',
             'data-toggle' => 'tooltip',
-            //'label' => '<i class="glyphicon glyphicon-remove"></i>'
+            'label' => '<i class="glyphicon glyphicon-remove"></i>'
         ],
         'headerOptions' => ['class' => 'kartik-sheet-style'],
     ]

@@ -1,6 +1,4 @@
 <?php
-
-use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
@@ -32,11 +30,11 @@ use yii\widgets\ActiveForm;
         ],
         'pluginEvents' => [
             'fileuploaded' => "function(event, data, previewId, index){
-                console.log(data.filenames);
-                console.log(data.response.path);
+                //console.log(data.filenames);
+                //console.log(data.response.path);
                 $.pjax.defaults.timeout = false;//IMPORTANT
                 $.pjax.reload({container:'#uploads_grid'});
-            }" //after uploading enable the submit button
+            }" //after uploading refresh the datagrid
         ]
     ]); ?>
     <?php ActiveForm::end(); ?>
