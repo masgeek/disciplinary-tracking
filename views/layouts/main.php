@@ -71,7 +71,7 @@ use yii\widgets\Breadcrumbs;
     <div class="container">
         <p class="pull-left">&copy; University of Nairobi <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
+        <p class="pull-right"><?= Yii::getVersion() ?></p>
     </div>
 </footer>
 
