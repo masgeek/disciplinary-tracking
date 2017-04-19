@@ -103,7 +103,7 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 //custom rules
                 '/' => 'site/index',
-                'home' => 'site/index',
+                'home' => '/site/index',
                 'discipline' => 'disciplinarytype/index',
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
