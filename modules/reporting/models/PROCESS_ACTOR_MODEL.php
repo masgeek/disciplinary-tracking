@@ -63,9 +63,9 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
     public static function GetProcessActors($process_id, $faculty_code, $return_list = false)
     {
         $processActors = self::find()
-            ->where(['PROCESS_ID' => $process_id])
             ->innerJoin('DT_OFFICE_ACTORS', 'DT_PROCESS_ACTORS.OFFICE_ACTOR_ID = DT_OFFICE_ACTORS.OFFICE_ACTOR_ID')
-            ->where(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
+            ->where(['PROCESS_ID' => $process_id])
+            ->andWhere(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
             ->all();
 
 echo '<pre>';
