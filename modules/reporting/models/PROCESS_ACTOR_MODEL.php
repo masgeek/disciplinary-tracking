@@ -64,7 +64,7 @@ class PROCESS_ACTOR_MODEL extends PROCESSACTORS
     {
         $processActors = self::find()
             ->where(['PROCESS_ID' => $process_id])
-            ->innerJoin('DT_OFFICE_ACTORS', 'DT_OFFICE_ACTORS.OFFICE_ACTOR_ID = DT_PROCESS_ACTORS.OFFICE_ACTOR_ID')
+            ->innerJoin('DT_OFFICE_ACTORS', 'MUTHONI.DT_PROCESS_ACTORS.OFFICE_ACTOR_ID = MUTHONI.DT_OFFICE_ACTORS.OFFICE_ACTOR_ID')
             ->where(['DT_OFFICE_ACTORS.FACULTY_CODE' => $faculty_code])
             ->all();
 
