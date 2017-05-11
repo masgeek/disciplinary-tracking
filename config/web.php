@@ -94,7 +94,7 @@ $config = [
             'enablePrettyUrl' => true,//YII_DEBUG ? true : false,
             'showScriptName' => false,
             'enableStrictParsing' => false,
-            'suffix' => '.html',
+            //'suffix' => '.html',
             'rules' => [
                 //default rules
 
