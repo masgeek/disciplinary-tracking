@@ -116,6 +116,7 @@ $config = [
                 'all-cases' => 'activecase/case/all',
                 'active-cases' => 'activecase/case/active',
                 'closed-cases' => 'activecase/case/closed',
+                'case-progress' => 'activecase/case/progress',
 
             ],
         ]
