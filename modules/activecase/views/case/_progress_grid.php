@@ -18,16 +18,10 @@ $gridColumns = [
             $reg_no = $model->STUDENT_REG_NO;
             $student_model = \app\modules\tracking\extended\STUDENT_MODEL::findOne($reg_no);
             if ($student_model != null) {
-                $names = $student_model->SURNAME;
-                $names .= ' ';
-                $names .= $student_model->OTHER_NAMES;
-                $student = "$reg_no - $names";
-            } else {
-                $student = $reg_no;
+                return $student_model->getRegFullName();
             }
-            return $student;
+            return $reg_no;
         },
-        'filterInputOptions' => ['placeholder' => 'Type payroll number'],
         'group' => true,  // enable grouping,
         'groupedRow' => false,                    // move grouped column to a single grouped row
         'groupOddCssClass' => 'kv-grouped-row',  // configure odd group cell css class
@@ -48,10 +42,10 @@ $gridColumns = [
             /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
             $incidence_id = $model->INCIDENCE_ID;
             $dataProvider = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence_id);;
-/*
-            return Yii::$app->controller->renderPartial('_expand_row', [
-                'dataProvider' => $dataProvider,
-            ]);*/
+            /*
+                        return Yii::$app->controller->renderPartial('_expand_row', [
+                            'dataProvider' => $dataProvider,
+                        ]);*/
         },
 
         'detailOptions' => [

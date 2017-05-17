@@ -89,7 +89,17 @@ class STUDENT_MODEL extends UONSTUDENTS
 
     function getFullName()
     {
-        return $this->SURNAME.' '.$this->OTHER_NAMES;
+        return $this->SURNAME . ' ' . $this->OTHER_NAMES;
+    }
+
+
+    /**
+     * Return registration number and names combined
+     * @return string
+     */
+    function getRegFullName()
+    {
+        return $this->REGISTRATION_NUMBER . ' - ' . $this->SURNAME . ' ' . $this->OTHER_NAMES;
     }
 
     public function getSTUDENTCATEGORY()
