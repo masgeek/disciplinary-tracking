@@ -6,39 +6,16 @@
  * Time: 15:37
  */
 
-namespace app\component;
+namespace app\components;
 
 
 use app\modules\extended\STUDENT_PERIOD_MODEL;
 use yii\base\InvalidParamException;
+use yii\behaviors\TimestampBehavior;
 
 class DATA_FACTORY
 {
 
-    public static function ComputeDueDate($reg_number, $duration, $durationCode, $firstEvent = true)
-    {
-        $D = intval($duration);
-        $DC = strtoupper($durationCode);
-
-        if ($firstEvent) {
-            //if it is the first event in the timeline
-            $finishDate = trim(STUDENT_PERIOD_MODEL::GetCourseFinishDate($reg_number));
-            if ($finishDate == null) {
-                $finishDate = date('d-M-Y');
-            }
-        } else {
-            //get the finish date from the last event
-            $finishDate = date('d-M-Y'); //$this->getCourseFinishDate($regNumber);
-        }
-
-        $date = new \DateTime($finishDate);
-        $date->add(new \DateInterval('P' . $D . $DC)); //M Y W D
-        $dueDate = $date->format('d-M-Y');
-        //$dueDate = $finishDate;//, strtotime('+1 Month'));
-        //$dueDate = strtotime('+1 Month');
-
-        return $dueDate;
-    }
 
     public static function GetTimeStamp()
     {
@@ -58,6 +35,14 @@ class DATA_FACTORY
         }
         $date = date('d-m-Y H:i:s', $timestamp);
         return $date;
+    }
+
+    public static function StringToDateTime($date_string)
+    {
+        $date_arr = explode(' ', $date_string, 2);
+        $timestamp = strtotime($date_arr[0]);
+
+        return self::TimeStampToDateTime($timestamp);
     }
 
     /**

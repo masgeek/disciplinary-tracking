@@ -11,10 +11,11 @@ use kartik\dialog\Dialog;
 $gridColumns = [
     ['class' => 'kartik\grid\SerialColumn'],
     [
-        'attribute' => 'REGISTRATION_NUMBER',
-        'width' => '100%',
+        'attribute' => 'STUDENT_REG_NO',
+        //'width' => '100%',
         'value' => function ($model, $key, $index, $widget) {
-            $reg_no = $model['REGISTRATION_NUMBER'];
+            /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
+            $reg_no = $model->STUDENT_REG_NO;
             $student_model = \app\modules\tracking\extended\STUDENT_MODEL::findOne($reg_no);
             if ($student_model != null) {
                 $names = $student_model->SURNAME;
@@ -28,7 +29,7 @@ $gridColumns = [
         },
         'filterInputOptions' => ['placeholder' => 'Type payroll number'],
         'group' => true,  // enable grouping,
-        'groupedRow' => true,                    // move grouped column to a single grouped row
+        'groupedRow' => false,                    // move grouped column to a single grouped row
         'groupOddCssClass' => 'kv-grouped-row',  // configure odd group cell css class
         'groupEvenCssClass' => 'kv-grouped-row', // configure even group cell css class
     ],
@@ -41,16 +42,16 @@ $gridColumns = [
         'allowBatchToggle' => false,
         'expandOneOnly' => true,
         'expandTitle' => 'Click to view comments about the submission',
-        'expandIcon' => '<span class="fa fa-comment-o"></span>',
-        'collapseIcon' => '<span class="fa fa-comment"></span>',
+        'expandIcon' => '<span class="fa fa-clock-o"></span>',
+        'collapseIcon' => '<span class="fa fa-line-chart"></span>',
         'detail' => function ($model) {
-            $tracking_id = $model['ID'];
-            $comments_model = new \app\modules\reporting\models\TRACKING_MODEL();
-            $comments_model->TRACKING_ID = $tracking_id;
-            $dataProvider = $comments_model->LoadComments($tracking_id);
+            /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
+            $incidence_id = $model->INCIDENCE_ID;
+            $dataProvider = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence_id);;
+/*
             return Yii::$app->controller->renderPartial('_expand_row', [
                 'dataProvider' => $dataProvider,
-            ]);
+            ]);*/
         },
 
         'detailOptions' => [
@@ -59,23 +60,23 @@ $gridColumns = [
 
     ],
     [
-        'attribute' => 'EVENT_NAME',
-        'value' => 'EVENT_NAME',
+        'attribute' => 'REPORTED_BY',
+        'value' => 'REPORTED_BY',
         //'group' => false,  // enable grouping
         //'subGroupOf' => 1,
         'visible' => false
     ],
     [
-        'attribute' => 'EVENT_DETAIL_NAME',
-        'value' => 'EVENT_DETAIL_NAME',
+        'attribute' => 'REPORTED_BY',
+        'value' => 'REPORTED_BY',
         //'group' => false,  // enable grouping
         //'subGroupOf' => 2
     ],
 
     [
-        'attribute' => 'SUPERVISOR_APPROVED',
+        'attribute' => 'REPORTED_BY',
         'value' => function ($data) {
-            if ($data['SUPERVISOR_APPROVED']) {
+            if ($data->REPORTED_BY) {
                 return 1;
             }
             return 0;
@@ -83,13 +84,14 @@ $gridColumns = [
         'format' => 'boolean'
     ],
     [
-        'attribute' => 'DATE_SUBMITTED',
-        'format' => 'datetime',
+        'attribute' => 'DATE_REPORTED',
+        'format' => 'date',
         'value' => function ($data) {
-            $date_time = \app\component\DATA_FACTORY::TimeStampToDateTime($data['SUBMISSION_TIME']);
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($data->DATE_REPORTED);
             return $date_time;
         },
     ],
+    /*
     [
         //lets build the document link
         'header' => 'Document',
@@ -111,7 +113,7 @@ $gridColumns = [
             }
             return "<a href='$file_url' target='_blank'>Download <span class='glyphicon glyphicon-download'></span></a>";
         }
-    ],
+    ],*/
     // Action column
     [
         'class' => '\kartik\grid\ActionColumn',
@@ -122,6 +124,7 @@ $gridColumns = [
             },
         ],
         'urlCreator' => function ($action, $model, $key, $index) {
+            /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
             $url = '#';
             if ($action === 'approve') {
                 $action = 'Act On Submission';
@@ -133,11 +136,7 @@ $gridColumns = [
                 //'data-confirm' => 'Are you sure?',
                 'id' => 'act-btn',
                 'data-params' => [
-                    'ACTION' => 'APPROVE',
-                    'ID' => $model['ID'],
-                    'TIMESTAMP' => $model['SUBMISSION_TIME'],
-                    'EVENT_DETAIL_ID' => $model['EVENT_DETAIL_ID'],
-                    'REGISTRATION_NUMBER' => $model['REGISTRATION_NUMBER'],
+                    'ID' => $model->INCIDENCE_ID,
                     '_csrf' => Yii::$app->request->csrfToken
                 ],
                 'class' => 'btn btn-success btn-xs btn-block']);
