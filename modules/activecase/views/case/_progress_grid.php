@@ -35,7 +35,6 @@ $gridColumns = [
 
         'allowBatchToggle' => false,
         'expandOneOnly' => true,
-        'expandTitle' => 'Click to view comments about the submission',
         'expandIcon' => '<span class="fa fa-clock-o"></span>',
         'collapseIcon' => '<span class="fa fa-line-chart"></span>',
         'detail' => function ($model) {
