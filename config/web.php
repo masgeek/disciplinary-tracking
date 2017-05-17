@@ -13,7 +13,7 @@ $config = [
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
-            'maxAge' => 'debug',
+            'maxAge' => 1,//'debug',
             'accessRoles' => ['admin'],
             'trackActions' => ['*'],
             // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
@@ -37,6 +37,9 @@ $config = [
         'report' => [
             'class' => 'app\modules\reporting\report',
             'defaultRoute' => 'report/report-case', //default controller
+        ],
+        'activecase' => [
+            'class' => 'app\modules\activecase\module',
         ],
     ],
     'components' => [
@@ -109,7 +112,10 @@ $config = [
                 'incident' => 'report/report/report-case',
                 'first-case' => 'report/report/first-case',
                 'first-office' => 'report/progress/first-office',
-                'student-info' => 'tracking/ajax/student-details'
+                'student-info' => 'tracking/ajax/student-details',
+                'all-cases' => 'activecase/case/all',
+                'active-cases' => 'activecase/case/active',
+                'closed-cases' => 'activecase/case/closed',
 
             ],
         ]
