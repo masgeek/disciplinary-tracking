@@ -11,39 +11,29 @@
 
 $GridColumns = [
     ['class' => 'kartik\grid\SerialColumn'],
-    //'ID',
-    'SOURCE',
+    'PROCESS_ID',
+    'INCIDENCE_ID',
+    'ADDED_BY',
+    'ACTED_ON_BY',
     'COMMENTS',
+    'TRACKING_STATUS',
     [
-        //lets build the document link
-        'header' => 'Document',
-        'attribute' => 'SOURCE',
-        'format' => 'raw',
-        'value' => function ($model, $key, $index) {
-            /* @var $model \app\modules\extended\COMMENTS_MODEL */
-            /* @var $file \app\modules\extended\UPLOADED_FILES_MODEL */
-            //$file_url = '#';
-            $file = $model->dOCUMENT;
-
-            if ($file == null) {
-                //no files
-                return 'No Document';
-            }
-            $path = $file->FILE_PATH . '/' . $file->FILE_NAME;
-
-            if (strpos($path, "http://") !== false || strpos($path, "https://") !== false) {
-                //do not suffix
-                $file_url = $path;
-            } else {
-                $file_url = '//' . $path;
-            }
-            return "<a href='$file_url' target='_blank' class='btn btn-danger btn-xs btn-block'>Download Document <span class='glyphicon glyphicon-download'></span></a>";
-
-        }
+        'attribute' => 'DATE_RECEIVED',
+        'format' => 'date',
+        'value' => function ($data) {
+            /* @var $data \app\modules\reporting\models\TRACKING_MODEL */
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($data->DATE_RECEIVED);
+            return $date_time;
+        },
     ],
     [
-        'attribute' => 'TIMESTAMP',
-        'format' => 'datetime'
+        'attribute' => 'DATE_UPDATED',
+        'format' => 'date',
+        'value' => function ($data) {
+            /* @var $data \app\modules\reporting\models\TRACKING_MODEL */
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($data->DATE_UPDATED);
+            return $date_time;
+        },
     ]
 ];
 ?>
@@ -52,16 +42,13 @@ $GridColumns = [
     'dataProvider' => $dataProvider,
     'export' => false,
     'columns' => $GridColumns,
-    'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+    'showOnEmpty' => false,
+    //'headerRowOptions' => ['class' => 'kartik-sheet-style'],
     'responsive' => true,
     'bordered' => true,
-    'striped' => true,
+    'striped' => false,
     'condensed' => true,
-    'hover' => true,
-    /*'showPageSummary'=>false,
-    'panel'=>[
-        'type'=>\kartik\grid\GridView::TYPE_PRIMARY,
-        //'heading'=>$heading,
-    ],
-   'persistResize'=>false,*/
+    'hover' => false,
+    'showPageSummary' => false,
+    'persistResize' => false,
 ]); ?>

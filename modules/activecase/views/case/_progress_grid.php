@@ -17,10 +17,7 @@ $gridColumns = [
             /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
             $reg_no = $model->STUDENT_REG_NO;
             $student_model = \app\modules\tracking\extended\STUDENT_MODEL::findOne($reg_no);
-            if ($student_model != null) {
-                return $student_model->getRegFullName();
-            }
-            return $reg_no;
+            return $student_model != null ? $student_model->getRegFullName() : $reg_no;
         },
         'group' => true,  // enable grouping,
         'groupedRow' => false,                    // move grouped column to a single grouped row
@@ -30,21 +27,23 @@ $gridColumns = [
     [
         'class' => 'kartik\grid\ExpandRowColumn',
         'value' => function ($model, $key, $index, $column) {
-            return GridView::ROW_COLLAPSED;
+            //return GridView::ROW_COLLAPSED;
+            return GridView::ROW_EXPANDED;
         },
 
         'allowBatchToggle' => false,
-        'expandOneOnly' => true,
-        'expandIcon' => '<span class="fa fa-clock-o"></span>',
-        'collapseIcon' => '<span class="fa fa-line-chart"></span>',
+        'expandOneOnly' => false,
+        'expandIcon' => '<span class="fa fa-folder"></span>',
+        'collapseIcon' => '<span class="fa fa-folder-open"></span>',
         'detail' => function ($model) {
             /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
             $incidence_id = $model->INCIDENCE_ID;
-            $dataProvider = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence_id);;
-            /*
-                        return Yii::$app->controller->renderPartial('_expand_row', [
-                            'dataProvider' => $dataProvider,
-                        ]);*/
+            $tracking = new \app\modules\reporting\models\TRACKING_MODEL();
+            $dataProvider = $tracking->search($incidence_id);
+
+            return Yii::$app->controller->renderPartial('_expand_row', [
+                'dataProvider' => $dataProvider,
+            ]);
         },
 
         'detailOptions' => [
@@ -140,7 +139,7 @@ $gridColumns = [
 
 //show the gridview
 ?>
-<?= Html::a('Return to Dashboard', ['//supervisor-actions'], ['class' => 'btn btn-primary']) ?>
+<?= Html::a('Return to Dashboard', ['//case-progress'], ['class' => 'btn btn-primary']) ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
