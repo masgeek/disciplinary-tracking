@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 /* @var $this yii\web\View */
-/* @var $model \app\modules\reporting\models\INCIDENCE_MODEL */
+/* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
 /* @var $uploads \app\modules\tracking\models\FILEUPLOAD */
 /* @var $student_case \app\models\STUDENT_INCIDENCE */
 /* @var $form yii\widgets\ActiveForm */
@@ -18,7 +18,7 @@ if (!$model->isNewRecord) {
     }
 }
 $studentInfoUrl = \yii\helpers\Url::toRoute(['//student-info']);
-$studentList = \app\modules\reporting\models\INCIDENCE_MODEL::GetStudentsList();
+$studentList = \app\modules\reporting\models\CASE_INCIDENCE_MODEL::GetStudentsList();
 $faculties = \app\modules\tracking\extended\FACULTY_MODEL::GetFaculties();
 $case_list = \app\modules\tracking\extended\CASE_TYPE_MODEL::GetCaseTypesList($student_case->DISCIPLINARY_TYPE_ID, true);
 $student_status = \app\modules\tracking\extended\STATUS_MODEL::GetStatusList();

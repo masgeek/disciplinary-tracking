@@ -11,11 +11,17 @@ namespace app\modules\reporting\models;
 
 use app\modules\tracking\extended\STUDENT_MODEL;
 use app\modules\tracking\models\CASEINCIDENCES;
+use app\modules\tracking\models\FACULTIES;
 use app\modules\tracking\models\STUDENTSSTATUS;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
-class INCIDENCE_MODEL extends CASEINCIDENCES
+/**
+ * Class INCIDENCE_MODEL
+ * @property FACULTIES $fACULTY
+ * @package app\modules\reporting\models
+ */
+class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
 {
     /**
      * @inheritdoc
@@ -72,5 +78,10 @@ class INCIDENCE_MODEL extends CASEINCIDENCES
             ->all();
         $students_list = ArrayHelper::map($list, 'REGISTRATION_NUMBER', 'NAMES');
         return $students_list;
+    }
+
+    public function getFACULTY()
+    {
+        return $this->hasOne(FACULTIES::className(), ['FAC_CODE' => 'FACULTY_CODE']);
     }
 }

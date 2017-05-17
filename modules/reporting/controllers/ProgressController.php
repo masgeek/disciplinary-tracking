@@ -2,7 +2,7 @@
 
 namespace app\modules\reporting\controllers;
 
-use app\modules\reporting\models\INCIDENCE_MODEL;
+use app\modules\reporting\models\CASE_INCIDENCE_MODEL;
 use app\modules\tracking\extended\STUDENT_INCIDENCE;
 use app\modules\tracking\models\TRACKING;
 use phpDocumentor\Reflection\DocBlock\Tags\Var_;

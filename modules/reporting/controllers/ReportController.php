@@ -7,7 +7,7 @@ use app\modules\tracking\extended\CASE_TYPE_MODEL;
 use app\modules\tracking\extended\STUDENT_INCIDENCE;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
-use app\modules\reporting\models\INCIDENCE_MODEL;
+use app\modules\reporting\models\CASE_INCIDENCE_MODEL;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\helpers\Json;
@@ -54,7 +54,7 @@ class ReportController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => INCIDENCE_MODEL::find(),
+            'query' => CASE_INCIDENCE_MODEL::find(),
         ]);
 
         return $this->render('index', [
@@ -108,7 +108,7 @@ class ReportController extends Controller
         $case_type_id = $session->get('CASE_TYPE_ID');
         $discp_type_id = $session->get('DISCIPLINARY_TYPE_ID');
 
-        $model = new INCIDENCE_MODEL();
+        $model = new CASE_INCIDENCE_MODEL();
         $student_case = new STUDENT_INCIDENCE();
         $student_case->CASE_TYPE_ID = $case_type_id;
         $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
@@ -232,12 +232,12 @@ class ReportController extends Controller
      * Finds the INCIDENCE_MODEL model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return INCIDENCE_MODEL the loaded model
+     * @return CASE_INCIDENCE_MODEL the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = INCIDENCE_MODEL::findOne($id)) !== null) {
+        if (($model = CASE_INCIDENCE_MODEL::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

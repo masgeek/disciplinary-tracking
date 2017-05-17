@@ -2,6 +2,9 @@
 
 namespace app\modules\activecase\controllers;
 
+use app\modules\reporting\models\CASE_INCIDENCE_MODEL;
+use yii\data\ActiveDataProvider;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 
 /**
@@ -9,6 +12,22 @@ use yii\web\Controller;
  */
 class CaseController extends Controller
 {
+
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
+
     /**
      * Renders the active view for the module
      * @return string
@@ -20,14 +39,24 @@ class CaseController extends Controller
 
     public function actionProgress()
     {
-        return $this->render('all-cases');
+        $this->view->title = 'Disciplinary Cases Progress';
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => CASE_INCIDENCE_MODEL::find(),
+        ]);
+
+        return $this->render('case-progress', [
+            'dataProvider' => $dataProvider,
+        ]);
     }
+
     /**
      * Renders the active view for the module
      * @return string
      */
     public function actionActive()
     {
+
         return $this->render('active');
     }
 
