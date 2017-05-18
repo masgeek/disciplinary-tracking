@@ -4,7 +4,7 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
-/* @var $model app\modules\reporting\models\INCIDENCE_MODEL */
+/* @var $model app\modules\reporting\models\CASE_INCIDENCE_MODEL */
 
 $this->title = 'Incidence Reporting |' . $model->INCIDENCE_ID;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Case Incidences'), 'url' => ['index']];

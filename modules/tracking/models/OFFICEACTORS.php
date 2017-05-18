@@ -10,7 +10,9 @@ use Yii;
  * @property integer $OFFICE_ACTOR_ID
  * @property string $ACTOR_NAME
  * @property string $EMAIL_ADDRESS
- * @property integer $ACTIVE
+ * @property string $FACULTY_CODE
+ * @property string $DEPARTMENT_CODE
+ * @property string $ACTIVE
  *
  * @property USERS[] $uSERSs
  */
@@ -30,9 +32,11 @@ class OFFICEACTORS extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['OFFICE_ACTOR_ID', 'ACTOR_NAME', 'EMAIL_ADDRESS'], 'required'],
-            [['OFFICE_ACTOR_ID', 'ACTIVE'], 'integer'],
+            [['OFFICE_ACTOR_ID', 'ACTOR_NAME', 'EMAIL_ADDRESS', 'FACULTY_CODE', 'DEPARTMENT_CODE'], 'required'],
+            [['OFFICE_ACTOR_ID'], 'integer'],
+            [['ACTIVE'], 'number'],
             [['ACTOR_NAME', 'EMAIL_ADDRESS'], 'string', 'max' => 50],
+            [['FACULTY_CODE', 'DEPARTMENT_CODE'], 'string', 'max' => 20],
             [['OFFICE_ACTOR_ID'], 'unique'],
         ];
     }
@@ -46,6 +50,8 @@ class OFFICEACTORS extends \yii\db\ActiveRecord
             'OFFICE_ACTOR_ID' => Yii::t('app', 'Office  Actor  ID'),
             'ACTOR_NAME' => Yii::t('app', 'Actor  Name'),
             'EMAIL_ADDRESS' => Yii::t('app', 'Email  Address'),
+            'FACULTY_CODE' => Yii::t('app', 'Faculty  Code'),
+            'DEPARTMENT_CODE' => Yii::t('app', 'Department  Code'),
             'ACTIVE' => Yii::t('app', 'Active'),
         ];
     }

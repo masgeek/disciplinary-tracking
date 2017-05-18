@@ -13,7 +13,7 @@ $config = [
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
-            'maxAge' => 'debug',
+            'maxAge' => 1,//'debug',
             'accessRoles' => ['admin'],
             'trackActions' => ['*'],
             // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
@@ -38,6 +38,9 @@ $config = [
             'class' => 'app\modules\reporting\report',
             'defaultRoute' => 'report/report-case', //default controller
         ],
+        'activecase' => [
+            'class' => 'app\modules\activecase\module',
+        ],
     ],
     'components' => [
         'request' => [
@@ -50,6 +53,19 @@ $config = [
         'user' => [
             'identityClass' => 'app\models\USER',
             'enableAutoLogin' => true,
+            //'authTimeout' => 400,
+        ],
+        'session' => [
+            'class' => 'yii\web\DbSession',
+            'writeCallback' => function ($session) {
+                return [
+                    'user_id' => \Yii::$app->user->identity->username,
+                    'ip' => $_SERVER['REMOTE_ADDR'],
+                    'is_trusted' => $session->get('is_trusted', false),
+                ];
+            },
+            'timeout' => 60 * 60 * 24 * 7, // 1 weeks
+            'sessionTable' => 'DT_YII_SESSION',
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -78,8 +94,10 @@ $config = [
             //'defaultTimeZone'=>'America/Chicago'
         ],
         'urlManager' => [
-            'enablePrettyUrl' => false,//YII_DEBUG ? true : false,
+            'enablePrettyUrl' => true,//YII_DEBUG ? true : false,
             'showScriptName' => false,
+            'enableStrictParsing' => false,
+            //'suffix' => '.html',
             'rules' => [
                 //default rules
 
@@ -88,11 +106,23 @@ $config = [
                 '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 //custom rules
                 '/' => 'site/index',
+                'index' => 'site/index',
+                'dashboard' => 'site/index',
                 'discipline' => 'disciplinarytype/index',
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',
                 'first-case' => 'report/report/first-case',
-                'first-office' => 'report/progress/first-office'
+                'first-office' => 'report/progress/first-office',
+                'student-info' => 'tracking/ajax/student-details',
+                'student-status' => 'tracking/ajax/student-status',
+                'faculty-info' => 'tracking/ajax/faculty-info',
+                'college-info' => 'tracking/ajax/college-info',
+
+                'all-cases' => 'activecase/case/all',
+                'active-cases' => 'activecase/case/active',
+                'pending-cases' => 'activecase/case/pending',
+                'closed-cases' => 'activecase/case/closed',
+                'case-progress' => 'activecase/case/progress',
 
             ],
         ]
@@ -108,13 +138,13 @@ if (YII_ENV_DEV) {
     $config['modules']['debug'] = [
         'class' => 'yii\debug\Module',
         // uncomment the following to add your IP if you are not connecting from localhost.
-        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170'],
+        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170', '41.89.65.87'],
     ];
 
     $config['bootstrap'][] = 'gii';
     $config['modules']['gii'] = [
         'class' => 'yii\gii\Module',
-        //'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170'],
+        'allowedIPs' => ['127.0.0.1', '::1', '41.89.65.170', '41.89.65.87'],
         'generators' => [
             'model' => [
                 'class' => 'yii\gii\generators\model\Generator',

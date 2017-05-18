@@ -20,32 +20,24 @@ $this->title = 'My Yii Application';
             <div class="col-lg-4">
                 <h2>Report Incident</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>Report exam disciplinary incidences</p>
 
-                <p><?=\yii\helpers\Html::a(Yii::t('app', 'Report Incidence'), ['//report/report/report-case'], ['class' => 'btn btn-primary btn-block'])?></p>
+                <p><?=\yii\helpers\Html::a(Yii::t('app', 'Report Incidence'), ['//incident'], ['class' => 'btn btn-primary btn-block btn-lg'])?></p>
             </div>
             <div class="col-lg-4">
                 <h2>View Case Progress</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>View reported cases progress</p>
 
-                <p><a class="btn btn-default btn-block" href="#">Click to Proceed</a></p>
+                <p><?=\yii\helpers\Html::a(Yii::t('app', 'Case Progress'), ['//case-progress'], ['class' => 'btn btn-danger btn-block btn-lg'])?></p>
+
             </div>
             <div class="col-lg-4">
                 <h2>Pending Approvals</h2>
 
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-                    dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip
-                    ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                    fugiat nulla pariatur.</p>
+                <p>View Cases Pending Approvals</p>
 
-                <p><a class="btn btn-success btn-block" href="#">Click to Proceed</a></p>
+                <p><?=\yii\helpers\Html::a(Yii::t('app', 'Pending Cases'), ['//pending-cases'], ['class' => 'btn btn-success btn-block btn-lg'])?></p>
             </div>
         </div>
 

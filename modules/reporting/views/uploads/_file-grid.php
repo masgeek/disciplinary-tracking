@@ -18,7 +18,7 @@ $gridColumns = [
         'header' => 'Download/View',
         'format' => 'raw',
         'value' => function ($data) {
-            $file_url = \app\components\HelperComponent::GenerateDownloadLink($data->FILE_PATH);
+            $file_url = \app\components\HELPER_COMPONENT::GenerateDownloadLink($data->FILE_PATH);
 
 
             $download_link = Html::a(
@@ -46,9 +46,9 @@ $gridColumns = [
             return $url;
         },
         'deleteOptions' => [
-            'title' => 'This will launch the uploaded file item!',
+            'title' => 'This will delete the uploaded file item!',
             'data-toggle' => 'tooltip',
-            //'label' => '<i class="glyphicon glyphicon-remove"></i>'
+            'label' => '<i class="glyphicon glyphicon-remove"></i>'
         ],
         'headerOptions' => ['class' => 'kartik-sheet-style'],
     ]
@@ -73,8 +73,8 @@ $gridColumns = [
     //'pjax' => true, // pjax is set to always true for this demo
     'columns' => $gridColumns,
     'panel' => [
-        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-upload"></i> ' . ucfirst(strtolower($case_name)) . ' Uploads</h3>',
-        'type' => 'success',
+        'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-upload"></i> ' . ucwords(strtolower($case_name)) . ' File Uploads</h3>',
+        'type' => 'default',
         'footer' => false
     ],
 ]); ?>

@@ -42,6 +42,7 @@ class TRACKING extends \yii\db\ActiveRecord
             [['COMMENTS'], 'string', 'max' => 500],
             [['ADDED_BY', 'ACTED_ON_BY'], 'string', 'max' => 20],
             [['TRACKING_ID'], 'unique'],
+            [['INCIDENCE_ID', 'PROCESS_ID'], 'unique', 'targetAttribute' => ['INCIDENCE_ID', 'PROCESS_ID'], 'message' => 'The combination of Incidence  ID and Process  ID has already been taken.'],
             [['PROCESS_ID'], 'exist', 'skipOnError' => true, 'targetClass' => PROCESS::className(), 'targetAttribute' => ['PROCESS_ID' => 'PROCESS_ID']],
         ];
     }

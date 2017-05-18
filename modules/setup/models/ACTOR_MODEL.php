@@ -9,17 +9,19 @@
 namespace app\modules\setup\models;
 
 
-use app\modules\tracking\models\ACTORS;
+use app\modules\tracking\models\OFFICEACTORS;
 
-class ACTOR_MODEL extends ACTORS
+class ACTOR_MODEL extends OFFICEACTORS
 {
     public function rules()
     {
         return [
-            [['ACTOR_NAME', 'EMAIL_ADDRESS'], 'required'],
-            [['ACTOR_ID', 'ACTIVE'], 'integer'],
+            [['ACTOR_NAME', 'EMAIL_ADDRESS', 'FACULTY_SCHOOL', 'DEPARTMENT'], 'required'],
+            [['OFFICE_ACTOR_ID'], 'integer'],
+            [['ACTIVE'], 'number'],
             [['ACTOR_NAME', 'EMAIL_ADDRESS'], 'string', 'max' => 50],
-            [['ACTOR_ID'], 'unique'],
+            [['FACULTY_SCHOOL', 'DEPARTMENT'], 'string', 'max' => 20],
+            [['OFFICE_ACTOR_ID'], 'unique'],
         ];
     }
 

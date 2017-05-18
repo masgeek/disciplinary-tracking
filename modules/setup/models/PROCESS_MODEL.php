@@ -63,6 +63,8 @@ class PROCESS_MODEL extends PROCESS
      * Auto generates the next order based on the last order id
      * @param $case_type_id
      * @return int|mixed
+     *
+     * @deprecated not being used consider removing it :-)
      */
     private function SelectLastOrder($case_type_id)
     {
@@ -93,7 +95,7 @@ class PROCESS_MODEL extends PROCESS
         if (!is_array($processes_arr)) {
             throw new \InvalidArgumentException("Not an array");
         }
-        $process_list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME','DESCRIPTION'])
+        $process_list = self::find()->select(['PROCESS_ID', 'PROCESS_NAME','DESCRIPTION','ORDER_NO'])
             ->where(['CASE_TYPE_ID' => $case_type_id])
             ->andWhere(['NOT IN', 'PROCESS_ID', $processes_arr,])
             ->orderBy(['ORDER_NO' => SORT_ASC]);

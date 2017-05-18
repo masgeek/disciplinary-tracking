@@ -9,33 +9,56 @@ use yii\widgets\ActiveForm;
 /* @var $incidence \app\models\STUDENT_INCIDENCE */
 /* @var $form yii\widgets\ActiveForm */
 
+$faculty_code = 'S08';//$incidence->iNCIDENCE->FACULTY_CODE;
+
 $case_name_arr = \app\modules\reporting\models\CASE_MODEL_VIEW::GetCaseNameArray($incidence->INCIDENCE_ID);
 
 
-$contains_one_process = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence->INCIDENCE_ID);
+$process_exclusion_arr = \app\modules\reporting\models\TRACKING_MODEL::GetTrackedProcesses($incidence->INCIDENCE_ID);
 
-$nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $contains_one_process);
+$nextProcess = \app\modules\setup\models\PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $process_exclusion_arr);
 
-$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID);
+$process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessActors($nextProcess->PROCESS_ID, $faculty_code, true);
 
-var_dump($nextProcess);
+$this->title = $nextProcess->PROCESS_NAME;
+$this->params['breadcrumbs'][] = $this->title;
+
 ?>
-<h1>progress/first-office</h1>
+<h3><?= $nextProcess->DESCRIPTION ?></h3>
 
 <div class="progress-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
     <?= $form->field($incidence, 'CASE_TYPE_ID')->dropDownList($case_name_arr)->label(false) ?>
-    <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false) ?>
-    <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false) ?>
+    <?= $form->field($tracking, 'INCIDENCE_ID')->hiddenInput(['value' => $incidence->INCIDENCE_ID])->label(false)              ?>
+    <?= $form->field($tracking, 'PROCESS_ID')->hiddenInput(['value' => $nextProcess->PROCESS_ID])->label(false)              ?>
+    <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')
+        ->dropDownList($process_actors, [
+            'prompt' => '---SELECT OFFICE ACTOR---',
+            'onchange' => 'forwardingOffice(this)'
+        ]) ?>
     <?= $form->field($tracking, 'COMMENTS')->textarea(['rows' => 6]) ?>
-    <?= $form->field($process_actor, 'PROCESS_ACTOR_ID')->textInput(['maxlength' => true]) ?>
 
     <div class="form-group">
-        <?= Html::submitButton(Yii::t('app', 'Create'), ['class' => 'btn btn-primary']) ?>
+        <?= Html::submitButton("Forward Case", ['id' => 'btn-forward', 'class' => 'btn btn-primary']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
 
 </div>
+
+<script>
+    function forwardingOffice($dropdown) {
+        var $forwardText = 'Forward Case';
+        var officeActor = $($dropdown).find("option:selected").text();
+
+        console.log(!!$dropdown.value); //will be true if empty
+        if (!!$dropdown.value) {
+            $forwardText = 'Forward to ' + officeActor;
+        } else {
+        }
+
+        $('#btn-forward').text($forwardText);
+    }
+</script>

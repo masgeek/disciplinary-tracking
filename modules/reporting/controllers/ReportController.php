@@ -2,14 +2,15 @@
 
 namespace app\modules\reporting\controllers;
 
-use app\models\CASE_TYPE_MODEL;
-use app\models\DISCIPLINARY_TYPE_MODEL;
-use app\models\STUDENT_INCIDENCE;
+use app\components\CONSTANTS;
 use app\modules\reporting\models\UPLOAD_MODEL;
+use app\modules\tracking\extended\CASE_TYPE_MODEL;
+use app\modules\tracking\extended\STUDENT_INCIDENCE;
 use app\modules\tracking\models\FILEUPLOAD;
 use Yii;
-use app\modules\reporting\models\INCIDENCE_MODEL;
+use app\modules\reporting\models\CASE_INCIDENCE_MODEL;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -26,11 +27,22 @@ class ReportController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        //'actions' => ['logout'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
                     'first-office' => ['POST'],
+                    //'first-case' => ['POST'],
                 ],
             ],
         ];
@@ -43,7 +55,7 @@ class ReportController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => INCIDENCE_MODEL::find(),
+            'query' => CASE_INCIDENCE_MODEL::find(),
         ]);
 
         return $this->render('index', [
@@ -97,13 +109,15 @@ class ReportController extends Controller
         $case_type_id = $session->get('CASE_TYPE_ID');
         $discp_type_id = $session->get('DISCIPLINARY_TYPE_ID');
 
-        $model = new INCIDENCE_MODEL();
+        $model = new CASE_INCIDENCE_MODEL();
+        $model->scenario = CONSTANTS::SCENARIO_INSERT;
         $student_case = new STUDENT_INCIDENCE();
-        $uploads = new FILEUPLOAD();
         $student_case->CASE_TYPE_ID = $case_type_id;
         $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
         if (Yii::$app->request->isPost) {
+
             $transaction = $connection->beginTransaction();
+
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
                 //save the first model
                 $student_case->INCIDENCE_ID = $model->INCIDENCE_ID; //get the saved id
@@ -116,14 +130,15 @@ class ReportController extends Controller
                     return $this->redirect(['file-upload']);
                 } else {
                     $transaction->rollback(); //rollback the transaction
+                    var_dump($student_case->getErrors());
                 }
             } else {
                 $transaction->rollback(); //rollback the transaction
+                var_dump($model->getErrors());
             }
         }
         return $this->render('create', [
             'model' => $model,
-            'uploads' => $uploads,
             'student_case' => $student_case
         ]);
 
@@ -220,12 +235,12 @@ class ReportController extends Controller
      * Finds the INCIDENCE_MODEL model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return INCIDENCE_MODEL the loaded model
+     * @return CASE_INCIDENCE_MODEL the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = INCIDENCE_MODEL::findOne($id)) !== null) {
+        if (($model = CASE_INCIDENCE_MODEL::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');

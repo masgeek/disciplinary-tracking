@@ -6,12 +6,13 @@
  * Time: 19:59
  */
 
-namespace app\models;
+namespace app\modules\tracking\extended;
 
 
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\DISCIPLINARYCASETYPES;
 use app\modules\tracking\models\STUDENTINCIDENCES;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 
 /**
@@ -68,5 +69,22 @@ class STUDENT_INCIDENCE extends STUDENTINCIDENCES
     public function getCASETYPE()
     {
         return $this->hasOne(DISCIPLINARYCASETYPES::className(), ['CASE_TYPE_ID' => 'CASE_TYPE_ID']);
+    }
+
+    /**
+     * @param $incidence_id
+     * @return ActiveDataProvider
+     */
+    public function search($incidence_id)
+    {
+        $query = self::find();
+
+        // add conditions that should always apply here
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $query->where(['INCIDENCE_ID' => $incidence_id]);
+        return $dataProvider;
     }
 }
