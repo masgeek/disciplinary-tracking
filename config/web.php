@@ -114,6 +114,9 @@ $config = [
                 'first-case' => 'report/report/first-case',
                 'first-office' => 'report/progress/first-office',
                 'student-info' => 'tracking/ajax/student-details',
+                'faculty-info' => 'tracking/ajax/faculty-info',
+                'college-info' => 'tracking/ajax/college-info',
+
                 'all-cases' => 'activecase/case/all',
                 'active-cases' => 'activecase/case/active',
                 'pending-cases' => 'activecase/case/pending',

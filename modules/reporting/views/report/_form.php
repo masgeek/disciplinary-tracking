@@ -39,7 +39,7 @@ $user_id = Yii::$app->user->identity->username;
         <div class="col-md-4">
             <?= $form->field($model, 'STUDENT_REG_NO')->widget(\kartik\select2\Select2::classname(), [
                 'data' => $studentList,
-                'options' => ['placeholder' => '---SELECT STUDENT---'],
+                'options' => ['placeholder' => '---SELECT STUDENT---', 'id' => 'student'],
                 'theme' => \kartik\select2\Select2::THEME_BOOTSTRAP, // this is the default if theme is not set
                 'pluginOptions' => [
                     'allowClear' => true,
@@ -73,9 +73,29 @@ $user_id = Yii::$app->user->identity->username;
             <?= $form->field($model, 'STATUS_CODE')
                 ->dropDownList($student_status, ['prompt' => 'Select student status', 'readonly' => true]) ?>
         </div>
-        <div class="col-md-6">
-            <?= $form->field($model, 'FACULTY_CODE')
-                ->dropDownList($faculties, ['prompt' => '---SELECT FACULTY---', 'readonly' => true]) ?>
+        <div class="col-md-4">
+            <!--?= $form->field($model, 'FACULTY_CODE')
+                ->dropDownList($faculties, ['prompt' => '---FACULTY---', 'readonly' => true, 'id' => 'faculty']) ?-->
+            <?= $form->field($model, 'FACULTY_CODE')->widget(\kartik\depdrop\DepDrop::classname(), [
+                'options' => ['id' => 'faculty'],
+                'pluginOptions' => [
+                    'depends' => ['student'],
+                    'placeholder' => 'Select...',
+                    'url' => \yii\helpers\Url::toRoute(['//faculty-info'])
+                ]
+            ]) ?>
+        </div>
+        <div class="col-md-2">
+            <!--?= $form->field($model, 'COLLEGE_CODE')
+                ->dropDownList($faculties, ['prompt' => '---COLLEGE---', 'readonly' => true]) ?-->
+            <?= $form->field($model, 'COLLEGE_CODE')->widget(\kartik\depdrop\DepDrop::classname(), [
+                'options' => ['id' => 'college'],
+                'pluginOptions' => [
+                    'depends' => ['faculty'],
+                    'placeholder' => 'Select...',
+                    'url' => \yii\helpers\Url::toRoute(['//college-info'])
+                ]
+            ]) ?>
         </div>
         <div class="col-md-2">
             <?= $form->field($model, 'REPORTED_BY')->textInput(['value' => $user_id, 'readonly' => true]) ?>
