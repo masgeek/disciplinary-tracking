@@ -131,7 +131,7 @@ $gridColumns = [
                 //'data-confirm' => 'Are you sure?',
                 'id' => 'act-btn',
                 'data-params' => [
-                    'ID' => $model->INCIDENCE_ID,
+                    'INCIDENCE_ID' => $model->INCIDENCE_ID,
                     '_csrf' => Yii::$app->request->csrfToken
                 ],
                 'class' => 'btn btn-success btn-xs btn-block']);

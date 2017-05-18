@@ -27,6 +27,7 @@ $gridColumns = [
         'groupOddCssClass' => 'kv-grouped-row',  // configure odd group cell css class
         'groupEvenCssClass' => 'kv-grouped-row', // configure even group cell css class
     ],
+    'CASE_DESCRIPTION',
     [
         'header' => 'Case Status',
         'attribute' => 'INCIDENCE_ID',
@@ -95,7 +96,6 @@ $gridColumns = [
             return $date_time;
         },
     ],
-    //'CASE_DESCRIPTION',
     //'STATUS_CODE',
     //'REPORTED_BY',
     //'DATE_REPORTED',
@@ -115,7 +115,7 @@ $gridColumns = [
         ],
         'urlCreator' => function ($action, $model, $key, $index) {
             if ($action === 'image') {
-                $url = ''; //\yii\helpers\Url::toRoute(['//product/images/add-image', 'product_id' => $model->PRODUCT_ID]);
+                $url = ''; //\yii\helpers\Url::toRoute(['//product/images/add-image', 'INCIDENCE_ID,' => $model->INCIDENCE_ID,);
                 return $url;
             }
         },
@@ -131,14 +131,13 @@ $gridColumns = [
 ];
 ?>
 
-<div class="panel panel-default">
+<div class="panel panel-success">
     <div class="panel-heading"><?= Html::encode($this->title) ?></div>
     <div class="panel-body">
         <div class="row">
             <?= Html::a('Return to Dashboard', ['//dashboard'], ['class' => 'btn btn-success']) ?>
         </div>
-        <hr/>
-        <div class="products-index row">
+        <div class="row">
             <?= GridView::widget([
                 'dataProvider' => $dataProvider,
                 //'filterModel' => $searchModel,
@@ -146,6 +145,7 @@ $gridColumns = [
                 'export' => false,
                 'pjax' => true,
                 'summary' => '',
+                'condensed' => true,
                 'responsive' => true,
                 'hover' => true,
                 'columns' => $gridColumns,
