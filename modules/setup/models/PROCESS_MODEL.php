@@ -63,6 +63,8 @@ class PROCESS_MODEL extends PROCESS
      * Auto generates the next order based on the last order id
      * @param $case_type_id
      * @return int|mixed
+     *
+     * @deprecated not being used consider removing it :-)
      */
     private function SelectLastOrder($case_type_id)
     {
