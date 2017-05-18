@@ -15,7 +15,11 @@ use app\modules\tracking\models\TRACKING;
 use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 
-/* @property CASE_INCIDENCE_MODEL $iNCIDENCE */
+/**
+ * @property CASE_INCIDENCE_MODEL $iNCIDENCE
+ * @property USERS_MODEL $aDDED_BY
+ * @property USERS_MODEL $aCTED_ON_BY
+ * */
 class TRACKING_MODEL extends TRACKING
 {
     /**
@@ -66,6 +70,22 @@ class TRACKING_MODEL extends TRACKING
     public function getINCIDENCE()
     {
         return $this->hasOne(CASE_INCIDENCE_MODEL::className(), ['INCIDENCE_ID' => 'INCIDENCE_ID']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getADDED_BY()
+    {
+        return $this->hasOne(USERS_MODEL::className(), ['USER_ID' => 'ADDED_BY']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getACTED_ON_BY()
+    {
+        return $this->hasOne(USERS_MODEL::className(), ['USER_ID' => 'ACTED_ON_BY']);
     }
 
     /**
