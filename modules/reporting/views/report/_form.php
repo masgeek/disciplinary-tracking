@@ -44,10 +44,6 @@ $user_id = Yii::$app->user->identity->username;
                 'pluginOptions' => [
                     'allowClear' => true,
                 ],
-                'pluginEvents' => [
-                    //lets fetch the relevant data from an ajax source
-                    "select2:select" => "function() { FetchStudentInfo(this.value); }",
-                ]
             ]); ?>
         </div>
         <div class="col-md-4">
@@ -117,26 +113,3 @@ $user_id = Yii::$app->user->identity->username;
     <?php ActiveForm::end(); ?>
 
 </div>
-<?php
-
-$this->registerJs(<<< EOT_JS_CODE
-function FetchStudentInfo(reg_no){
-    $.post('$studentInfoUrl',{STUDENT_REG_NO:reg_no}, function(data) {
-        var status = null;
-        //$("#result").html(data.REGISTRATION_NUMBER);
-        //$("#result").html(data.sTUDENTSTATUS.STATUS_CODE);
-        
-        if(data.sTUDENTSTATUS!=null){
-            status = data.sTUDENTSTATUS.STATUS_CODE;
-        }
-
-//set the student faculty
-      $("#incidence_model-faculty_code").val(data.dEGREEPROGRAMME.FACUL_FAC_CODE);
-        //let us set the values for status dropdown
-        $("#incidence_model-status_code").val(status);
-    },'json');
-}
-EOT_JS_CODE
-);
-
-?>
