@@ -15,9 +15,10 @@ $gridColumns = [
     //'TRACKING_ID',
     //'INCIDENCE_ID',
     'pROCESS.PROCESS_NAME',
-    'pROCESS.CASE_TYPE_ID',
+    //'pROCESS.CASE_TYPE_ID',
     [
-        'header' => 'PROCESS_ID',
+        'header' => 'Description',
+        'attribute' => 'PROCESS_ID',
         'format' => 'raw',
         'value' => function ($data) {
             /* @var $data \app\modules\reporting\models\TRACKING_MODEL */

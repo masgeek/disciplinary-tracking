@@ -56,7 +56,7 @@ class CASEINCIDENCES extends \yii\db\ActiveRecord
         return [
             'INCIDENCE_ID' => Yii::t('app', 'Incidence  ID'),
             'STUDENT_REG_NO' => Yii::t('app', 'Student  Reg  No'),
-            'CASE_DESCRIPTION' => Yii::t('app', 'Case  Description'),
+            'CASE_DESCRIPTION' => Yii::t('app', 'Case Description'),
             'STATUS_CODE' => Yii::t('app', 'Status  Code'),
             'REPORTED_BY' => Yii::t('app', 'Reported  By'),
             'DATE_REPORTED' => Yii::t('app', 'Date  Reported'),

@@ -16,6 +16,7 @@ class CONSTANTS
      * Indicated the status of a record
      */
     const STATUS_PENDING = 0;
+    const STATUS_ALL = 5;
     const STATUS_APPROVED = 1;
     const STATUS_COMPLETE = 2;
     const STATUS_REJECTED = 3;
@@ -31,4 +32,8 @@ class CONSTANTS
      * Minimum count is 1
      */
     const FIRST_PROCESS_COUNT = 1;
+
+    /* scenarios */
+    CONST SCENARIO_SEARCH = 'SEARCH';
+    CONST SCENARIO_INSERT = 'INSERT';
 }

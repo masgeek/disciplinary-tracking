@@ -9,11 +9,13 @@
 namespace app\modules\reporting\models;
 
 
+use app\components\CONSTANTS;
 use app\modules\tracking\extended\STUDENT_MODEL;
 use app\modules\tracking\models\CASEINCIDENCES;
 use app\modules\tracking\models\COLLEGES;
 use app\modules\tracking\models\FACULTIES;
 use app\modules\tracking\models\STUDENTSSTATUS;
+use yii\data\ActiveDataProvider;
 use yii\db\Expression;
 use yii\helpers\ArrayHelper;
 
@@ -27,11 +29,43 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
 {
     /**
      * @inheritdoc
+     * @return array
+     */
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[CONSTANTS::SCENARIO_SEARCH] = [
+            'INCIDENCE_ID',
+            'STUDENT_REG_NO',
+            'CASE_DESCRIPTION',
+            'STATUS_CODE',
+            'REPORTED_BY',
+            'DATE_REPORTED',
+            'DATE_ADDED',
+            'FACULTY_CODE',
+            'COLLEGE_CODE',
+        ];//Scenario Values Only Accepted
+        $scenarios[CONSTANTS::SCENARIO_INSERT] = [
+            'INCIDENCE_ID',
+            'STUDENT_REG_NO',
+            'CASE_DESCRIPTION',
+            'STATUS_CODE',
+            'REPORTED_BY',
+            'DATE_REPORTED',
+            'DATE_ADDED',
+            'FACULTY_CODE',
+            'COLLEGE_CODE',
+        ];//Scenario Values Only Accepted
+        return $scenarios;
+    }
+
+    /**
+     * @inheritdoc
      */
     public function rules()
     {
         return [
-            [['STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'FACULTY_CODE', 'COLLEGE_CODE'], 'required'],
+            [['STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'FACULTY_CODE', 'COLLEGE_CODE'], 'required', 'on' => CONSTANTS::SCENARIO_INSERT],
             [['INCIDENCE_ID'], 'integer'],
             [['DATE_REPORTED', 'DATE_ADDED'], 'safe'],
             [['STUDENT_REG_NO', 'REPORTED_BY', 'FACULTY_CODE'], 'string', 'max' => 20],
@@ -68,7 +102,9 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
         ];
     }
 
-
+    /**
+     * @return array
+     */
     public static function GetStudentsList()
     {
         $list = STUDENT_MODEL::find()
@@ -98,5 +134,50 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
     public function getCOLLEGE()
     {
         return $this->hasOne(FACULTIES::className(), ['COL_CODE' => 'COLLEGE_CODE']);
+    }
+
+
+    /**
+     * @param $params
+     * @param null $college_code
+     * @param null $faculty_code
+     * @return ActiveDataProvider
+     */
+    public function GetPendingCases($params, $college_code = null, $faculty_code = null)
+    {
+        $query = self::find();
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+            'sort' => [
+                'defaultOrder' => [
+                    'INCIDENCE_ID' => SORT_DESC
+                ]
+            ]
+        ]);
+
+        // load the search form data and validate
+        if (!($this->load($params) && $this->validate())) {
+            return $dataProvider;
+        }
+
+        // adjust the query by adding the filters
+        if ($college_code != null) {
+            $query->andFilterWhere(['COLLEGE_CODE' => $college_code]);
+        } else {
+            $query->andFilterWhere(['COLLEGE_CODE' => $this->COLLEGE_CODE]);
+        }
+
+        if ($faculty_code != null) {
+            $query->andFilterWhere(['FACULTY_CODE' => $faculty_code]);
+        } else {
+            $query->andFilterWhere(['FACULTY_CODE' => $this->FACULTY_CODE]);
+        }
+
+        //$query->andFilterWhere(['ip' => $this->ip]);
+        //$query->andFilterWhere(['like', 'created', $this->created]);
+        //$query->with(['linkedErrors', 'javascripts']);
+
+        return $dataProvider;
     }
 }

@@ -2,6 +2,7 @@
 
 namespace app\modules\activecase\controllers;
 
+use app\components\CONSTANTS;
 use app\modules\reporting\models\CASE_INCIDENCE_MODEL;
 use yii\data\ActiveDataProvider;
 use yii\filters\VerbFilter;
@@ -59,10 +60,14 @@ class CaseController extends Controller
         $session = \Yii::$app->session;
         $this->view->title = 'My Pending Cases';
 
-        // var_dump($session->isActive);
+        $searchModel = new CASE_INCIDENCE_MODEL();
+        //$searchModel->scenario = CONSTANTS::SCENARIO_SEARCH;
+        $dataProvider = $searchModel->GetPendingCases(\Yii::$app->request->queryParams);
 
-        //die;
-        return $this->render('pending-cases');
+        return $this->render('pending-cases', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider
+        ]);
     }
 
     /**

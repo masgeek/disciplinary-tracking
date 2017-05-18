@@ -126,7 +126,7 @@ class TRACKING_MODEL extends TRACKING
         return $complete;
     }
 
-    public function search($incidence_id)
+    public function search($incidence_id, $tracking_status = CONSTANTS::STATUS_ALL)
     {
         $query = self::find();
 
@@ -134,8 +134,11 @@ class TRACKING_MODEL extends TRACKING
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
-
         $query->where(['INCIDENCE_ID' => $incidence_id]);
+        if ($tracking_status !== CONSTANTS::STATUS_ALL) {
+            $query->andWhere(['TRACKING_STATUS' => $tracking_status]);
+        }
+
         return $dataProvider;
     }
 }
