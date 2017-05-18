@@ -48,8 +48,8 @@ $gridColumns = [
 
         'allowBatchToggle' => false,
         'expandOneOnly' => true,
-        'expandIcon' => '<span class="fa fa-folder"></span>',
-        'collapseIcon' => '<span class="fa fa-folder-open"></span>',
+        'expandIcon' => '<span class="fa fa-plus"></span>',
+        'collapseIcon' => '<span class="fa fa-minus"></span>',
         'detail' => function ($model) {
             /* @var $model \app\modules\reporting\models\CASE_INCIDENCE_MODEL */
             $incidence_id = $model->INCIDENCE_ID;
@@ -65,6 +65,35 @@ $gridColumns = [
             //'class' => 'kv-state-enable',
         ],
 
+    ],
+    [
+        'attribute' => 'REPORTED_BY',
+        'value' => 'REPORTED_BY',
+        //'group' => false,  // enable grouping
+        //'subGroupOf' => 1,
+        'visible' => false
+    ],
+    [
+        'attribute' => 'REPORTED_BY',
+        'value' => 'REPORTED_BY',
+        //'group' => false,  // enable grouping
+        //'subGroupOf' => 2
+    ],
+    [
+        'attribute' => 'DATE_REPORTED',
+        'format' => 'date',
+        'value' => function ($data) {
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($data->DATE_REPORTED);
+            return $date_time;
+        },
+    ],
+    [
+        'attribute' => 'DATE_ADDED',
+        'format' => 'date',
+        'value' => function ($data) {
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($data->DATE_ADDED);
+            return $date_time;
+        },
     ],
     //'CASE_DESCRIPTION',
     //'STATUS_CODE',

@@ -77,17 +77,6 @@ $gridColumns = [
         //'group' => false,  // enable grouping
         //'subGroupOf' => 2
     ],
-
-    [
-        'attribute' => 'REPORTED_BY',
-        'value' => function ($data) {
-            if ($data->REPORTED_BY) {
-                return 1;
-            }
-            return 0;
-        },
-        'format' => 'boolean'
-    ],
     [
         'attribute' => 'DATE_REPORTED',
         'format' => 'date',
