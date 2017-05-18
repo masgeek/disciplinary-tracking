@@ -18,7 +18,7 @@ $gridColumns = [
         'header' => 'Download/View',
         'format' => 'raw',
         'value' => function ($data) {
-            $file_url = \app\components\HelperComponent::GenerateDownloadLink($data->FILE_PATH);
+            $file_url = \app\components\HELPER_COMPONENT::GenerateDownloadLink($data->FILE_PATH);
 
 
             $download_link = Html::a(

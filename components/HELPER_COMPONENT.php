@@ -9,7 +9,7 @@
 namespace app\components;
 
 
-class HelperComponent
+class HELPER_COMPONENT
 {
     /**
      * Create a proper download link for a file
