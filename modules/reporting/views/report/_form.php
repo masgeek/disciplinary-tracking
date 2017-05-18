@@ -72,8 +72,20 @@ $user_id = Yii::$app->user->identity->username;
                 'options' => ['id' => 'student-status'],
                 'pluginOptions' => [
                     'depends' => ['student'],
-                    'placeholder' => 'Select...',
+                    'placeholder' => 'SELECT...',
                     'url' => \yii\helpers\Url::toRoute(['//student-status'])
+                ]
+            ]) ?>
+        </div>
+        <div class="col-md-4">
+            <!--?= $form->field($model, 'COLLEGE_CODE')
+                ->dropDownList($faculties, ['prompt' => '---COLLEGE---', 'readonly' => true]) ?-->
+            <?= $form->field($model, 'COLLEGE_CODE')->widget(\kartik\depdrop\DepDrop::classname(), [
+                'options' => ['id' => 'college'],
+                'pluginOptions' => [
+                    'depends' => ['faculty'],
+                    'placeholder' => 'SELECT...',
+                    'url' => \yii\helpers\Url::toRoute(['//college-info'])
                 ]
             ]) ?>
         </div>
@@ -84,28 +96,14 @@ $user_id = Yii::$app->user->identity->username;
                 'options' => ['id' => 'faculty'],
                 'pluginOptions' => [
                     'depends' => ['student'],
-                    'placeholder' => 'Select...',
+                    'placeholder' => 'SELECT...',
                     'url' => \yii\helpers\Url::toRoute(['//faculty-info'])
                 ]
             ]) ?>
         </div>
-        <div class="col-md-2">
-            <!--?= $form->field($model, 'COLLEGE_CODE')
-                ->dropDownList($faculties, ['prompt' => '---COLLEGE---', 'readonly' => true]) ?-->
-            <?= $form->field($model, 'COLLEGE_CODE')->widget(\kartik\depdrop\DepDrop::classname(), [
-                'options' => ['id' => 'college'],
-                'pluginOptions' => [
-                    'depends' => ['faculty'],
-                    'placeholder' => 'Select...',
-                    'url' => \yii\helpers\Url::toRoute(['//college-info'])
-                ]
-            ]) ?>
-        </div>
-        <div class="col-md-2">
-            <?= $form->field($model, 'REPORTED_BY')->textInput(['value' => $user_id, 'readonly' => true]) ?>
-        </div>
     </div>
     <?= $form->field($student_case, 'CASE_TYPE_ID')->hiddenInput(['readonly' => true])->label(false) ?>
+    <?= $form->field($model, 'REPORTED_BY')->hiddenInput(['value' => $user_id, 'readonly' => true])->label(false) ?>
     <div class="form-group">
         <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Submit Incidence') : Yii::t('app', 'Update Incidence'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
