@@ -10,6 +10,7 @@ use kartik\dialog\Dialog;
 
 $gridColumns = [
     ['class' => 'kartik\grid\SerialColumn'],
+    //'INCIDENCE_ID',
     [
         'attribute' => 'STUDENT_REG_NO',
         //'width' => '100%',
@@ -25,14 +26,26 @@ $gridColumns = [
         'groupEvenCssClass' => 'kv-grouped-row', // configure even group cell css class
     ],
     [
+        'header' => 'Case Status',
+        'attribute' => 'INCIDENCE_ID',
+        'format' => 'raw',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            $complete = \app\modules\reporting\models\TRACKING_MODEL::GetTrackingStage($model->INCIDENCE_ID);
+            return $complete ? '<span class="btn btn-success btn-block btn-xs">Complete</span>' : '<span class="btn btn-danger btn-block btn-xs">Incomplete</span>';
+        },
+        //'group' => true,  // enable grouping
+        // 'subGroupOf' => 1,
+    ],
+    [
         'class' => 'kartik\grid\ExpandRowColumn',
-        'value' => function ($model, $key, $index, $column) {
-            //return GridView::ROW_COLLAPSED;
-            return GridView::ROW_EXPANDED;
+        'value' => function () {
+            return GridView::ROW_COLLAPSED;
+            //return GridView::ROW_EXPANDED;
         },
 
         'allowBatchToggle' => false,
-        'expandOneOnly' => false,
+        'expandOneOnly' => true,
         'expandIcon' => '<span class="fa fa-folder"></span>',
         'collapseIcon' => '<span class="fa fa-folder-open"></span>',
         'detail' => function ($model) {

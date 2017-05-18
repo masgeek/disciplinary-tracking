@@ -106,6 +106,26 @@ class TRACKING_MODEL extends TRACKING
         return $incidence_array;
     }
 
+    /**
+     * Get the overall tracking stage of our case
+     * @param $incidence_id
+     * @return boolean
+     */
+    public static function GetTrackingStage($incidence_id)
+    {
+        $records_count = self::find()->select('PROCESS_ID')
+            ->where(['INCIDENCE_ID' => $incidence_id])
+            ->andWhere(['TRACKING_STATUS' => CONSTANTS::STATUS_PENDING])
+            //->orderBy(['ORDER_NO' => SORT_ASC])
+            ->count();
+        // ->asArray()
+        // ->all();
+
+        $complete = $records_count >= 1 ? false : true;
+
+        return $complete;
+    }
+
     public function search($incidence_id)
     {
         $query = self::find();
