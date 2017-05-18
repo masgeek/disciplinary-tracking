@@ -54,6 +54,21 @@ class CaseController extends Controller
      * Renders the active view for the module
      * @return string
      */
+    public function actionPending()
+    {
+        $session = \Yii::$app->session;
+        $this->view->title = 'My Pending Cases';
+
+        // var_dump($session->isActive);
+
+        //die;
+        return $this->render('pending-cases');
+    }
+
+    /**
+     * Renders the active view for the module
+     * @return string
+     */
     public function actionActive()
     {
 

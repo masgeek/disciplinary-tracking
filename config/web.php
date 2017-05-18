@@ -116,6 +116,7 @@ $config = [
                 'student-info' => 'tracking/ajax/student-details',
                 'all-cases' => 'activecase/case/all',
                 'active-cases' => 'activecase/case/active',
+                'pending-cases' => 'activecase/case/pending',
                 'closed-cases' => 'activecase/case/closed',
                 'case-progress' => 'activecase/case/progress',
 
