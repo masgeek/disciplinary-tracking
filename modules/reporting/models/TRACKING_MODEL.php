@@ -135,7 +135,7 @@ class TRACKING_MODEL extends TRACKING
             'query' => $query,
         ]);
         $query->where(['INCIDENCE_ID' => $incidence_id]);
-        if ($tracking_status !== CONSTANTS::STATUS_ALL) {
+        if ($tracking_status !== CONSTANTS::STATUS_ALL) {//use strict comparison
             $query->andWhere(['TRACKING_STATUS' => $tracking_status]);
         }
 
