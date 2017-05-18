@@ -20,19 +20,56 @@ $gridColumns = [
         'header' => 'PROCESS_ID',
         'format' => 'raw',
         'value' => function ($data) {
-            //var_dump($data->tRACKINGDATESs);
-            return 1;
+            /* @var $data \app\modules\reporting\models\TRACKING_MODEL */
+            return $data->iNCIDENCE->CASE_DESCRIPTION;
         }
     ],
-    'PROCESS_ID',
-    'COMMENTS',
-    'TRACKING_STATUS',
-    'ADDED_BY',
-    'ACTED_ON_BY',
-    'DATE_RECEIVED',
-    //'DATE_UPDATED',
+    [
+        'header' => 'Status',
+        'attribute' => 'TRACKING_STATUS',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            return $model->TRACKING_STATUS ? '<span class="label label-success">Complete</span>' : '<span class="label label-danger">Incomplete</span>';
+        },
+        'format' => 'raw',
+    ],
+    [
+        'attribute' => 'ADDED_BY',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            return $model->aDDED_BY ? $model->aDDED_BY->PF_NO : null;
+        },
+        'format' => 'raw',
+    ],
+    [
+        'attribute' => 'ACTED_ON_BY',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            return $model->aCTED_ON_BY ? $model->aCTED_ON_BY->PF_NO : null;
+        },
+        'format' => 'raw',
+    ],
+    [
+        'attribute' => 'DATE_RECEIVED',
+        'format' => 'date',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($model->DATE_RECEIVED);
+            return $date_time;
+        },
+    ],
+    [
+        'attribute' => 'DATE_UPDATED',
+        'visible' => false,
+        'format' => 'date',
+        'value' => function ($model) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            $date_time = \app\components\DATA_FACTORY::StringToDateTime($model->DATE_UPDATED);
+            return $date_time;
+        },
+    ]
 
-    ['class' => 'yii\grid\ActionColumn'],
+    //['class' => 'yii\grid\ActionColumn'],
 ];
 ?>
 <div class="incidence--model-index">
@@ -45,7 +82,7 @@ $gridColumns = [
         'dataProvider' => $dataProvider,
         //'layout'=>"{sorter}\n{pager}\n{summary}\n{items}",
         'layout' => "{items}\n{pager}\n{summary}",
-        'showFooter' => true,
+        'showFooter' => false,
         'showHeader' => true,
         'showOnEmpty' => true,
         'export' => false,
@@ -53,7 +90,7 @@ $gridColumns = [
         'hover' => true,
         'columns' => $gridColumns,
         'panel' => [
-            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-upload"></i> ' . ucwords(strtolower($this->title)) . '</h3>',
+            'heading' => '<h3 class="panel-title"><i class="glyphicon glyphicon-bell"></i> ' . ucwords(strtolower($this->title)) . '</h3>',
             'type' => 'primary',
             'footer' => false
         ],
