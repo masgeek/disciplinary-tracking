@@ -11,6 +11,7 @@ namespace app\modules\reporting\models;
 
 use app\modules\tracking\extended\STUDENT_MODEL;
 use app\modules\tracking\models\CASEINCIDENCES;
+use app\modules\tracking\models\COLLEGES;
 use app\modules\tracking\models\FACULTIES;
 use app\modules\tracking\models\STUDENTSSTATUS;
 use yii\db\Expression;
@@ -19,6 +20,7 @@ use yii\helpers\ArrayHelper;
 /**
  * Class INCIDENCE_MODEL
  * @property FACULTIES $fACULTY
+ * @property COLLEGES $COLLEGE
  * @package app\modules\reporting\models
  */
 class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
@@ -29,7 +31,7 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
     public function rules()
     {
         return [
-            [[/*'INCIDENCE_ID',*/ 'STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'FACULTY_CODE'], 'required'],
+            [['STUDENT_REG_NO', 'CASE_DESCRIPTION', 'STATUS_CODE', 'REPORTED_BY', 'DATE_REPORTED', 'FACULTY_CODE', 'COLLEGE_CODE'], 'required'],
             [['INCIDENCE_ID'], 'integer'],
             [['DATE_REPORTED', 'DATE_ADDED'], 'safe'],
             [['STUDENT_REG_NO', 'REPORTED_BY', 'FACULTY_CODE'], 'string', 'max' => 20],
@@ -66,7 +68,6 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
     }
 
 
-
     public static function GetStudentsList()
     {
         $list = STUDENT_MODEL::find()
@@ -80,8 +81,16 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
         return $students_list;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getFACULTY()
     {
         return $this->hasOne(FACULTIES::className(), ['FAC_CODE' => 'FACULTY_CODE']);
+    }
+
+    public function getCOLLEGE()
+    {
+        return $this->hasOne(FACULTIES::className(), ['COL_CODE' => 'COLLEGE_CODE']);
     }
 }
