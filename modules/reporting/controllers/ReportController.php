@@ -2,6 +2,7 @@
 
 namespace app\modules\reporting\controllers;
 
+use app\components\CONSTANTS;
 use app\modules\reporting\models\UPLOAD_MODEL;
 use app\modules\tracking\extended\CASE_TYPE_MODEL;
 use app\modules\tracking\extended\STUDENT_INCIDENCE;
@@ -109,10 +110,12 @@ class ReportController extends Controller
         $discp_type_id = $session->get('DISCIPLINARY_TYPE_ID');
 
         $model = new CASE_INCIDENCE_MODEL();
+        $model->scenario = CONSTANTS::SCENARIO_INSERT;
         $student_case = new STUDENT_INCIDENCE();
         $student_case->CASE_TYPE_ID = $case_type_id;
         $student_case->DISCIPLINARY_TYPE_ID = $discp_type_id;
         if (Yii::$app->request->isPost) {
+
             $transaction = $connection->beginTransaction();
 
             if ($model->load(Yii::$app->request->post()) && $model->save()) {
