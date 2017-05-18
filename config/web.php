@@ -107,6 +107,7 @@ $config = [
                 //custom rules
                 '/' => 'site/index',
                 'index' => 'site/index',
+                'dashboard' => 'site/index',
                 'discipline' => 'disciplinarytype/index',
                 'casetypes' => 'casetype/index',
                 'incident' => 'report/report/report-case',

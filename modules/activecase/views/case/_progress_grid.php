@@ -122,6 +122,7 @@ $gridColumns = [
     // Action column
     [
         'class' => '\kartik\grid\ActionColumn',
+        'visible' => false,
         'template' => '{approve}',
         'buttons' => [
             'approve' => function ($url, $model, $key) {
@@ -152,7 +153,7 @@ $gridColumns = [
 
 //show the gridview
 ?>
-<?= Html::a('Return to Dashboard', ['//case-progress'], ['class' => 'btn btn-primary']) ?>
+<?= Html::a('Return to Dashboard', ['//dashboard'], ['class' => 'btn btn-primary']) ?>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
