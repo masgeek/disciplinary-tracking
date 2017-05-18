@@ -11,6 +11,7 @@ namespace app\modules\tracking\controllers;
 
 use app\modules\tracking\extended\FACULTY_MODEL;
 use app\modules\tracking\extended\STUDENT_MODEL;
+use app\modules\tracking\models\COLLEGES;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\web\Controller;
@@ -49,41 +50,54 @@ class AjaxController extends Controller
         return json_encode($data);
     }
 
-    public function actionFacultyInfo()
+    public function actionStudentStatus()
     {
 
+        $student_arr = ['output' => '', 'selected' => ''];
 
-        $out = [];
-        $faculty_arr = ['output' => '', 'selected' => ''];
         if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $student_reg_no = $parents[0];
-                //$out = self::getSubCatList($student_reg_no);
-                // the getSubCatList function will query the database based on the
-                // cat_id and return an array like below:
-                // [
-                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
-                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
-                // ]
+                $student = STUDENT_MODEL::GetStudentInfo($student_reg_no);
 
+                if ($student != null && $student->sTUDENTSTATUS != null) {
+                    $out = [[
+                        'id' => $student->sTUDENTSTATUS->STATUS_CODE,
+                        'name' => $student->sTUDENTSTATUS->STATUS_DESCRIPTION
+                    ]];
+                    $student_arr = ['output' => $out, 'selected' => $student->sTUDENTSTATUS->STATUS_CODE];
+                }
+            }
+        }
+        return Json::encode($student_arr);
+    }
+
+    public function actionFacultyInfo()
+    {
+
+        $faculty_arr = ['output' => '', 'selected' => ''];
+
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $student_reg_no = $parents[0];
                 $data = STUDENT_MODEL::find()
                     ->where(['REGISTRATION_NUMBER' => $student_reg_no])
                     ->asArray()
                     ->with('dEGREEPROGRAMME')
-                    //->with('sTUDENTCATEGORY')
-                    //->with('sTUDENTSTATUS')
                     ->one();
 
                 $faculty_code = $data['dEGREEPROGRAMME']['FACUL_FAC_CODE'];
 
                 $facultyName = FACULTY_MODEL::GetFaculty($faculty_code);
-                $out = [[
-                    'id' => $facultyName->FAC_CODE,
-                    'name' => $facultyName->FACULTY_NAME
-                ]];
-
-                $faculty_arr = ['output' => $out, 'selected' => "$faculty_code"];
+                if ($facultyName != null) {
+                    $out = [[
+                        'id' => $facultyName->FAC_CODE,
+                        'name' => $facultyName->FACULTY_NAME
+                    ]];
+                    $faculty_arr = ['output' => $out, 'selected' => $faculty_code];
+                }
             }
         }
         return Json::encode($faculty_arr);
@@ -91,37 +105,21 @@ class AjaxController extends Controller
 
     public function actionCollegeInfo()
     {
-        $out = [];
+        /* @var $col COLLEGES */
         $college_arr = ['output' => '', 'selected' => ''];
         if (isset($_POST['depdrop_parents'])) {
             $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
-                $student_reg_no = $parents[0];
-                //$out = self::getSubCatList($student_reg_no);
-                // the getSubCatList function will query the database based on the
-                // cat_id and return an array like below:
-                // [
-                //    ['id'=>'<sub-cat-id-1>', 'name'=>'<sub-cat-name1>'],
-                //    ['id'=>'<sub-cat_id_2>', 'name'=>'<sub-cat-name2>']
-                // ]
+                $faculty_code = $parents[0];
+                $facultyName = FACULTY_MODEL::GetStudentFaculty($faculty_code);
 
-                $data = STUDENT_MODEL::find()
-                    ->where(['REGISTRATION_NUMBER' => $student_reg_no])
-                    ->asArray()
-                    ->with('dEGREEPROGRAMME')
-                    //->with('sTUDENTCATEGORY')
-                    //->with('sTUDENTSTATUS')
-                    ->one();
-
-                $faculty_code = $data['dEGREEPROGRAMME']['FACUL_FAC_CODE'];
-
-                $facultyName = FACULTY_MODEL::GetFaculty($faculty_code);
+                $col = (object)$facultyName['cOLCODE'];
                 $out = [[
-                    'id' => $facultyName->FAC_CODE,
-                    'name' => $facultyName->FACULTY_NAME
+                    'id' => $col->COL_CODE,
+                    'name' => $col->COL_NAME
                 ]];
 
-                $college_arr = ['output' => $out, 'selected' => "$faculty_code"];
+                $college_arr = ['output' => $out, 'selected' => $col->COL_CODE];
             }
         }
         return Json::encode($college_arr);

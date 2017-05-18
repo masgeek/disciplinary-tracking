@@ -70,8 +70,16 @@ $user_id = Yii::$app->user->identity->username;
     </div>
     <div class="row">
         <div class="col-md-4">
-            <?= $form->field($model, 'STATUS_CODE')
-                ->dropDownList($student_status, ['prompt' => 'Select student status', 'readonly' => true]) ?>
+            <!--?= $form->field($model, 'STATUS_CODE')
+                ->dropDownList($student_status, ['prompt' => 'Select student status', 'readonly' => true]) ?-->
+            <?= $form->field($model, 'STATUS_CODE')->widget(\kartik\depdrop\DepDrop::classname(), [
+                'options' => ['id' => 'student-status'],
+                'pluginOptions' => [
+                    'depends' => ['student'],
+                    'placeholder' => 'Select...',
+                    'url' => \yii\helpers\Url::toRoute(['//student-status'])
+                ]
+            ]) ?>
         </div>
         <div class="col-md-4">
             <!--?= $form->field($model, 'FACULTY_CODE')

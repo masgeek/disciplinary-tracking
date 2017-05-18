@@ -24,9 +24,9 @@ class FACULTY_MODEL extends FACULTIES
     public static function GetFaculties($dropdown = true)
     {
         $data = self::find()
-            ->select(['FAC_CODE', 'FACULTY_NAME', 'COL_CODE'])
+           /// ->select(['COL_CODE', 'COL_NAME'])
             ->with('cOLCODE')
-            ->asArray()
+            //->asArray()
             ->all();
 
         //add array class
@@ -37,18 +37,14 @@ class FACULTY_MODEL extends FACULTIES
         return $data;
     }
 
-    public static function GetStudentFaculty($dropdown = true, $depdrop = false)
+    public static function GetStudentFaculty($fac_code)
     {
         $data = self::find()
-            ->select(['FAC_CODE', 'FACULTY_NAME', 'COL_CODE'])
+            // ->select(['FAC_CODE', 'FACULTY_NAME', 'COL_CODE'])
             ->with('cOLCODE')
+            ->where(['FAC_CODE' => $fac_code])
             ->asArray()
-            ->all();
-
-        //add array class
-        if ($dropdown) {
-            return ArrayHelper::map($data, 'FAC_CODE', 'FACULTY_NAME');
-        }
+            ->one();
 
         return $data;
     }

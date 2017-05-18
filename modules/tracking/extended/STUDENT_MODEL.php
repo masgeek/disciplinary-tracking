@@ -102,6 +102,13 @@ class STUDENT_MODEL extends UONSTUDENTS
         return $this->REGISTRATION_NUMBER . ' - ' . $this->SURNAME . ' ' . $this->OTHER_NAMES;
     }
 
+    public static function GetStudentInfo($reg_no)
+    {
+        $data = self::findOne($reg_no);
+
+        return $data;
+    }
+
     public function getSTUDENTCATEGORY()
     {
         return $this->hasOne(STUDENTCATEGORIES::className(), ['STUDENT_CATEGORY_ID' => 'STC_STUDENT_CATEGORY_ID']);
