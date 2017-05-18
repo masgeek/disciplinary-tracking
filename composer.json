@@ -47,7 +47,8 @@
         "inblank/yii2-sortable": "^0.1.5",
         "fatelord/yii2-sortable-widgets": "dev-master",
         "fatelord/yii2-audit": "dev-master",
-        "kartik-v/yii2-detail-view": "^1.7"
+        "kartik-v/yii2-detail-view": "^1.7",
+        "kartik-v/yii2-widget-switchinput": "^1.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
