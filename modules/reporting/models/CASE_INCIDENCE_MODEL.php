@@ -64,6 +64,7 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
         return [
             'STATUS_CODE' => \Yii::t('app', \Yii::t('app', 'Student Status')),
             'FACULTY_CODE' => \Yii::t('app', \Yii::t('app', 'Faculty Name')),
+            'COLLEGE_CODE' => \Yii::t('app', \Yii::t('app', 'College Name')),
         ];
     }
 
@@ -89,6 +90,11 @@ class CASE_INCIDENCE_MODEL extends CASEINCIDENCES
         return $this->hasOne(FACULTIES::className(), ['FAC_CODE' => 'FACULTY_CODE']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     *
+     * @deprecated We do not really need this the faculty code can be used to get the college code
+     */
     public function getCOLLEGE()
     {
         return $this->hasOne(FACULTIES::className(), ['COL_CODE' => 'COLLEGE_CODE']);
