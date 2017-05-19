@@ -64,7 +64,7 @@ $config = [
                     'is_trusted' => $session->get('is_trusted', false),
                 ];
             },
-            'timeout' => 60 * 60 * 24 * 7, // 1 weeks
+            'timeout' => 60 * 5, //5 minutes //60 * 60 * 24 * 7, // 1 week
             'sessionTable' => 'DT_YII_SESSION',
         ],
         'errorHandler' => [
