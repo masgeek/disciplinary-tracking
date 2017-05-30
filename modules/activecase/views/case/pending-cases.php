@@ -98,7 +98,7 @@ $gridColumns = [
     ],
     [
         //lets build the document link
-        'header' => 'Document',
+        'header' => 'Download Document',
         'attribute' => 'INCIDENCE_ID',
         'format' => 'raw',
         'value' => function ($model, $key, $index) {
@@ -123,45 +123,31 @@ $gridColumns = [
                 $file_url = $host . $path;
             }
             //return "<a href='$file_url' target='_blank'>Download <span class='glyphicon glyphicon-download'></span></a>";
-            return Html::a('Download file', $file_url, ['class' => 'btn btn-primary', 'target' => '_blank']);
+            return Html::a("Download {$data->FILE_NAME}", $file_url, ['class' => 'btn btn-primary btn-sm btn-block', 'target' => '_blank']);
         }
     ],
-    //'STATUS_CODE',
-    //'REPORTED_BY',
-    //'DATE_REPORTED',
-    //'DATE_ADDED',
-    //'FACULTY_CODE',
-    //'COLLEGE_CODE',
     ['class' => '\kartik\grid\ActionColumn',
         'width' => '10%',
-        'visible' => false,
+        'visible' => true,
         'dropdown' => false,
         'vAlign' => 'middle',
-        'template' => '{image}',
+        'template' => '{action}',
         'buttons' => [
-            'image' => function ($url, $model, $key) {
-                return Html::a('Add Image <i class="glyphicon glyphicon-camera"></i>', $url);
+            'action' => function ($url, $model, $key) {
+                return Html::a('View Case <i class="glyphicon glyphicon-eye-open"></i>', $url, ['class' => 'btn btn-default btn-sm']);
             },
         ],
         'urlCreator' => function ($action, $model, $key, $index) {
-            if ($action === 'image') {
-                $url = ''; //\yii\helpers\Url::toRoute(['//product/images/add-image', 'INCIDENCE_ID,' => $model->INCIDENCE_ID,);
+            if ($action === 'action') {
+                $url = \yii\helpers\Url::toRoute(['//case-action', 'id' => $model->INCIDENCE_ID]);
                 return $url;
             }
         },
     ],
-    [
-        'class' => '\kartik\grid\ActionColumn',
-        'dropdown' => true,
-        'vAlign' => 'middle',
-        'template' => '{update}{view}{delete}',
-        'deleteOptions' => ['label' => '<i class="glyphicon glyphicon-remove"></i>Remove'],
-        'visible' => false
-    ]
 ];
 ?>
 
-<div class="panel panel-success">
+<div class="panel panel-primary">
     <div class="panel-heading"><?= Html::encode($this->title) ?></div>
     <div class="panel-body">
         <div class="row">
@@ -173,7 +159,7 @@ $gridColumns = [
                 //'filterModel' => $searchModel,
                 'layout' => '{summary}{pager}{items}{pager}',
                 'export' => false,
-                'pjax' => true,
+                'pjax' => false,
                 'summary' => '',
                 'condensed' => true,
                 'responsive' => true,

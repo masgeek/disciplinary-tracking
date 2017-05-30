@@ -41,6 +41,7 @@ class ProgressController extends \yii\web\Controller
                 'actions' => [
                     'delete' => ['POST'],
                     'first-office' => ['POST'],
+                    //'next-office' => ['POST'],
                     //'incidence-summary' => ['POST'],
                 ],
             ],
@@ -60,6 +61,23 @@ class ProgressController extends \yii\web\Controller
         return $this->redirect(['incidence-summary']);
     }
 
+    public function actionNextOffice($id)
+    {
+        $session = Yii::$app->session;
+        $user_id = yii::$app->user->id;
+
+        $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $id]);
+        $tracking = new TRACKING_MODEL();
+        $process_actor = new PROCESS_ACTOR_MODEL();
+
+        //lets render the form view
+        return $this->render('next-office', [
+            'tracking' => $tracking,
+            'process_actor' => $process_actor,
+            'incidence' => $incidence
+        ]);
+    }
+
     public function actionIncidenceSummary()
     {
         $session = Yii::$app->session;
@@ -68,16 +86,6 @@ class ProgressController extends \yii\web\Controller
 
         $dataProvider = $student_incidence->search($incidence_id);
 
-//        var_dump($dataProvider);
-        //      die;
-        $student_incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $incidence_id]);
-        //  $incidence_details = $student_incidence->iNCIDENCE;
-
-        //$tracking = TRACKING_MODEL::findAll(['INCIDENCE_ID' => $incidence_id]);
-
-        //var_dump($tracking);
-        //var_dump($student_incidence->iNCIDENCE);
-        //var_dump($incidence_details);
         return $this->render('incidence-summary', ['dataProvider' => $dataProvider]);
     }
 
@@ -128,8 +136,8 @@ class ProgressController extends \yii\web\Controller
                 $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
                 if ($tracking_date->save()):
                     $trans->commit();
-                    //$session->set('INCIDENCE_ID', $first_tracking->INCIDENCE_ID);
-                    //return $this->redirect(['incidence-summary']); //got the actor action
+                //$session->set('INCIDENCE_ID', $first_tracking->INCIDENCE_ID);
+                //return $this->redirect(['incidence-summary']); //got the actor action
                 //return $this->redirect(['actor-action']); //got the actor action
                 else :
                     $trans->rollBack();

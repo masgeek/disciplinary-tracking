@@ -124,7 +124,9 @@ $config = [
                 'closed-cases' => 'activecase/case/closed',
                 'case-progress' => 'activecase/case/progress',
 
-                'download-document'=>'incidence/download'
+                'download-document' => 'incidence/download',
+                'case-action' => 'report/progress/next-office'
+                //'case-action' => 'report/progress/actor-approve'
 
             ],
         ]
