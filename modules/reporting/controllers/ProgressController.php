@@ -119,7 +119,6 @@ class ProgressController extends \yii\web\Controller
                 $trans->rollBack();
                 $previous_tracking->getErrors();
             }
-            return 5;
         }
         //lets render the form view
         return $this->render('next-office', [
