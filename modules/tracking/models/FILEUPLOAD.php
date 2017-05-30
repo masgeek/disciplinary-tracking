@@ -64,4 +64,18 @@ class FILEUPLOAD extends \yii\db\ActiveRecord
     {
         return $this->hasOne(CASEINCIDENCES::className(), ['INCIDENCE_ID' => 'INCIDENCE_ID']);
     }
+
+    /**
+     * @param $incidence_id
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function GET_UPLOADED_CASE_FILE($incidence_id)
+    {
+        $activeRecord = self::find()
+            ->where(['INCIDENCE_ID' => $incidence_id])
+           // ->asArray()
+            ->one();
+
+        return $activeRecord;
+    }
 }

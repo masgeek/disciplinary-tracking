@@ -93,6 +93,19 @@ class IncidenceController extends Controller
         }
     }
 
+    public function actionDownload($id)
+    {
+        $fileupload = new \app\modules\tracking\models\FILEUPLOAD();
+        $data = $fileupload->GET_UPLOADED_CASE_FILE($id);
+        if ($data != null) {
+            // $host = Yii::$app->request->hostInfo . Yii::$app->request->baseUrl . $data->FILE_PATH;
+            $path = Yii::getAlias('@webroot') . $data->FILE_PATH;//'/uploads/'.$download->project_file;
+            if (file_exists($path)) {
+                return Yii::$app->response->sendFile($path);
+            }
+        }
+    }
+
     /**
      * Deletes an existing INCIDENCE_MODEL model.
      * If deletion is successful, the browser will be redirected to the 'index' page.

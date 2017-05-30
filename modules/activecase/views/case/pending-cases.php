@@ -96,6 +96,36 @@ $gridColumns = [
             return $date_time;
         },
     ],
+    [
+        //lets build the document link
+        'header' => 'Document',
+        'attribute' => 'INCIDENCE_ID',
+        'format' => 'raw',
+        'value' => function ($model, $key, $index) {
+            /* @var $model \app\modules\reporting\models\TRACKING_MODEL */
+            /* @var $fileupload \app\modules\tracking\models\FILEUPLOAD */
+            $fileupload = new \app\modules\tracking\models\FILEUPLOAD();
+            $data = $fileupload->GET_UPLOADED_CASE_FILE($model->INCIDENCE_ID);
+
+            if ($data == null) {
+                //no files
+                return 'No Document';
+            }
+            $path = $data->FILE_PATH;
+
+            $host = Yii::$app->request->hostInfo . Yii::$app->request->baseUrl;
+
+
+            if (strpos($host, "http://") !== false || strpos($host, "https://") !== false) {
+                //do not suffix
+                $file_url = $host . $path;
+            } else {
+                $file_url = $host . $path;
+            }
+            //return "<a href='$file_url' target='_blank'>Download <span class='glyphicon glyphicon-download'></span></a>";
+            return Html::a('Download file', $file_url, ['class' => 'btn btn-primary', 'target' => '_blank']);
+        }
+    ],
     //'STATUS_CODE',
     //'REPORTED_BY',
     //'DATE_REPORTED',

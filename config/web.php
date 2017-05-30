@@ -124,6 +124,8 @@ $config = [
                 'closed-cases' => 'activecase/case/closed',
                 'case-progress' => 'activecase/case/progress',
 
+                'download-document'=>'incidence/download'
+
             ],
         ]
 
