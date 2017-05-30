@@ -28,6 +28,7 @@ class CONSTANTS
     const DELETED = 1;
     const NOT_DELETED = 0;
 
+    const ACTION_PENDING = 'PENDING';
     /**
      * Minimum count is 1
      */
