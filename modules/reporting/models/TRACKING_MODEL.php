@@ -28,7 +28,7 @@ class TRACKING_MODEL extends TRACKING
     public function rules()
     {
         return [
-            [['INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY', 'ACTED_ON_BY', 'COMMENTS'], 'required'],
+            [['INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS', 'ADDED_BY', 'COMMENTS'], 'required'],
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
             [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
             [['COMMENTS'], 'string', 'max' => 500],
