@@ -109,13 +109,17 @@ class ProgressController extends \yii\web\Controller
                         return $this->redirect(['incidence-summary']); //got the actor action
                     else :
                         $trans->rollBack();
+                    var_dump($tracking_date->getErrors());
                     endif;
                 else:
                     $trans->rollBack();
+                var_dump($tracking->getErrors());
                 endif;
             } else {
                 $trans->rollBack();
+                $previous_tracking->getErrors();
             }
+            return 5;
         }
         //lets render the form view
         return $this->render('next-office', [
