@@ -93,7 +93,7 @@ class ProgressController extends \yii\web\Controller
                 $tracking->PROCESS_ID = $process->PROCESS_ID;
                 $tracking->COMMENTS = $process->DESCRIPTION;
                 $tracking->ADDED_BY = $user_id;
-                $tracking->ACTED_ON_BY = CONSTANTS::ACTION_PENDING;
+                $tracking->ACTED_ON_BY =$user_id;
                 $tracking->TRACKING_STATUS = CONSTANTS::STATUS_PENDING;
 
                 // save the next tracking data
