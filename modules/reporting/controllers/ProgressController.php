@@ -63,13 +63,60 @@ class ProgressController extends \yii\web\Controller
 
     public function actionNextOffice($id)
     {
+        /* @var $process PROCESS_MODEL */
+        /* @var $previous_tracking TRACKING_MODEL */
         $session = Yii::$app->session;
         $user_id = yii::$app->user->id;
+        $connection = \Yii::$app->db;
 
         $incidence = STUDENT_INCIDENCE::findOne(['INCIDENCE_ID' => $id]);
         $tracking = new TRACKING_MODEL();
         $process_actor = new PROCESS_ACTOR_MODEL();
 
+        if ($tracking->load(Yii::$app->request->post())) {
+            //wrap in a transaction
+            $trans = $connection->beginTransaction();
+            //insert the first incidence
+            $process_exclusion_arr = TRACKING_MODEL::GetTrackedProcesses($id);
+
+            //get pending trackined process
+            $previous_tracking = TRACKING_MODEL::GetPendingTrackedProcesses($id, CONSTANTS::STATUS_PENDING);
+
+            $previous_tracking->ACTED_ON_BY = $user_id;
+            $previous_tracking->TRACKING_STATUS = CONSTANTS::STATUS_APPROVED;
+
+            if ($previous_tracking->save()) {
+                //first get and update the previous tracking process
+                $process = PROCESS_MODEL::GetNextTrackingProcess($incidence->CASE_TYPE_ID, false, $process_exclusion_arr);
+
+                $tracking->INCIDENCE_ID = $id;
+                $tracking->PROCESS_ID = $process->PROCESS_ID;
+                $tracking->COMMENTS = $process->DESCRIPTION;
+                $tracking->ADDED_BY = $user_id;
+                //$tracking->ACTED_ON_BY = $user_id;
+                $tracking->TRACKING_STATUS = CONSTANTS::STATUS_PENDING;
+
+                // save the next tracking data
+                if ($tracking->save()):
+                    $tracking_date = new TRACKING_DATE_MODEL();
+                    $tracking_date->TRACKING_ID = $tracking->TRACKING_ID;
+                    $tracking_date->EVENT_DATE = new Expression('SYSDATE');
+                    $tracking_date->COMMENTS = $tracking->COMMENTS;
+                    $tracking_date->STATUS = CONSTANTS::STATUS_COMPLETE; //..mark the activity as completed
+                    if ($tracking_date->save()):
+                        $trans->commit(); //commit the transactions
+                        $session->set('INCIDENCE_ID', $tracking->INCIDENCE_ID);
+                        return $this->redirect(['incidence-summary']); //got the actor action
+                    else :
+                        $trans->rollBack();
+                    endif;
+                else:
+                    $trans->rollBack();
+                endif;
+            } else {
+                $trans->rollBack();
+            }
+        }
         //lets render the form view
         return $this->render('next-office', [
             'tracking' => $tracking,

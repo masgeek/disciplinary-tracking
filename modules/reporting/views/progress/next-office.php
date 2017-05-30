@@ -23,7 +23,7 @@ $process_actors = \app\modules\reporting\models\PROCESS_ACTOR_MODEL::GetProcessA
 $this->title = $nextProcess->PROCESS_NAME;
 $this->params['breadcrumbs'][] = ['label' => 'Pending Cases', 'url' => ['//pending-cases']];
 $this->params['breadcrumbs'][] = 'Forward Case to next office';
-$this->params['breadcrumbs'][] = $this->title;
+//$this->params['breadcrumbs'][] = $this->title;
 
 ?>
 <h3><?= $nextProcess->DESCRIPTION ?></h3>
@@ -55,7 +55,7 @@ $this->params['breadcrumbs'][] = $this->title;
         var $forwardText = 'Forward Case';
         var officeActor = $($dropdown).find("option:selected").text();
 
-        console.log(!!$dropdown.value); //will be true if empty
+        //console.log(!!$dropdown.value); //will be true if empty
         if (!!$dropdown.value) {
             $forwardText = 'Forward to ' + officeActor;
         } else {

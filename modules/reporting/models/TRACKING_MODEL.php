@@ -58,6 +58,8 @@ class TRACKING_MODEL extends TRACKING
             if ($this->isNewRecord) {
                 $this->DATE_RECEIVED = $date;
                 //$this->TRACKING_STATUS = CONSTANTS::STATUS_COMPLETE;
+            }else{
+                $this->DATE_UPDATED = $date;
             }
             return true;
         }
@@ -104,6 +106,24 @@ class TRACKING_MODEL extends TRACKING
             ->asArray()
             ->all();
         return $incidence_array;
+    }
+
+    /**
+     * @param $incidence_id
+     * @param int $tracking_status
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function GetPendingTrackedProcesses($incidence_id, $tracking_status = CONSTANTS::STATUS_PENDING)
+    {
+
+        $process_model = self::find()
+            //->select('PROCESS_ID')
+            ->where(['INCIDENCE_ID' => $incidence_id])
+            ->andWhere(['TRACKING_STATUS' => $tracking_status])
+            ->orderBy(['TRACKING_ID' => SORT_DESC])
+            //->asArray()
+            ->one();
+        return $process_model;
     }
 
     /**
