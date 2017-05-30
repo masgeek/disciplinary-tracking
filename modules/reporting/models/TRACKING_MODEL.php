@@ -32,7 +32,6 @@ class TRACKING_MODEL extends TRACKING
             [['TRACKING_ID', 'INCIDENCE_ID', 'PROCESS_ID', 'TRACKING_STATUS'], 'integer'],
             [['DATE_RECEIVED', 'DATE_UPDATED'], 'safe'],
             [['COMMENTS'], 'string', 'max' => 500],
-            //[['ADDED_BY', 'ACTED_ON_BY']],
             [['TRACKING_ID'], 'unique'],
             [['INCIDENCE_ID', 'PROCESS_ID'], 'unique', 'targetAttribute' => ['INCIDENCE_ID', 'PROCESS_ID'], 'message' => 'The combination of Incidence  ID and Process  ID has already been taken.'],
             [['PROCESS_ID'], 'exist', 'skipOnError' => true, 'targetClass' => PROCESS::className(), 'targetAttribute' => ['PROCESS_ID' => 'PROCESS_ID']],
