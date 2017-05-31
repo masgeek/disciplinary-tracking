@@ -59,7 +59,7 @@ $config = [
             'class' => 'yii\web\DbSession',
             'writeCallback' => function ($session) {
                 return [
-                    'user_id' => \Yii::$app->user->identity->username,
+                    'user_id' => isset(Yii::$app->user->identity->username) ? Yii::$app->user->identity->username : 'guest',
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'is_trusted' => $session->get('is_trusted', false),
                 ];
