@@ -51,7 +51,6 @@ class TRACKING_MODEL extends TRACKING
 
     public function beforeSave($insert)
     {
-
         $date = new Expression('SYSDATE');
         if (parent::beforeSave($insert)) {
             if ($this->isNewRecord) {

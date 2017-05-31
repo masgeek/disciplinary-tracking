@@ -6,7 +6,7 @@
  * Time: 11:57 AM
  */
 
-if (YII_ENV_DEV=='dev') {
+if (YII_ENV_DEV=='devs') {
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
@@ -27,9 +27,9 @@ if (YII_ENV_DEV=='dev') {
     return [
         'class' => 'neconix\yii2oci8\Oci8Connection',
         //'dsn' => 'oci:dbname=//192.168.0.1:1521/db.local;charset=AL32UTF8;',
-        'dsn' => 'oci:dbname=proddb2.uonbi.ac.ke/proddb2', // Oracle
+        'dsn' => 'oci:dbname=proddb3.uonbi.ac.ke/proddb3', // Oracle
         'username' => 'muthoni',
-        'password' => 'muthoni_2015_schema',
+        'password' => 'muthoni_dev_2017',
         //'charset' => 'utf8',
         'tablePrefix' => 'DT_',
         'attributes' => [PDO::ATTR_PERSISTENT => true],

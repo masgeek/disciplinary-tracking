@@ -53,6 +53,24 @@ class OracleController extends Controller
         echo "Finished Running command for $action \n";
     }
 
+    public function actionSingle($table_name_raw, $pk_column_raw, $action)
+    {
+        $table_name = strtoupper($table_name_raw);
+        $pk_column = strtoupper($pk_column_raw);
+
+        if ($action == 'drop') {
+            $this->DropTrigger($table_name, $pk_column);
+            $this->DropSequences($table_name, $pk_column);
+
+        } elseif ($action == 'create') {
+            $this->BuildSequences($table_name, $pk_column);
+
+            $this->BuildTrigger($table_name, $pk_column);
+        } else {
+            echo "Invalid action '$action' please try 'create' or 'drop' \n";
+        }
+        echo "Finished Running command for $action \n";
+    }
 
     /**
      * @param null $table_prefix
