@@ -57,15 +57,15 @@ $config = [
         ],
         'session' => [
             'class' => 'yii\web\DbSession',
+            'timeout' => 60 * 5, //5 minutes //60 * 60 * 24 * 7, // 1 week
+            'sessionTable' => 'DT_YII_SESSION',
             'writeCallback' => function ($session) {
                 return [
                     'user_id' => isset(Yii::$app->user->identity->username) ? Yii::$app->user->identity->username : 'guest',
                     'ip' => $_SERVER['REMOTE_ADDR'],
                     'is_trusted' => $session->get('is_trusted', false),
                 ];
-            },
-            'timeout' => 60 * 5, //5 minutes //60 * 60 * 24 * 7, // 1 week
-            'sessionTable' => 'DT_YII_SESSION',
+            }
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',

@@ -26,7 +26,6 @@ if (YII_ENV_DEV=='devs') {
 } else {
     return [
         'class' => 'neconix\yii2oci8\Oci8Connection',
-        //'dsn' => 'oci:dbname=//192.168.0.1:1521/db.local;charset=AL32UTF8;',
         'dsn' => 'oci:dbname=proddb3.uonbi.ac.ke/proddb3', // Oracle
         'username' => 'muthoni',
         'password' => 'muthoni_dev_2017',
