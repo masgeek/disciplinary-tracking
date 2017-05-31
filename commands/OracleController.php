@@ -7,6 +7,7 @@
 
 namespace app\commands;
 
+use app\components\TABLES;
 use DoctrineTest\InstantiatorTestAsset\ExceptionAsset;
 use yii\console\Controller;
 use Yii;
@@ -46,8 +47,31 @@ class OracleController extends Controller
                     $this->BuildTrigger($table, $pk);
                 } else {
                     echo "Invalid action '$action' please try 'create' or 'drop' \n";
+                    //echo "'$table'=>'$pk', \n";
                     break;
                 }
+            }
+        }
+        echo "Finished Running command for $action \n";
+    }
+
+    public function actionBatch($action)
+    {
+        $tables = TABLES::GET_TABLES();
+
+        foreach ($tables as $table_name => $pk_column) {
+
+            if ($action == 'drop') {
+                $this->DropTrigger($table_name, $pk_column);
+                $this->DropSequences($table_name, $pk_column);
+
+            } elseif ($action == 'create') {
+                $this->BuildSequences($table_name, $pk_column);
+
+                $this->BuildTrigger($table_name, $pk_column);
+            } else {
+                echo "Invalid action '$action' please try 'create' or 'drop' \n";
+                break;
             }
         }
         echo "Finished Running command for $action \n";
