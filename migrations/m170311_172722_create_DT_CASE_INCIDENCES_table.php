@@ -19,6 +19,8 @@ class m170311_172722_create_DT_CASE_INCIDENCES_table extends Migration
             'CASE_DESCRIPTION' => $this->string(500)->notNull(),
             'STATUS_CODE' => $this->string(8)->notNull(),
             'REPORTED_BY' => $this->string(20)->notNull(),
+            'FACULTY_CODE' => $this->string(20)->notNull(),
+            'COLLEGE_CODE' => $this->string(20)->notNull(),
             'DATE_REPORTED' => $this->dateTime()->notNull(),
             'DATE_ADDED' => $this->dateTime()->notNull()
         ]);

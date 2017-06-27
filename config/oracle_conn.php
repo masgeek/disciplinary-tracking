@@ -5,8 +5,30 @@
  * Date: 3/2/2017
  * Time: 11:57 AM
  */
+return [
+    'class' => 'neconix\yii2oci8\Oci8Connection',
+    'dsn' => 'oci:dbname=proddb3.uonbi.ac.ke/proddb3', // Oracle
+    'username' => 'muthoni',
+    'password' => 'muthoni_bsris_proddb3',//'muthoni_dev_2017',
+    //'charset' => 'utf8',
+    'tablePrefix' => 'DT_',
+    'attributes' => [PDO::ATTR_PERSISTENT => true],
+    'enableSchemaCache' => true, //Oracle dictionaries is too slow :(, enable caching
+    'schemaCacheDuration' => 60 * 60, //1 hour
+    'on afterOpen' => function ($event) {
 
-if (YII_ENV_DEV=='devs') {
+        $q = <<<SQL
+begin
+  execute immediate 'alter session set NLS_COMP=LINGUISTIC';
+  execute immediate 'alter session set NLS_SORT=BINARY_CI';
+  execute immediate 'alter session set NLS_TERRITORY=AMERICA';
+end;
+SQL;
+        $event->sender->createCommand($q)->execute();
+    }
+];
+
+if (YII_ENV_DEV=='dev') {
     return [
         'class' => 'yii\db\Connection',
         //'dsn' => 'mysql:host=localhost;dbname=ayes', // MySQL, MariaDB
@@ -28,7 +50,7 @@ if (YII_ENV_DEV=='devs') {
         'class' => 'neconix\yii2oci8\Oci8Connection',
         'dsn' => 'oci:dbname=proddb3.uonbi.ac.ke/proddb3', // Oracle
         'username' => 'muthoni',
-        'password' => 'muthoni_dev_2017',
+        'password' => 'muthoni_bsris_proddb3',//'muthoni_dev_2017',
         //'charset' => 'utf8',
         'tablePrefix' => 'DT_',
         'attributes' => [PDO::ATTR_PERSISTENT => true],

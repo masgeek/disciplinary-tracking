@@ -42,7 +42,7 @@ class OracleController extends Controller
                     $this->DropSequences($table, $pk);
 
                 } elseif ($action == 'create') {
-                    $this->BuildSequences($table, $pk);
+                    //$this->BuildSequences($table, $pk);
 
                     $this->BuildTrigger($table, $pk);
                 } else {
@@ -140,11 +140,12 @@ class OracleController extends Controller
    CREATE SEQUENCE  "$schema_name"."$sequence_name"  MINVALUE 1 MAXVALUE 9999999999999999999999999999 INCREMENT BY 1 START WITH 1 CACHE 20 NOORDER  NOCYCLE
 SEQUENCE;
 
-        $seq_resp = $this->ExecuteSqCommand($notification_seq);
+        echo "$notification_seq; \n";
+        $seq_resp = 0;//$this->ExecuteSqCommand($notification_seq);
         if ($seq_resp == 0) {
-            echo "Successfully created sequence for table $table_name sequence name $sequence_name \n";
+            //echo "Successfully created sequence for table $table_name sequence name $sequence_name \n";
         } else {
-            echo "Failed to create sequence for table $table_name sequence name $sequence_name \n";
+            //echo "Failed to create sequence for table $table_name sequence name $sequence_name \n";
         }
 
         return $seq_resp;
@@ -164,11 +165,14 @@ END;
 SQL;
 
 
-        $trigger_resp = $this->ExecuteSqCommand($notification_seq_trigger);
+        echo "\n";
+        echo "$notification_seq_trigger \n";
+        echo "\n";
+        $trigger_resp = 0;//$this->ExecuteSqCommand($notification_seq_trigger);
         if ($trigger_resp == 0) {
-            echo "Successfully created trigger for table $table_name trigger name $trigger_name \n";
+            //echo "Successfully created trigger for table $table_name trigger name $trigger_name \n";
         } else {
-            echo "Failed to create trigger for table $table_name trigger name $trigger_name \n";
+           // echo "Failed to create trigger for table $table_name trigger name $trigger_name \n";
         }
 
         return $trigger_resp;
